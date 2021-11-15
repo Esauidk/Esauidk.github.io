@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Test on Esau&#39;s Page</title>
+    <link>https://example.com/categories/test/</link>
+    <description>Recent content in Test on Esau&#39;s Page</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 15 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/categories/test/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Initial Post</title>
+      <link>https://example.com/p/initial-post/</link>
+      <pubDate>Mon, 15 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/initial-post/</guid>
+      <description>Hi Guys, this is my first time using Hugo, so hope this all comes out okay&amp;hellip;</description>
+    </item>
+    
+  </channel>
+</rss>
