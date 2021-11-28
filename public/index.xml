@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Esau&#39;s Page</title>
-        <link>https://example.com/</link>
+        <link>https://esauidk.github.io/</link>
         <description>Recent content on Esau&#39;s Page</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Mon, 15 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 15 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://esauidk.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Initial Post</title>
-        <link>https://example.com/p/initial-post/</link>
+        <link>https://esauidk.github.io/p/initial-post/</link>
         <pubDate>Mon, 15 Nov 2021 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/p/initial-post/</guid>
+        <guid>https://esauidk.github.io/p/initial-post/</guid>
         <description>&lt;p&gt;Hi Guys, this is my first time using Hugo, so hope this all comes out okay&amp;hellip;&lt;/p&gt;
 </description>
         </item>
