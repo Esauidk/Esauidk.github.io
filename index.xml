@@ -1,1 +1,611 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Esau's Page</title><link>/</link><description>Recent content on Esau's Page</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 15 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>Initial Post</title><link>/p/initial-post/</link><pubDate>Mon, 15 Nov 2021 00:00:00 +0000</pubDate><guid>/p/initial-post/</guid><description>&lt;p>Hi Guys, this is my first time using Hugo, so hope this all comes out okay&amp;hellip;&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Esau's Page</title><link>/</link><description>Recent content on Esau's Page</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 22 Dec 2021 18:11:43 -0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>DirectX Setup</title><link>/p/directx-setup/</link><pubDate>Wed, 22 Dec 2021 18:11:43 -0800</pubDate><guid>/p/directx-setup/</guid><description>&lt;img src="https://media.giphy.com/media/hVsP8KfbcwItVhMg5s/giphy.gif" alt="Featured image of post DirectX Setup" />&lt;p>I&amp;rsquo;ve been exploring Direct X 3D and it&amp;rsquo;s implementation as a Graphics Engine!
+Wanted to share my notes on how to set it up in a quick and simple blog.&lt;/p>
+&lt;p>There is a bunch of overhead involving creating a window before setuping Direct X 3D, I will not be covering it in this blog, but plan to cover it in another blog.&lt;/p>
+&lt;p>All the code related to the contents of this blog come from my repository on &lt;a class="link" href="https://github.com/Esauidk/DirectXLearningProject" target="_blank" rel="noopener"
+>Github&lt;/a>&lt;/p>
+&lt;h1 id="direct-x-pipeline">Direct X Pipeline&lt;/h1>
+&lt;p>&lt;strong>Before rendering an object in Direct X, there are components that need to be initialized&lt;/strong>:&lt;/p>
+&lt;ul>
+&lt;li>Device&lt;/li>
+&lt;li>Swap Chain&lt;/li>
+&lt;li>Context&lt;/li>
+&lt;/ul>
+&lt;h2 id="device">Device&lt;/h2>
+&lt;p>&lt;strong>The device is a component of Direct3D that allows you to allocate data structures and store information on the GPU about the current rendering state&lt;/strong>&lt;/p>
+&lt;p>Examples of uses of the device are:&lt;/p>
+&lt;ul>
+&lt;li>RenderTargetView&lt;/li>
+&lt;li>DepthStencilState&lt;/li>
+&lt;li>CreateTexture2D&lt;/li>
+&lt;li>CreateBuffer&lt;/li>
+&lt;li>CreateVertexShader&lt;/li>
+&lt;li>CreatePixelShader&lt;/li>
+&lt;li>CreateInputLayout&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a class="link" href="https://docs.microsoft.com/en-us/windows/win32/direct3d9/direct3d-devices" target="_blank" rel="noopener"
+>&lt;strong>For more information about the device&lt;/strong>&lt;/a>&lt;/p>
+&lt;h2 id="swap-chain">Swap Chain&lt;/h2>
+&lt;p>The swap chain represent the current frame being presented to you, the viewer. The swap chain has a lot of settings that can be adjusted but the idea is that you have two(or more) buffers, the &lt;strong>front&lt;/strong> and &lt;strong>back&lt;/strong> buffers.&lt;/p>
+&lt;p>The names &lt;strong>front&lt;/strong> and &lt;strong>back&lt;/strong> represent which buffer is the one being presented. The &lt;strong>back&lt;/strong> buffer will be where current draw calls are being directed to while the &lt;strong>front&lt;/strong> buffer will be what the viewer sees.&lt;/p>
+&lt;p>Once the drawing of the &lt;strong>back&lt;/strong> buffer has been completed, the buffers will be &lt;em>switched&lt;/em> and the previous &lt;strong>back&lt;/strong> buffer will be the current &lt;strong>front&lt;/strong> buffer while the previous &lt;strong>front&lt;/strong> buffer will be the current &lt;strong>back&lt;/strong> buffer&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://upload.wikimedia.org/wikipedia/en/thumb/d/df/Swap_chain_depiction.svg/1920px-Swap_chain_depiction.svg.png" >
+&lt;img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/df/Swap_chain_depiction.svg/1920px-Swap_chain_depiction.svg.png"
+loading="lazy"
+alt="A representation of a triple buffer swap chain">
+&lt;/a>
+&lt;figcaption>A representation of a triple buffer swap chain&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>&lt;a class="link" href="https://docs.microsoft.com/en-us/windows/win32/direct3d9/what-is-a-swap-chain-" target="_blank" rel="noopener"
+>&lt;strong>For more information about the swap chain&lt;/strong>&lt;/a>&lt;/p>
+&lt;h2 id="context">Context&lt;/h2>
+&lt;p>&lt;strong>The context holds all the resources being used in pipeline&lt;/strong>:&lt;/p>
+&lt;ul>
+&lt;li>VertexBuffer
+: A collection of vertex data of the current object&lt;/li>
+&lt;li>IndexBuffer
+: A collection of indexes representing the order of verticies to use when drawing the desired topology shape&lt;/li>
+&lt;li>VerexShader
+: GPU instructions used to perform mathmatical operations to each vertex positioning before presentation&lt;/li>
+&lt;li>PixelShader
+: GPU instructions used to perform mathmatical operations to each vertex coloring before presentation&lt;/li>
+&lt;li>Topology
+: The geometric shape to use when rendering verticies (EX: Lines &amp;amp; Triangles)&lt;/li>
+&lt;li>InputLayout
+: A definition of the low level layout of data being sent to the GPU and their shaders (Vertex Data Definition, Color Data Definition, etc)&lt;/li>
+&lt;li>ConstantBuffer
+: A buffer that is filled with custom data and available to the designated shader at all times. (Data can only be updated by replacing the buffer with an updated version)&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>The context allows you to attach created data structures(listed above) and attach them to the current render pipeline&lt;/strong>&lt;/p>
+&lt;p>&lt;a class="link" href="https://docs.microsoft.com/en-us/windows/win32/direct3d11/overviews-direct3d-11-devices-intro" target="_blank" rel="noopener"
+>&lt;strong>For more information about the context&lt;/strong>&lt;/a>&lt;/p>
+&lt;h2 id="extra">Extra&lt;/h2>
+&lt;p>&lt;strong>There are more parts of the pipeline not covered in this readme&lt;/strong>&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://docs.microsoft.com/en-us/windows/win32/direct3d11/images/d3d11-pipeline-stages.jpg" >
+&lt;img src="https://docs.microsoft.com/en-us/windows/win32/direct3d11/images/d3d11-pipeline-stages.jpg"
+loading="lazy"
+alt="Image of Direct3D Pipeline">
+&lt;/a>
+&lt;figcaption>Image of Direct3D Pipeline&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>&lt;a class="link" href="https://docs.microsoft.com/en-us/windows/win32/direct3d11/overviews-direct3d-11-graphics-pipeline" target="_blank" rel="noopener"
+>&lt;strong>For more information of the pipeline&lt;/strong>&lt;/a>&lt;/p>
+&lt;h2 id="creating-an-object">Creating an Object&lt;/h2>
+&lt;p>&lt;strong>Creating an object involves a combination of using the device to allocate data structures(like buffers) and using the context to attach them to the pipeline. Every object must go through creating, defining, and attaching pipeline resources before being raterized to the swap chain buffers&lt;/strong>&lt;/p>
+&lt;h3 id="example-of-creating-a-box">Example of creating a box&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="k">struct&lt;/span> &lt;span class="nc">Vertex&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kt">float&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kt">float&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kt">float&lt;/span> &lt;span class="n">z&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span> &lt;span class="n">pos&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="c1">////Create Vertex Buffer (2d Triangle)
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">const&lt;/span> &lt;span class="n">Vertex&lt;/span> &lt;span class="n">vertices&lt;/span>&lt;span class="p">[]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="n">wrl&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">ComPtr&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">ID3D11Buffer&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">pVertexBuffer&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">D3D11_BUFFER_DESC&lt;/span> &lt;span class="n">bd&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{};&lt;/span>
+&lt;span class="n">bd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">BindFlags&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">D3D11_BIND_VERTEX_BUFFER&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">bd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Usage&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">D3D11_USAGE_DEFAULT&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">bd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">CPUAccessFlags&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0u&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">bd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">MiscFlags&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0u&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">bd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">ByteWidth&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">sizeof&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">vertices&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">bd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">StructureByteStride&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">sizeof&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Vertex&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">D3D11_SUBRESOURCE_DATA&lt;/span> &lt;span class="n">sd&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{};&lt;/span>
+&lt;span class="n">sd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">pSysMem&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">vertices&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">GFX_THROW_INFO&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pDevice&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">CreateBuffer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">bd&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">sd&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">pVertexBuffer&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="c1">//// Attach Vertex Buffer to Pipeline
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">const&lt;/span> &lt;span class="n">UINT&lt;/span> &lt;span class="n">stride&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">sizeof&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Vertex&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">const&lt;/span> &lt;span class="n">UINT&lt;/span> &lt;span class="n">offset&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0u&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">pContext&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">IASetVertexBuffers&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0u&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1u&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">pVertexBuffer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">GetAddressOf&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">stride&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">offset&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="c1">//// Create Index Buffer (Used for reusing predfined vertices for multiple triangles)
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">const&lt;/span> &lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">short&lt;/span> &lt;span class="n">indices&lt;/span>&lt;span class="p">[]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">7&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">6&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">6&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">7&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">7&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">7&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">6&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">6&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="n">wrl&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">ComPtr&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">ID3D11Buffer&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">pIndexBuffer&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">D3D11_BUFFER_DESC&lt;/span> &lt;span class="n">ibd&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{};&lt;/span>
+&lt;span class="n">ibd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">BindFlags&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">D3D11_BIND_INDEX_BUFFER&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">ibd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Usage&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">D3D11_USAGE_DEFAULT&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">ibd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">CPUAccessFlags&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0u&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">ibd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">MiscFlags&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0u&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">ibd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">ByteWidth&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">sizeof&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">indices&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">ibd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">StructureByteStride&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">sizeof&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">short&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">D3D11_SUBRESOURCE_DATA&lt;/span> &lt;span class="n">isd&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{};&lt;/span>
+&lt;span class="n">isd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">pSysMem&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">indices&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">GFX_THROW_INFO&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pDevice&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">CreateBuffer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">ibd&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">isd&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">pIndexBuffer&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="c1">//// Attach Index Buffer to Pipeline
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">pContext&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">IASetIndexBuffer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pIndexBuffer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Get&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="n">DXGI_FORMAT_R16_UINT&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0u&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="c1">//// Create const buffer for transformation matrix (Do matrix transformation instead of moving sending a new vertex buffer)
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">struct&lt;/span> &lt;span class="nc">ConstantBuffer&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="n">dx&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">XMMATRIX&lt;/span> &lt;span class="n">transform&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="k">const&lt;/span> &lt;span class="n">ConstantBuffer&lt;/span> &lt;span class="n">cb&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">dx&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">XMMatrixTranspose&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;span class="n">dx&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">XMMatrixRotationZ&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">angle&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span>
+&lt;span class="n">dx&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">XMMatrixRotationX&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">angle&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span>
+&lt;span class="n">dx&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">XMMatrixTranslation&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">z&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mf">4.0f&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span>
+&lt;span class="n">dx&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">XMMatrixPerspectiveLH&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">3.0f&lt;/span>&lt;span class="o">/&lt;/span> &lt;span class="mf">4.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.5f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">10.0f&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="n">wrl&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">ComPtr&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">ID3D11Buffer&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">pConstantBuffer&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">D3D11_BUFFER_DESC&lt;/span> &lt;span class="n">cbd&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{};&lt;/span>
+&lt;span class="n">cbd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">BindFlags&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">D3D11_BIND_CONSTANT_BUFFER&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">cbd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Usage&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">D3D11_USAGE_DYNAMIC&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">cbd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">CPUAccessFlags&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">D3D11_CPU_ACCESS_WRITE&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">cbd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">MiscFlags&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0u&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">cbd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">ByteWidth&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">sizeof&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cb&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">cbd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">StructureByteStride&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0u&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">D3D11_SUBRESOURCE_DATA&lt;/span> &lt;span class="n">csd&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{};&lt;/span>
+&lt;span class="n">csd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">pSysMem&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">cb&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">GFX_THROW_INFO&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pDevice&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">CreateBuffer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">cbd&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">csd&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">pConstantBuffer&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="c1">//// Attach const buffer to vertex shader
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">pContext&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">VSSetConstantBuffers&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0u&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1u&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">pConstantBuffer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">GetAddressOf&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;span class="c1">//// Create another constant buffer for tagging triangle indexes to colors (individual colors per cube face)
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">struct&lt;/span> &lt;span class="nc">ConstantBuffer2&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kt">float&lt;/span> &lt;span class="n">r&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kt">float&lt;/span> &lt;span class="n">g&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kt">float&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kt">float&lt;/span> &lt;span class="n">a&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>&lt;span class="n">face_colors&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">6&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="k">const&lt;/span> &lt;span class="n">ConstantBuffer2&lt;/span> &lt;span class="n">cb2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.0f&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="mf">0.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.0f&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="mf">0.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.0f&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="mf">0.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="n">wrl&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">ComPtr&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">ID3D11Buffer&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">pConstantBuffer2&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">D3D11_BUFFER_DESC&lt;/span> &lt;span class="n">cbd2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{};&lt;/span>
+&lt;span class="n">cbd2&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">BindFlags&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">D3D11_BIND_CONSTANT_BUFFER&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">cbd2&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Usage&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">D3D11_USAGE_DEFAULT&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">cbd2&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">CPUAccessFlags&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0u&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">cbd2&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">MiscFlags&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0u&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">cbd2&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">ByteWidth&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">sizeof&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cb2&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">cbd2&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">StructureByteStride&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0u&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">D3D11_SUBRESOURCE_DATA&lt;/span> &lt;span class="n">csd2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{};&lt;/span>
+&lt;span class="n">csd2&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">pSysMem&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">cb2&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">GFX_THROW_INFO&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pDevice&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">CreateBuffer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">cbd2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">csd2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">pConstantBuffer2&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="c1">//// Attach const buffer to vertex shader
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">pContext&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">PSSetConstantBuffers&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0u&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1u&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">pConstantBuffer2&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">GetAddressOf&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;span class="c1">//// Create Pixel Shader
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">wrl&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">ComPtr&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">ID3D11PixelShader&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">pPixelShader&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">wrl&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">ComPtr&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">ID3DBlob&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">pBlob&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">GFX_THROW_INFO&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">D3DReadFileToBlob&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">L&lt;/span>&lt;span class="s">&amp;#34;PixelShader.cso&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">pBlob&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="n">GFX_THROW_INFO&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pDevice&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">CreatePixelShader&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pBlob&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">GetBufferPointer&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="n">pBlob&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">GetBufferSize&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="k">nullptr&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">pPixelShader&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="c1">//// Attach Pixel Shader
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">pContext&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">PSSetShader&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pPixelShader&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Get&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="k">nullptr&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0u&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="c1">// Create Vertex Shader
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">wrl&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">ComPtr&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">ID3D11VertexShader&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">pVertexShader&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">GFX_THROW_INFO&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">D3DReadFileToBlob&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">L&lt;/span>&lt;span class="s">&amp;#34;VertexShader.cso&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">pBlob&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="n">GFX_THROW_INFO&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pDevice&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">CreateVertexShader&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pBlob&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">GetBufferPointer&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="n">pBlob&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">GetBufferSize&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="k">nullptr&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">pVertexShader&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="c1">// Attach Vertex Shader to Pipeline
+&lt;/span>&lt;span class="c1">//pContext-&amp;gt;VSSetShader(pVertexShader.Get(), nullptr, 0u);
+&lt;/span>&lt;span class="c1">&lt;/span>
+&lt;span class="c1">//// Input (vertex) layout (2d position only)
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">wrl&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">ComPtr&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">ID3D11InputLayout&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">pInputLayout&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">const&lt;/span> &lt;span class="n">D3D11_INPUT_ELEMENT_DESC&lt;/span> &lt;span class="n">ied&lt;/span>&lt;span class="p">[]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="c1">// // Reads positions as 2 4 byte values
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="s">&amp;#34;POSITION&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">DXGI_FORMAT_R32G32B32_FLOAT&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">D3D11_INPUT_PER_VERTEX_DATA&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="c1">// // Reads color as 4 byte values and normalizes them from 0 - 1
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="s">&amp;#34;COLOR&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">DXGI_FORMAT_R8G8B8A8_UNORM&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">D3D11_APPEND_ALIGNED_ELEMENT&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">D3D11_INPUT_PER_VERTEX_DATA&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="n">GFX_THROW_INFO&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pDevice&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">CreateInputLayout&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;span class="n">ied&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">UINT&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">size&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ied&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;span class="n">pBlob&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">GetBufferPointer&lt;/span>&lt;span class="p">(),&lt;/span>
+&lt;span class="n">pBlob&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">GetBufferSize&lt;/span>&lt;span class="p">(),&lt;/span>
+&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">pInputLayout&lt;/span>
+&lt;span class="p">));&lt;/span>
+&lt;span class="c1">//// Bind Input Layout
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">pContext&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">IASetInputLayout&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pInputLayout&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Get&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;span class="c1">// Bind Render Target
+&lt;/span>&lt;span class="c1">// **COME BACK TO THIS IN CASE ERROR**
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">pContext&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">OMSetRenderTargets&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1u&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">pTarget&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">GetAddressOf&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="n">pDSV&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Get&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;span class="c1">// Set primitive topology to triangle list (groups of verticies make multiple triangles)
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">pContext&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">IASetPrimitiveTopology&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">GFX_THROW_INFO_ONLY&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pContext&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">DrawIndexed&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">count&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0u&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0u&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="vertex-buffer">Vertex Buffer&lt;/h3>
+&lt;p>&lt;strong>Device Step&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="k">struct&lt;/span> &lt;span class="nc">Vertex&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kt">float&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kt">float&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kt">float&lt;/span> &lt;span class="n">z&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span> &lt;span class="n">pos&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="c1">////Create Vertex Buffer (2d Triangle)
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">const&lt;/span> &lt;span class="n">Vertex&lt;/span> &lt;span class="n">vertices&lt;/span>&lt;span class="p">[]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="n">wrl&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">ComPtr&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">ID3D11Buffer&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">pVertexBuffer&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">D3D11_BUFFER_DESC&lt;/span> &lt;span class="n">bd&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{};&lt;/span>
+&lt;span class="n">bd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">BindFlags&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">D3D11_BIND_VERTEX_BUFFER&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">bd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Usage&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">D3D11_USAGE_DEFAULT&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">bd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">CPUAccessFlags&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0u&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">bd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">MiscFlags&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0u&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">bd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">ByteWidth&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">sizeof&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">vertices&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">bd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">StructureByteStride&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">sizeof&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Vertex&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">D3D11_SUBRESOURCE_DATA&lt;/span> &lt;span class="n">sd&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{};&lt;/span>
+&lt;span class="n">sd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">pSysMem&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">vertices&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">GFX_THROW_INFO&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pDevice&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">CreateBuffer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">bd&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">sd&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">pVertexBuffer&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Context Step&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="c1">//// Attach Vertex Buffer to Pipeline
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">const&lt;/span> &lt;span class="n">UINT&lt;/span> &lt;span class="n">stride&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">sizeof&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Vertex&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">const&lt;/span> &lt;span class="n">UINT&lt;/span> &lt;span class="n">offset&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0u&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">pContext&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">IASetVertexBuffers&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0u&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1u&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">pVertexBuffer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">GetAddressOf&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">stride&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">offset&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="index-buffer">Index Buffer&lt;/h3>
+&lt;p>&lt;strong>Device Step&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="c1">//// Create Index Buffer (Used for reusing predfined vertices for multiple triangles)
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">const&lt;/span> &lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">short&lt;/span> &lt;span class="n">indices&lt;/span>&lt;span class="p">[]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">7&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">6&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">6&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">7&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">7&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">7&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">6&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">6&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="n">wrl&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">ComPtr&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">ID3D11Buffer&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">pIndexBuffer&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">D3D11_BUFFER_DESC&lt;/span> &lt;span class="n">ibd&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{};&lt;/span>
+&lt;span class="n">ibd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">BindFlags&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">D3D11_BIND_INDEX_BUFFER&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">ibd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Usage&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">D3D11_USAGE_DEFAULT&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">ibd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">CPUAccessFlags&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0u&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">ibd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">MiscFlags&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0u&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">ibd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">ByteWidth&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">sizeof&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">indices&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">ibd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">StructureByteStride&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">sizeof&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">short&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">D3D11_SUBRESOURCE_DATA&lt;/span> &lt;span class="n">isd&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{};&lt;/span>
+&lt;span class="n">isd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">pSysMem&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">indices&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">GFX_THROW_INFO&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pDevice&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">CreateBuffer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">ibd&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">isd&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">pIndexBuffer&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Context Step&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="c1">//// Attach Index Buffer to Pipeline
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">pContext&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">IASetIndexBuffer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pIndexBuffer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Get&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="n">DXGI_FORMAT_R16_UINT&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0u&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="constant-buffers-vertex-and-pixel">Constant Buffers (Vertex and Pixel)&lt;/h3>
+&lt;p>&lt;strong>Device Step&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="c1">//// Create const buffer for transformation matrix (Do matrix transformation instead of moving sending a new vertex buffer)
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">struct&lt;/span> &lt;span class="nc">ConstantBuffer&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="n">dx&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">XMMATRIX&lt;/span> &lt;span class="n">transform&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="k">const&lt;/span> &lt;span class="n">ConstantBuffer&lt;/span> &lt;span class="n">cb&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">dx&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">XMMatrixTranspose&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;span class="n">dx&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">XMMatrixRotationZ&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">angle&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span>
+&lt;span class="n">dx&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">XMMatrixRotationX&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">angle&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span>
+&lt;span class="n">dx&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">XMMatrixTranslation&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">z&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mf">4.0f&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span>
+&lt;span class="n">dx&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">XMMatrixPerspectiveLH&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">3.0f&lt;/span>&lt;span class="o">/&lt;/span> &lt;span class="mf">4.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.5f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">10.0f&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="n">wrl&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">ComPtr&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">ID3D11Buffer&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">pConstantBuffer&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">D3D11_BUFFER_DESC&lt;/span> &lt;span class="n">cbd&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{};&lt;/span>
+&lt;span class="n">cbd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">BindFlags&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">D3D11_BIND_CONSTANT_BUFFER&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">cbd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Usage&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">D3D11_USAGE_DYNAMIC&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">cbd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">CPUAccessFlags&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">D3D11_CPU_ACCESS_WRITE&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">cbd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">MiscFlags&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0u&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">cbd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">ByteWidth&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">sizeof&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cb&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">cbd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">StructureByteStride&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0u&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">D3D11_SUBRESOURCE_DATA&lt;/span> &lt;span class="n">csd&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{};&lt;/span>
+&lt;span class="n">csd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">pSysMem&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">cb&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">GFX_THROW_INFO&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pDevice&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">CreateBuffer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">cbd&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">csd&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">pConstantBuffer&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Context Step&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="c1">//// Attach const buffer to vertex shader
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">pContext&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">VSSetConstantBuffers&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0u&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1u&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">pConstantBuffer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">GetAddressOf&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Device Step&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="c1">//// Create another constant buffer for tagging triangle indexes to colors (individual colors per cube face)
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">struct&lt;/span> &lt;span class="nc">ConstantBuffer2&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kt">float&lt;/span> &lt;span class="n">r&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kt">float&lt;/span> &lt;span class="n">g&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kt">float&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kt">float&lt;/span> &lt;span class="n">a&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>&lt;span class="n">face_colors&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">6&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="k">const&lt;/span> &lt;span class="n">ConstantBuffer2&lt;/span> &lt;span class="n">cb2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.0f&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="mf">0.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.0f&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="mf">0.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.0f&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="mf">0.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="n">wrl&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">ComPtr&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">ID3D11Buffer&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">pConstantBuffer2&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">D3D11_BUFFER_DESC&lt;/span> &lt;span class="n">cbd2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{};&lt;/span>
+&lt;span class="n">cbd2&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">BindFlags&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">D3D11_BIND_CONSTANT_BUFFER&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">cbd2&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Usage&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">D3D11_USAGE_DEFAULT&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">cbd2&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">CPUAccessFlags&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0u&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">cbd2&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">MiscFlags&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0u&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">cbd2&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">ByteWidth&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">sizeof&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cb2&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">cbd2&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">StructureByteStride&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0u&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">D3D11_SUBRESOURCE_DATA&lt;/span> &lt;span class="n">csd2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{};&lt;/span>
+&lt;span class="n">csd2&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">pSysMem&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">cb2&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">GFX_THROW_INFO&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pDevice&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">CreateBuffer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">cbd2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">csd2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">pConstantBuffer2&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Context Step&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="c1">//// Attach const buffer to vertex shader
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">pContext&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">PSSetConstantBuffers&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0u&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1u&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">pConstantBuffer2&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">GetAddressOf&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="input-layout">Input Layout&lt;/h3>
+&lt;p>&lt;strong>Device Step&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="c1">//// Input (vertex) layout (2d position only)
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">wrl&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">ComPtr&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">ID3D11InputLayout&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">pInputLayout&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">const&lt;/span> &lt;span class="n">D3D11_INPUT_ELEMENT_DESC&lt;/span> &lt;span class="n">ied&lt;/span>&lt;span class="p">[]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="c1">// // Reads positions as 2 4 byte values
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="s">&amp;#34;POSITION&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">DXGI_FORMAT_R32G32B32_FLOAT&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">D3D11_INPUT_PER_VERTEX_DATA&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="c1">// // Reads color as 4 byte values and normalizes them from 0 - 1
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="s">&amp;#34;COLOR&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">DXGI_FORMAT_R8G8B8A8_UNORM&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">D3D11_APPEND_ALIGNED_ELEMENT&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">D3D11_INPUT_PER_VERTEX_DATA&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="n">GFX_THROW_INFO&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pDevice&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">CreateInputLayout&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;span class="n">ied&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">UINT&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">size&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ied&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;span class="n">pBlob&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">GetBufferPointer&lt;/span>&lt;span class="p">(),&lt;/span>
+&lt;span class="n">pBlob&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">GetBufferSize&lt;/span>&lt;span class="p">(),&lt;/span>
+&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">pInputLayout&lt;/span>
+&lt;span class="p">));&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Context Step&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="c1">//// Bind Input Layout
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">pContext&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">IASetInputLayout&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pInputLayout&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Get&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="topology">Topology&lt;/h3>
+&lt;p>&lt;strong>Context Step&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="c1">// Set primitive topology to triangle list (groups of verticies make multiple triangles)
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">pContext&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">IASetPrimitiveTopology&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="drawable--bindable-framework-design">Drawable &amp;amp; Bindable Framework Design&lt;/h1>
+&lt;p>&lt;em>&lt;strong>The Drawable &amp;amp; Bindable Graphics framework was designed by PlanetChilli (Otherwise known as ChiliTomatoNoodle on yt)&lt;/strong>&lt;/em>&lt;/p>
+&lt;p>&lt;strong>The framework is designed to shorten and abstract the creation of objects in DirectX. There are 3 parts of it, the Graphics interface, the Bindable Interface, and the Drawable Interface. These all work together to allow multiple object creation in a single 3D scene&lt;/strong>&lt;/p>
+&lt;h2 id="graphics">Graphics&lt;/h2>
+&lt;p>&lt;strong>This interface is the main controller of 3D scene&lt;/strong>&lt;/p>
+&lt;h3 id="pipeline-setup">Pipeline setup&lt;/h3>
+&lt;p>&lt;strong>This interface will handle the creation of the crucial components of the pipeline (Device, Swap Chain, Context)&lt;/strong>&lt;/p>
+&lt;p>Along with that, it will keep a reference to:&lt;/p>
+&lt;ul>
+&lt;li>Device&lt;/li>
+&lt;li>Swap Chain&lt;/li>
+&lt;li>Context&lt;/li>
+&lt;li>RenderTargetView
+: A pipeline handled data structure for referencing the current back buffer&lt;/li>
+&lt;li>DepthStencilView
+: A pipeline handled data structure for referncing the current depth view frame&lt;/li>
+&lt;li>A projection matrix
+: Used for translating the vertex position to 3D camera space (perspective, orthographic)&lt;/li>
+&lt;/ul>
+&lt;p>There are also five key functions to the Graphics interface:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>EndFrame()&lt;/code>
+: Presents the current back buffer by switching the front and back buffer&lt;/li>
+&lt;li>&lt;code>ClearBuffer()&lt;/code>
+: Wipes everything on the current back buffer&lt;/li>
+&lt;li>&lt;code>DrawIndex()&lt;/code>
+: Draws onto the back buffer with the resources attached to the pipeline (assumes that indexing is done, can be changed to work without indexing)&lt;/li>
+&lt;li>&lt;code>SetProjection()&lt;/code>
+: Updates the current projection matrix in the 3D Scene&lt;/li>
+&lt;li>&lt;code>GetProjection()&lt;/code>
+: Returns the current project matrix being used in the 3D scene&lt;/li>
+&lt;/ul>
+&lt;h2 id="bindable">Bindable&lt;/h2>
+&lt;p>&lt;strong>This interface represents one of the data structures that can be attached to the pipline&lt;/strong>&lt;/p>
+&lt;p>Some examples of Bindable structures are:&lt;/p>
+&lt;ul>
+&lt;li>VertexBuffer&lt;/li>
+&lt;li>ConstantBuffers&lt;/li>
+&lt;li>IndexBuffer&lt;/li>
+&lt;li>InputLayout&lt;/li>
+&lt;li>Shaders (Vertex and Pixel)&lt;/li>
+&lt;li>Topology&lt;/li>
+&lt;li>etc&lt;/li>
+&lt;/ul>
+&lt;p>The only function required of a Bindable is called &lt;code>Bind()&lt;/code>. The expected implementation is that the context step of attaching to the pipeline is done in this function while the device step is handled in the constructor.&lt;/p>
+&lt;h3 id="helper-functions">Helper Functions&lt;/h3>
+&lt;p>&lt;strong>There are helper functions that only Bindable objects can call, these are implemented by the Bindable interface and allow Bindables to interact with the Graphics instance:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>GetContext()&lt;/code>
+: Returns the current reference to the Context of a Graphics instance&lt;/li>
+&lt;li>&lt;code>GetDevice()&lt;/code>
+: Returns the current reference to the Device of a Graphics instance&lt;/li>
+&lt;/ul>
+&lt;h2 id="drawable">Drawable&lt;/h2>
+&lt;p>&lt;strong>This interface represents a drawable object such as a Box, Triangle, or any other 3D(or 2D) object&lt;/strong>&lt;/p>
+&lt;p>There are 5 functions tied to a Drawable:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>GetTransformXM()&lt;/code>
+: Returns the current transformation matrix of the object (rotation + translation + etc, excluding the projection matrix stored in Graphics)&lt;/li>
+&lt;li>&lt;code>Draw()&lt;/code>
+: Binds the Drawable&amp;rsquo;s bindables to the pipeline and tells the Graphics instance to draw it&lt;/li>
+&lt;li>&lt;code>AddBind()&lt;/code>
+: Adds a bindable to the Drawable&amp;rsquo;s collection&lt;/li>
+&lt;li>&lt;code>AddIndexBuffer()&lt;/code>
+: Performs the same as AddBind() except with the condition that only 1 IndexBuffer can be added to a Drawable object&lt;/li>
+&lt;li>&lt;code>Update()&lt;/code>
+: Performs changes to a Drawable&amp;rsquo;s state based off a change of time (movement, rotation, scaling, etc)&lt;/li>
+&lt;/ul>
+&lt;p>The Drawable interface already implements the crucial functions listed, new Drawables will only need to implement certain functions due to behavior varying between Drawables:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>GetTransformXM()&lt;/code>&lt;/li>
+&lt;li>&lt;code>Update()&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>The expected behavior is that creating Bindables and adding them to Drawables are done in a Drawable constructor&lt;/p>
+&lt;h3 id="example-of-the-drawable--bindable-framework">Example of the Drawable &amp;amp; Bindable Framework&lt;/h3>
+&lt;p>&lt;strong>Box.h&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;#34;Drawable.h&amp;#34;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;span class="cp">&lt;/span>&lt;span class="k">class&lt;/span> &lt;span class="nc">Box&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="k">public&lt;/span> &lt;span class="n">Drawable&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="k">public&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;span class="n">Box&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Graphics&lt;/span>&lt;span class="o">&amp;amp;&lt;/span> &lt;span class="n">gfx&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">mt19937&lt;/span>&lt;span class="o">&amp;amp;&lt;/span> &lt;span class="n">rng&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">uniform_real_distribution&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">float&lt;/span>&lt;span class="o">&amp;gt;&amp;amp;&lt;/span> &lt;span class="n">adist&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">uniform_real_distribution&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">float&lt;/span>&lt;span class="o">&amp;gt;&amp;amp;&lt;/span> &lt;span class="n">ddist&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">uniform_real_distribution&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">float&lt;/span>&lt;span class="o">&amp;gt;&amp;amp;&lt;/span> &lt;span class="n">odist&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">uniform_real_distribution&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">float&lt;/span>&lt;span class="o">&amp;gt;&amp;amp;&lt;/span> &lt;span class="n">rdist&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="kt">void&lt;/span> &lt;span class="nf">Update&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">float&lt;/span> &lt;span class="n">dt&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">noexcept&lt;/span> &lt;span class="k">override&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">DirectX&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">XMMATRIX&lt;/span> &lt;span class="n">GetTransformXM&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="k">const&lt;/span> &lt;span class="k">noexcept&lt;/span> &lt;span class="k">override&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">private&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;span class="kt">float&lt;/span> &lt;span class="n">r&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="c1">// z-axis
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">roll&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mf">0.0f&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="c1">// x-axis
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">pitch&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mf">0.0f&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="c1">// y-axis
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">yaw&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mf">0.0f&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kt">float&lt;/span> &lt;span class="n">theta&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kt">float&lt;/span> &lt;span class="n">phi&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kt">float&lt;/span> &lt;span class="n">chi&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="c1">// z-axis
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">droll&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="c1">// x-axis
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">dpitch&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="c1">// y-axis
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">dyaw&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kt">float&lt;/span> &lt;span class="n">dtheta&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kt">float&lt;/span> &lt;span class="n">dphi&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kt">float&lt;/span> &lt;span class="n">dchi&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Box.cpp (constructor)&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="n">Box&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">Box&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Graphics&lt;/span>&lt;span class="o">&amp;amp;&lt;/span> &lt;span class="n">gfx&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">mt19937&lt;/span>&lt;span class="o">&amp;amp;&lt;/span> &lt;span class="n">rng&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">uniform_real_distribution&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">float&lt;/span>&lt;span class="o">&amp;gt;&amp;amp;&lt;/span> &lt;span class="n">adist&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">uniform_real_distribution&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">float&lt;/span>&lt;span class="o">&amp;gt;&amp;amp;&lt;/span> &lt;span class="n">ddist&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">uniform_real_distribution&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">float&lt;/span>&lt;span class="o">&amp;gt;&amp;amp;&lt;/span> &lt;span class="n">odist&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">uniform_real_distribution&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">float&lt;/span>&lt;span class="o">&amp;gt;&amp;amp;&lt;/span> &lt;span class="n">rdist&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">:&lt;/span>
+&lt;span class="n">r&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">rdist&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">rng&lt;/span>&lt;span class="p">)),&lt;/span>
+&lt;span class="n">droll&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ddist&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">rng&lt;/span>&lt;span class="p">)),&lt;/span>
+&lt;span class="n">dpitch&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ddist&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">rng&lt;/span>&lt;span class="p">)),&lt;/span>
+&lt;span class="n">dyaw&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ddist&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">rng&lt;/span>&lt;span class="p">)),&lt;/span>
+&lt;span class="n">dphi&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">odist&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">rng&lt;/span>&lt;span class="p">)),&lt;/span>
+&lt;span class="n">dtheta&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">odist&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">rng&lt;/span>&lt;span class="p">)),&lt;/span>
+&lt;span class="n">dchi&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">odist&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">rng&lt;/span>&lt;span class="p">)),&lt;/span>
+&lt;span class="n">chi&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">adist&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">rng&lt;/span>&lt;span class="p">)),&lt;/span>
+&lt;span class="n">theta&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">adist&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">rng&lt;/span>&lt;span class="p">)),&lt;/span>
+&lt;span class="n">phi&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">adist&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">rng&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="nc">Vertex&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kt">float&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kt">float&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kt">float&lt;/span> &lt;span class="n">z&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>&lt;span class="n">pos&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">char&lt;/span> &lt;span class="n">r&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">char&lt;/span> &lt;span class="n">g&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">char&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>&lt;span class="n">color&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="k">const&lt;/span> &lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">vector&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Vertex&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">vertices&lt;/span> &lt;span class="o">=&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">255&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">255&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">255&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">0&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">255&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">255&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">255&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">255&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">255&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">255&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">255&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">255&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">255&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">255&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">255&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="n">AddBind&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">make_unique&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">VertexBuffer&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Vertex&lt;/span>&lt;span class="o">&amp;gt;&amp;gt;&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">gfx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">vertices&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="k">auto&lt;/span> &lt;span class="n">pvs&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">make_unique&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">VertexShader&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">gfx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="sa">L&lt;/span>&lt;span class="s">&amp;#34;VertexShader.cso&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">auto&lt;/span> &lt;span class="n">pvbc&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">pvs&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">GetByteCode&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="n">AddBind&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">move&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pvs&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="n">AddBind&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">make_unique&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">PixelShader&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">gfx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="sa">L&lt;/span>&lt;span class="s">&amp;#34;PixelShader.cso&amp;#34;&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="k">const&lt;/span> &lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">vector&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">short&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">indices&lt;/span> &lt;span class="o">=&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">7&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">6&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">6&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">7&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">7&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">7&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">6&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">6&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">4&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="n">AddIndexBuffer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">make_unique&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">IndexBuffer&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">gfx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">indices&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="nc">FaceColorConstantBuffer&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kt">float&lt;/span> &lt;span class="n">r&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kt">float&lt;/span> &lt;span class="n">g&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kt">float&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kt">float&lt;/span> &lt;span class="n">a&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>&lt;span class="n">face_colors&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">6&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="k">const&lt;/span> &lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">vector&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">D3D11_INPUT_ELEMENT_DESC&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">ied&lt;/span> &lt;span class="o">=&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="s">&amp;#34;POSITION&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">DXGI_FORMAT_R32G32B32_FLOAT&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">D3D11_INPUT_PER_VERTEX_DATA&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>&lt;span class="s">&amp;#34;COLOR&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">DXGI_FORMAT_R8G8B8A8_UNORM&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">D3D11_APPEND_ALIGNED_ELEMENT&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">D3D11_INPUT_PER_VERTEX_DATA&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="n">AddBind&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">make_unique&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">InputLayout&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">gfx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ied&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">pvbc&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="n">AddBind&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">make_unique&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Topology&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="n">AddBind&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">make_unique&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">TransformConstantBuffer&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">gfx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Box.cpp (Update)&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="kt">void&lt;/span> &lt;span class="n">Box&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">Update&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">float&lt;/span> &lt;span class="n">dt&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">noexcept&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="n">roll&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="n">droll&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">dt&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">pitch&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="n">dpitch&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">dt&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">yaw&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="n">dyaw&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">dt&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">phi&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="n">dphi&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">dt&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">chi&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="n">dchi&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">dt&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Box.cpp (GetTransformXM)&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="n">DirectX&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">XMMATRIX&lt;/span> &lt;span class="n">Box&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">GetTransformXM&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="k">const&lt;/span> &lt;span class="k">noexcept&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">DirectX&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">XMMatrixRotationRollPitchYaw&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pitch&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">yaw&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">roll&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span>
+&lt;span class="n">DirectX&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">XMMatrixTranslation&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">r&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.0f&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">*&lt;/span>
+&lt;span class="n">DirectX&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">XMMatrixRotationRollPitchYaw&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">theta&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">phi&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">chi&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">*&lt;/span>
+&lt;span class="n">DirectX&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">XMMatrixTranslation&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">20.0f&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Main&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">mt19937&lt;/span> &lt;span class="n">rng&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">random_device&lt;/span>&lt;span class="p">{}());&lt;/span>
+&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">uniform_real_distribution&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">float&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">adist&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">3.1415f&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mf">2.0f&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">uniform_real_distribution&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">float&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">ddist&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">3.1415f&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mf">2.0f&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">uniform_real_distribution&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">float&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">odist&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">3.1415f&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mf">2.0f&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">uniform_real_distribution&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">float&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">rdist&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">6.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">20.0f&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="k">auto&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">150&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="n">boxes&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">push_back&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">make_unique&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Box&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;span class="p">(&lt;/span>&lt;span class="n">Graphics&lt;/span> &lt;span class="n">instance&lt;/span> &lt;span class="n">here&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;span class="n">rng&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="n">adist&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="n">ddist&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="n">odist&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="n">rdist&lt;/span>
+&lt;span class="p">));&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">(&lt;/span>&lt;span class="n">Graphics&lt;/span> &lt;span class="n">instance&lt;/span> &lt;span class="n">here&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="n">SetProjecton&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">DirectX&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">XMMatrixPerspectiveLH&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">1.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">3.0f&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mf">4.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.5f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">40.0f&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Some other function that executes a frame&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="k">auto&lt;/span> &lt;span class="n">dt&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">timer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Mark&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="p">(&lt;/span>&lt;span class="n">Graphics&lt;/span> &lt;span class="n">instance&lt;/span> &lt;span class="n">here&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="n">ClearBuffer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.07f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.0f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.12f&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="k">auto&lt;/span>&lt;span class="o">&amp;amp;&lt;/span> &lt;span class="nl">b&lt;/span> &lt;span class="p">:&lt;/span> &lt;span class="n">boxes&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="n">b&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">Update&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">dt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="mi">8&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">b&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">Draw&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="n">Graphics&lt;/span> &lt;span class="n">instance&lt;/span> &lt;span class="n">here&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">(&lt;/span>&lt;span class="n">Graphics&lt;/span> &lt;span class="n">instance&lt;/span> &lt;span class="n">here&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="n">EndFrame&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;figure
+>
+&lt;a href="https://media.giphy.com/media/hVsP8KfbcwItVhMg5s/giphy-downsized-large.gif" >
+&lt;img src="https://media.giphy.com/media/hVsP8KfbcwItVhMg5s/giphy-downsized-large.gif"
+loading="lazy"
+alt="Result of Code">
+&lt;/a>
+&lt;figcaption>Result of Code&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>&lt;a class="link" href="https://media.giphy.com/media/hVsP8KfbcwItVhMg5s/giphy-downsized.gif" target="_blank" rel="noopener"
+>GIF Source Link&lt;/a>&lt;/p></description></item><item><title>Initial Post</title><link>/p/initial-post/</link><pubDate>Mon, 15 Nov 2021 00:00:00 +0000</pubDate><guid>/p/initial-post/</guid><description>&lt;p>Hi Guys, this is my first time using Hugo, so hope this all comes out okay&amp;hellip;&lt;/p></description></item></channel></rss>

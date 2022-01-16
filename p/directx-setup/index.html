@@ -1,0 +1,823 @@
+<!doctype html><html lang=en-us>
+<head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="A deep dive into Direct 3D"><title>DirectX Setup</title>
+<link rel=canonical href=/p/directx-setup/>
+<link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="DirectX Setup">
+<meta property="og:description" content="A deep dive into Direct 3D">
+<meta property="og:url" content="/p/directx-setup/">
+<meta property="og:site_name" content="Esau's Page">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:published_time" content="2021-12-22T18:11:43-08:00"><meta property="article:modified_time" content="2021-12-22T18:11:43-08:00"><meta property="og:image" content="https://media.giphy.com/media/hVsP8KfbcwItVhMg5s/giphy.gif">
+<meta name=twitter:title content="DirectX Setup">
+<meta name=twitter:description content="A deep dive into Direct 3D"><meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://media.giphy.com/media/hVsP8KfbcwItVhMg5s/giphy.gif">
+</head>
+<body class="article-page has-toc">
+<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
+<div class="container main-container flex
+extended">
+<div id=article-toolbar>
+<a href=/ class=back-home><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="15 6 9 12 15 18"/></svg>
+<span>Back</span>
+</a>
+</div>
+<main class="main full-width">
+<article class="has-image main-article">
+<header class=article-header>
+<div class=article-image>
+<a href=/p/directx-setup/>
+<img src=https://media.giphy.com/media/hVsP8KfbcwItVhMg5s/giphy.gif loading=lazy alt="Featured image of post DirectX Setup">
+</a>
+</div>
+<div class=article-details>
+<header class=article-category>
+<a href=/categories/graphics/>
+Graphics
+</a>
+</header>
+<h2 class=article-title>
+<a href=/p/directx-setup/>DirectX Setup</a>
+</h2>
+<h3 class=article-subtitle>
+A deep dive into Direct 3D
+</h3>
+<footer class=article-time>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Dec 22, 2021</time>
+</div>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>
+12 minute read
+</time>
+</div>
+</footer>
+</div>
+</header>
+<section class=article-content>
+<p>I&rsquo;ve been exploring Direct X 3D and it&rsquo;s implementation as a Graphics Engine!
+Wanted to share my notes on how to set it up in a quick and simple blog.</p>
+<p>There is a bunch of overhead involving creating a window before setuping Direct X 3D, I will not be covering it in this blog, but plan to cover it in another blog.</p>
+<p>All the code related to the contents of this blog come from my repository on <a class=link href=https://github.com/Esauidk/DirectXLearningProject target=_blank rel=noopener>Github</a></p>
+<h1 id=direct-x-pipeline>Direct X Pipeline</h1>
+<p><strong>Before rendering an object in Direct X, there are components that need to be initialized</strong>:</p>
+<ul>
+<li>Device</li>
+<li>Swap Chain</li>
+<li>Context</li>
+</ul>
+<h2 id=device>Device</h2>
+<p><strong>The device is a component of Direct3D that allows you to allocate data structures and store information on the GPU about the current rendering state</strong></p>
+<p>Examples of uses of the device are:</p>
+<ul>
+<li>RenderTargetView</li>
+<li>DepthStencilState</li>
+<li>CreateTexture2D</li>
+<li>CreateBuffer</li>
+<li>CreateVertexShader</li>
+<li>CreatePixelShader</li>
+<li>CreateInputLayout</li>
+</ul>
+<p><a class=link href=https://docs.microsoft.com/en-us/windows/win32/direct3d9/direct3d-devices target=_blank rel=noopener><strong>For more information about the device</strong></a></p>
+<h2 id=swap-chain>Swap Chain</h2>
+<p>The swap chain represent the current frame being presented to you, the viewer. The swap chain has a lot of settings that can be adjusted but the idea is that you have two(or more) buffers, the <strong>front</strong> and <strong>back</strong> buffers.</p>
+<p>The names <strong>front</strong> and <strong>back</strong> represent which buffer is the one being presented. The <strong>back</strong> buffer will be where current draw calls are being directed to while the <strong>front</strong> buffer will be what the viewer sees.</p>
+<p>Once the drawing of the <strong>back</strong> buffer has been completed, the buffers will be <em>switched</em> and the previous <strong>back</strong> buffer will be the current <strong>front</strong> buffer while the previous <strong>front</strong> buffer will be the current <strong>back</strong> buffer</p>
+<p><figure>
+<a href=https://upload.wikimedia.org/wikipedia/en/thumb/d/df/Swap_chain_depiction.svg/1920px-Swap_chain_depiction.svg.png>
+<img src=https://upload.wikimedia.org/wikipedia/en/thumb/d/df/Swap_chain_depiction.svg/1920px-Swap_chain_depiction.svg.png loading=lazy alt="A representation of a triple buffer swap chain">
+</a>
+<figcaption>A representation of a triple buffer swap chain</figcaption>
+</figure></p>
+<p><a class=link href=https://docs.microsoft.com/en-us/windows/win32/direct3d9/what-is-a-swap-chain- target=_blank rel=noopener><strong>For more information about the swap chain</strong></a></p>
+<h2 id=context>Context</h2>
+<p><strong>The context holds all the resources being used in pipeline</strong>:</p>
+<ul>
+<li>VertexBuffer
+: A collection of vertex data of the current object</li>
+<li>IndexBuffer
+: A collection of indexes representing the order of verticies to use when drawing the desired topology shape</li>
+<li>VerexShader
+: GPU instructions used to perform mathmatical operations to each vertex positioning before presentation</li>
+<li>PixelShader
+: GPU instructions used to perform mathmatical operations to each vertex coloring before presentation</li>
+<li>Topology
+: The geometric shape to use when rendering verticies (EX: Lines & Triangles)</li>
+<li>InputLayout
+: A definition of the low level layout of data being sent to the GPU and their shaders (Vertex Data Definition, Color Data Definition, etc)</li>
+<li>ConstantBuffer
+: A buffer that is filled with custom data and available to the designated shader at all times. (Data can only be updated by replacing the buffer with an updated version)</li>
+</ul>
+<p><strong>The context allows you to attach created data structures(listed above) and attach them to the current render pipeline</strong></p>
+<p><a class=link href=https://docs.microsoft.com/en-us/windows/win32/direct3d11/overviews-direct3d-11-devices-intro target=_blank rel=noopener><strong>For more information about the context</strong></a></p>
+<h2 id=extra>Extra</h2>
+<p><strong>There are more parts of the pipeline not covered in this readme</strong></p>
+<p><figure>
+<a href=https://docs.microsoft.com/en-us/windows/win32/direct3d11/images/d3d11-pipeline-stages.jpg>
+<img src=https://docs.microsoft.com/en-us/windows/win32/direct3d11/images/d3d11-pipeline-stages.jpg loading=lazy alt="Image of Direct3D Pipeline">
+</a>
+<figcaption>Image of Direct3D Pipeline</figcaption>
+</figure></p>
+<p><a class=link href=https://docs.microsoft.com/en-us/windows/win32/direct3d11/overviews-direct3d-11-graphics-pipeline target=_blank rel=noopener><strong>For more information of the pipeline</strong></a></p>
+<h2 id=creating-an-object>Creating an Object</h2>
+<p><strong>Creating an object involves a combination of using the device to allocate data structures(like buffers) and using the context to attach them to the pipeline. Every object must go through creating, defining, and attaching pipeline resources before being raterized to the swap chain buffers</strong></p>
+<h3 id=example-of-creating-a-box>Example of creating a box</h3>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=k>struct</span> <span class=nc>Vertex</span>
+<span class=p>{</span>
+   <span class=k>struct</span> <span class=p>{</span>
+	<span class=kt>float</span> <span class=n>x</span><span class=p>;</span>
+	<span class=kt>float</span> <span class=n>y</span><span class=p>;</span>
+	<span class=kt>float</span> <span class=n>z</span><span class=p>;</span>
+   <span class=p>}</span> <span class=n>pos</span><span class=p>;</span>		
+<span class=p>};</span>
+
+<span class=c1>////Create Vertex Buffer (2d Triangle)
+</span><span class=c1></span><span class=k>const</span> <span class=n>Vertex</span> <span class=n>vertices</span><span class=p>[]</span> <span class=o>=</span> <span class=p>{</span>
+
+	<span class=p>{</span><span class=o>-</span><span class=mf>1.0f</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0f</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0f</span><span class=p>},</span>
+	<span class=p>{</span><span class=mf>1.0f</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0f</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0f</span><span class=p>},</span>
+	<span class=p>{</span><span class=o>-</span><span class=mf>1.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0f</span><span class=p>},</span>
+	<span class=p>{</span><span class=mf>1.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0f</span><span class=p>},</span>
+	<span class=p>{</span><span class=o>-</span><span class=mf>1.0f</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>},</span>
+	<span class=p>{</span><span class=mf>1.0f</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>},</span>
+	<span class=p>{</span><span class=o>-</span><span class=mf>1.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>},</span>
+	<span class=p>{</span><span class=mf>1.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>}</span>
+
+<span class=p>};</span>
+
+
+
+<span class=n>wrl</span><span class=o>::</span><span class=n>ComPtr</span><span class=o>&lt;</span><span class=n>ID3D11Buffer</span><span class=o>&gt;</span> <span class=n>pVertexBuffer</span><span class=p>;</span>
+<span class=n>D3D11_BUFFER_DESC</span> <span class=n>bd</span> <span class=o>=</span> <span class=p>{};</span>
+<span class=n>bd</span><span class=p>.</span><span class=n>BindFlags</span> <span class=o>=</span> <span class=n>D3D11_BIND_VERTEX_BUFFER</span><span class=p>;</span>
+<span class=n>bd</span><span class=p>.</span><span class=n>Usage</span> <span class=o>=</span> <span class=n>D3D11_USAGE_DEFAULT</span><span class=p>;</span>
+<span class=n>bd</span><span class=p>.</span><span class=n>CPUAccessFlags</span> <span class=o>=</span> <span class=mi>0u</span><span class=p>;</span>
+<span class=n>bd</span><span class=p>.</span><span class=n>MiscFlags</span> <span class=o>=</span> <span class=mi>0u</span><span class=p>;</span>
+<span class=n>bd</span><span class=p>.</span><span class=n>ByteWidth</span> <span class=o>=</span> <span class=k>sizeof</span><span class=p>(</span><span class=n>vertices</span><span class=p>);</span>
+<span class=n>bd</span><span class=p>.</span><span class=n>StructureByteStride</span> <span class=o>=</span> <span class=k>sizeof</span><span class=p>(</span><span class=n>Vertex</span><span class=p>);</span>
+<span class=n>D3D11_SUBRESOURCE_DATA</span> <span class=n>sd</span> <span class=o>=</span> <span class=p>{};</span>
+<span class=n>sd</span><span class=p>.</span><span class=n>pSysMem</span> <span class=o>=</span> <span class=n>vertices</span><span class=p>;</span>
+<span class=n>GFX_THROW_INFO</span><span class=p>(</span><span class=n>pDevice</span><span class=o>-&gt;</span><span class=n>CreateBuffer</span><span class=p>(</span><span class=o>&amp;</span><span class=n>bd</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>sd</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>pVertexBuffer</span><span class=p>));</span>
+
+<span class=c1>//// Attach Vertex Buffer to Pipeline
+</span><span class=c1></span><span class=k>const</span> <span class=n>UINT</span> <span class=n>stride</span> <span class=o>=</span> <span class=k>sizeof</span><span class=p>(</span><span class=n>Vertex</span><span class=p>);</span>
+<span class=k>const</span> <span class=n>UINT</span> <span class=n>offset</span> <span class=o>=</span> <span class=mi>0u</span><span class=p>;</span>
+<span class=n>pContext</span><span class=o>-&gt;</span><span class=n>IASetVertexBuffers</span><span class=p>(</span><span class=mi>0u</span><span class=p>,</span><span class=mi>1u</span><span class=p>,</span> <span class=n>pVertexBuffer</span><span class=p>.</span><span class=n>GetAddressOf</span><span class=p>(),</span> <span class=o>&amp;</span><span class=n>stride</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>offset</span><span class=p>);</span>
+
+<span class=c1>//// Create Index Buffer (Used for reusing predfined vertices for multiple triangles)
+</span><span class=c1></span><span class=k>const</span> <span class=kt>unsigned</span> <span class=kt>short</span> <span class=n>indices</span><span class=p>[]</span> <span class=o>=</span> <span class=p>{</span>
+	<span class=mi>0</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span>
+	<span class=mi>1</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>5</span><span class=p>,</span> <span class=mi>3</span><span class=p>,</span><span class=mi>7</span><span class=p>,</span><span class=mi>5</span><span class=p>,</span>
+	<span class=mi>2</span><span class=p>,</span><span class=mi>6</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span> <span class=mi>3</span><span class=p>,</span><span class=mi>6</span><span class=p>,</span><span class=mi>7</span><span class=p>,</span>
+	<span class=mi>4</span><span class=p>,</span><span class=mi>5</span><span class=p>,</span><span class=mi>7</span><span class=p>,</span> <span class=mi>4</span><span class=p>,</span><span class=mi>7</span><span class=p>,</span><span class=mi>6</span><span class=p>,</span>
+	<span class=mi>0</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>6</span><span class=p>,</span>
+	<span class=mi>0</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span><span class=mi>5</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span>
+<span class=p>};</span>
+
+<span class=n>wrl</span><span class=o>::</span><span class=n>ComPtr</span><span class=o>&lt;</span><span class=n>ID3D11Buffer</span><span class=o>&gt;</span> <span class=n>pIndexBuffer</span><span class=p>;</span>
+<span class=n>D3D11_BUFFER_DESC</span> <span class=n>ibd</span> <span class=o>=</span> <span class=p>{};</span>
+<span class=n>ibd</span><span class=p>.</span><span class=n>BindFlags</span> <span class=o>=</span> <span class=n>D3D11_BIND_INDEX_BUFFER</span><span class=p>;</span>
+<span class=n>ibd</span><span class=p>.</span><span class=n>Usage</span> <span class=o>=</span> <span class=n>D3D11_USAGE_DEFAULT</span><span class=p>;</span>
+<span class=n>ibd</span><span class=p>.</span><span class=n>CPUAccessFlags</span> <span class=o>=</span> <span class=mi>0u</span><span class=p>;</span>
+<span class=n>ibd</span><span class=p>.</span><span class=n>MiscFlags</span> <span class=o>=</span> <span class=mi>0u</span><span class=p>;</span>
+<span class=n>ibd</span><span class=p>.</span><span class=n>ByteWidth</span> <span class=o>=</span> <span class=k>sizeof</span><span class=p>(</span><span class=n>indices</span><span class=p>);</span>
+<span class=n>ibd</span><span class=p>.</span><span class=n>StructureByteStride</span> <span class=o>=</span> <span class=k>sizeof</span><span class=p>(</span><span class=kt>unsigned</span> <span class=kt>short</span><span class=p>);</span>
+<span class=n>D3D11_SUBRESOURCE_DATA</span> <span class=n>isd</span> <span class=o>=</span> <span class=p>{};</span>
+<span class=n>isd</span><span class=p>.</span><span class=n>pSysMem</span> <span class=o>=</span> <span class=n>indices</span><span class=p>;</span>
+<span class=n>GFX_THROW_INFO</span><span class=p>(</span><span class=n>pDevice</span><span class=o>-&gt;</span><span class=n>CreateBuffer</span><span class=p>(</span><span class=o>&amp;</span><span class=n>ibd</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>isd</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>pIndexBuffer</span><span class=p>));</span>
+
+<span class=c1>//// Attach Index Buffer to Pipeline
+</span><span class=c1></span><span class=n>pContext</span><span class=o>-&gt;</span><span class=n>IASetIndexBuffer</span><span class=p>(</span><span class=n>pIndexBuffer</span><span class=p>.</span><span class=n>Get</span><span class=p>(),</span> <span class=n>DXGI_FORMAT_R16_UINT</span><span class=p>,</span> <span class=mi>0u</span><span class=p>);</span>
+
+<span class=c1>//// Create const buffer for transformation matrix (Do matrix transformation instead of moving sending a new vertex buffer)
+</span><span class=c1></span><span class=k>struct</span> <span class=nc>ConstantBuffer</span> <span class=p>{</span>
+	<span class=n>dx</span><span class=o>::</span><span class=n>XMMATRIX</span> <span class=n>transform</span><span class=p>;</span>
+<span class=p>};</span>
+
+<span class=k>const</span> <span class=n>ConstantBuffer</span> <span class=n>cb</span> <span class=o>=</span> <span class=p>{</span>
+	<span class=p>{</span>
+		<span class=n>dx</span><span class=o>::</span><span class=n>XMMatrixTranspose</span><span class=p>(</span>
+			<span class=n>dx</span><span class=o>::</span><span class=n>XMMatrixRotationZ</span><span class=p>(</span><span class=n>angle</span><span class=p>)</span> <span class=o>*</span>
+			<span class=n>dx</span><span class=o>::</span><span class=n>XMMatrixRotationX</span><span class=p>(</span><span class=n>angle</span><span class=p>)</span> <span class=o>*</span>
+			<span class=n>dx</span><span class=o>::</span><span class=n>XMMatrixTranslation</span><span class=p>(</span><span class=n>x</span><span class=p>,</span> <span class=mf>0.0f</span><span class=p>,</span> <span class=n>z</span> <span class=o>+</span> <span class=mf>4.0f</span><span class=p>)</span> <span class=o>*</span>
+			<span class=n>dx</span><span class=o>::</span><span class=n>XMMatrixPerspectiveLH</span><span class=p>(</span><span class=mf>1.0f</span><span class=p>,</span> <span class=mf>3.0f</span><span class=o>/</span> <span class=mf>4.0f</span><span class=p>,</span> <span class=mf>0.5f</span><span class=p>,</span> <span class=mf>10.0f</span><span class=p>)</span>
+		<span class=p>)</span>
+	<span class=p>}</span>
+<span class=p>};</span>
+
+
+<span class=n>wrl</span><span class=o>::</span><span class=n>ComPtr</span><span class=o>&lt;</span><span class=n>ID3D11Buffer</span><span class=o>&gt;</span> <span class=n>pConstantBuffer</span><span class=p>;</span>
+<span class=n>D3D11_BUFFER_DESC</span> <span class=n>cbd</span> <span class=o>=</span> <span class=p>{};</span>
+<span class=n>cbd</span><span class=p>.</span><span class=n>BindFlags</span> <span class=o>=</span> <span class=n>D3D11_BIND_CONSTANT_BUFFER</span><span class=p>;</span>
+<span class=n>cbd</span><span class=p>.</span><span class=n>Usage</span> <span class=o>=</span> <span class=n>D3D11_USAGE_DYNAMIC</span><span class=p>;</span>
+<span class=n>cbd</span><span class=p>.</span><span class=n>CPUAccessFlags</span> <span class=o>=</span> <span class=n>D3D11_CPU_ACCESS_WRITE</span><span class=p>;</span>
+<span class=n>cbd</span><span class=p>.</span><span class=n>MiscFlags</span> <span class=o>=</span> <span class=mi>0u</span><span class=p>;</span>
+<span class=n>cbd</span><span class=p>.</span><span class=n>ByteWidth</span> <span class=o>=</span> <span class=k>sizeof</span><span class=p>(</span><span class=n>cb</span><span class=p>);</span>
+<span class=n>cbd</span><span class=p>.</span><span class=n>StructureByteStride</span> <span class=o>=</span> <span class=mi>0u</span><span class=p>;</span>
+<span class=n>D3D11_SUBRESOURCE_DATA</span> <span class=n>csd</span> <span class=o>=</span> <span class=p>{};</span>
+<span class=n>csd</span><span class=p>.</span><span class=n>pSysMem</span> <span class=o>=</span> <span class=o>&amp;</span><span class=n>cb</span><span class=p>;</span>
+<span class=n>GFX_THROW_INFO</span><span class=p>(</span><span class=n>pDevice</span><span class=o>-&gt;</span><span class=n>CreateBuffer</span><span class=p>(</span><span class=o>&amp;</span><span class=n>cbd</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>csd</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>pConstantBuffer</span><span class=p>));</span>
+
+<span class=c1>//// Attach const buffer to vertex shader
+</span><span class=c1></span><span class=n>pContext</span><span class=o>-&gt;</span><span class=n>VSSetConstantBuffers</span><span class=p>(</span><span class=mi>0u</span><span class=p>,</span> <span class=mi>1u</span><span class=p>,</span> <span class=n>pConstantBuffer</span><span class=p>.</span><span class=n>GetAddressOf</span><span class=p>());</span>
+
+<span class=c1>//// Create another constant buffer for tagging triangle indexes to colors (individual colors per cube face)
+</span><span class=c1></span><span class=k>struct</span> <span class=nc>ConstantBuffer2</span> <span class=p>{</span>
+  <span class=k>struct</span> <span class=p>{</span>
+	<span class=kt>float</span> <span class=n>r</span><span class=p>;</span>
+	<span class=kt>float</span> <span class=n>g</span><span class=p>;</span>
+	<span class=kt>float</span> <span class=n>b</span><span class=p>;</span>
+	<span class=kt>float</span> <span class=n>a</span><span class=p>;</span>
+  <span class=p>}</span><span class=n>face_colors</span><span class=p>[</span><span class=mi>6</span><span class=p>];</span>
+<span class=p>};</span>
+
+<span class=k>const</span> <span class=n>ConstantBuffer2</span> <span class=n>cb2</span> <span class=o>=</span> <span class=p>{</span>
+   <span class=p>{</span>
+	<span class=p>{</span><span class=mf>1.0f</span><span class=p>,</span> <span class=mf>0.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>},</span>
+	<span class=p>{</span><span class=mf>1.0f</span><span class=p>,</span> <span class=mf>0.0f</span><span class=p>,</span> <span class=mf>0.0f</span><span class=p>},</span>
+	<span class=p>{</span><span class=mf>0.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>,</span> <span class=mf>0.0f</span><span class=p>},</span>
+	<span class=p>{</span><span class=mf>0.0f</span><span class=p>,</span> <span class=mf>0.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>},</span>
+	<span class=p>{</span><span class=mf>1.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>,</span> <span class=mf>0.0f</span><span class=p>},</span>
+	<span class=p>{</span><span class=mf>0.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>},</span>
+   <span class=p>}</span>
+<span class=p>};</span>
+
+<span class=n>wrl</span><span class=o>::</span><span class=n>ComPtr</span><span class=o>&lt;</span><span class=n>ID3D11Buffer</span><span class=o>&gt;</span> <span class=n>pConstantBuffer2</span><span class=p>;</span>
+<span class=n>D3D11_BUFFER_DESC</span> <span class=n>cbd2</span> <span class=o>=</span> <span class=p>{};</span>
+<span class=n>cbd2</span><span class=p>.</span><span class=n>BindFlags</span> <span class=o>=</span> <span class=n>D3D11_BIND_CONSTANT_BUFFER</span><span class=p>;</span>
+<span class=n>cbd2</span><span class=p>.</span><span class=n>Usage</span> <span class=o>=</span> <span class=n>D3D11_USAGE_DEFAULT</span><span class=p>;</span>
+<span class=n>cbd2</span><span class=p>.</span><span class=n>CPUAccessFlags</span> <span class=o>=</span> <span class=mi>0u</span><span class=p>;</span>
+<span class=n>cbd2</span><span class=p>.</span><span class=n>MiscFlags</span> <span class=o>=</span> <span class=mi>0u</span><span class=p>;</span>
+<span class=n>cbd2</span><span class=p>.</span><span class=n>ByteWidth</span> <span class=o>=</span> <span class=k>sizeof</span><span class=p>(</span><span class=n>cb2</span><span class=p>);</span>
+<span class=n>cbd2</span><span class=p>.</span><span class=n>StructureByteStride</span> <span class=o>=</span> <span class=mi>0u</span><span class=p>;</span>
+<span class=n>D3D11_SUBRESOURCE_DATA</span> <span class=n>csd2</span> <span class=o>=</span> <span class=p>{};</span>
+<span class=n>csd2</span><span class=p>.</span><span class=n>pSysMem</span> <span class=o>=</span> <span class=o>&amp;</span><span class=n>cb2</span><span class=p>;</span>
+<span class=n>GFX_THROW_INFO</span><span class=p>(</span><span class=n>pDevice</span><span class=o>-&gt;</span><span class=n>CreateBuffer</span><span class=p>(</span><span class=o>&amp;</span><span class=n>cbd2</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>csd2</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>pConstantBuffer2</span><span class=p>));</span>
+
+<span class=c1>//// Attach const buffer to vertex shader
+</span><span class=c1></span><span class=n>pContext</span><span class=o>-&gt;</span><span class=n>PSSetConstantBuffers</span><span class=p>(</span><span class=mi>0u</span><span class=p>,</span> <span class=mi>1u</span><span class=p>,</span> <span class=n>pConstantBuffer2</span><span class=p>.</span><span class=n>GetAddressOf</span><span class=p>());</span>
+
+<span class=c1>//// Create Pixel Shader
+</span><span class=c1></span><span class=n>wrl</span><span class=o>::</span><span class=n>ComPtr</span><span class=o>&lt;</span><span class=n>ID3D11PixelShader</span><span class=o>&gt;</span> <span class=n>pPixelShader</span><span class=p>;</span>
+<span class=n>wrl</span><span class=o>::</span><span class=n>ComPtr</span><span class=o>&lt;</span><span class=n>ID3DBlob</span><span class=o>&gt;</span> <span class=n>pBlob</span><span class=p>;</span>
+<span class=n>GFX_THROW_INFO</span><span class=p>(</span><span class=n>D3DReadFileToBlob</span><span class=p>(</span><span class=sa>L</span><span class=s>&#34;PixelShader.cso&#34;</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>pBlob</span><span class=p>));</span>
+<span class=n>GFX_THROW_INFO</span><span class=p>(</span><span class=n>pDevice</span><span class=o>-&gt;</span><span class=n>CreatePixelShader</span><span class=p>(</span><span class=n>pBlob</span><span class=o>-&gt;</span><span class=n>GetBufferPointer</span><span class=p>(),</span> <span class=n>pBlob</span><span class=o>-&gt;</span><span class=n>GetBufferSize</span><span class=p>(),</span> <span class=k>nullptr</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>pPixelShader</span><span class=p>));</span>
+
+<span class=c1>//// Attach Pixel Shader
+</span><span class=c1></span><span class=n>pContext</span><span class=o>-&gt;</span><span class=n>PSSetShader</span><span class=p>(</span><span class=n>pPixelShader</span><span class=p>.</span><span class=n>Get</span><span class=p>(),</span> <span class=k>nullptr</span><span class=p>,</span> <span class=mi>0u</span><span class=p>);</span>
+
+<span class=c1>// Create Vertex Shader
+</span><span class=c1></span><span class=n>wrl</span><span class=o>::</span><span class=n>ComPtr</span><span class=o>&lt;</span><span class=n>ID3D11VertexShader</span><span class=o>&gt;</span> <span class=n>pVertexShader</span><span class=p>;</span>
+<span class=n>GFX_THROW_INFO</span><span class=p>(</span><span class=n>D3DReadFileToBlob</span><span class=p>(</span><span class=sa>L</span><span class=s>&#34;VertexShader.cso&#34;</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>pBlob</span><span class=p>));</span>
+<span class=n>GFX_THROW_INFO</span><span class=p>(</span><span class=n>pDevice</span><span class=o>-&gt;</span><span class=n>CreateVertexShader</span><span class=p>(</span><span class=n>pBlob</span><span class=o>-&gt;</span><span class=n>GetBufferPointer</span><span class=p>(),</span> <span class=n>pBlob</span><span class=o>-&gt;</span><span class=n>GetBufferSize</span><span class=p>(),</span> <span class=k>nullptr</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>pVertexShader</span><span class=p>));</span>
+
+<span class=c1>// Attach Vertex Shader to Pipeline
+</span><span class=c1>//pContext-&gt;VSSetShader(pVertexShader.Get(), nullptr, 0u);
+</span><span class=c1></span>
+<span class=c1>//// Input (vertex) layout (2d position only)
+</span><span class=c1></span><span class=n>wrl</span><span class=o>::</span><span class=n>ComPtr</span><span class=o>&lt;</span><span class=n>ID3D11InputLayout</span><span class=o>&gt;</span> <span class=n>pInputLayout</span><span class=p>;</span>
+<span class=k>const</span> <span class=n>D3D11_INPUT_ELEMENT_DESC</span> <span class=n>ied</span><span class=p>[]</span> <span class=o>=</span> <span class=p>{</span>
+<span class=c1>//	// Reads positions as 2 4 byte values
+</span><span class=c1></span>	<span class=p>{</span><span class=s>&#34;POSITION&#34;</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=n>DXGI_FORMAT_R32G32B32_FLOAT</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=n>D3D11_INPUT_PER_VERTEX_DATA</span><span class=p>,</span> <span class=mi>0</span><span class=p>},</span>
+<span class=c1>//	// Reads color as 4 byte values and normalizes them from 0 - 1
+</span><span class=c1></span>	 <span class=p>{</span><span class=s>&#34;COLOR&#34;</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=n>DXGI_FORMAT_R8G8B8A8_UNORM</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=n>D3D11_APPEND_ALIGNED_ELEMENT</span><span class=p>,</span> <span class=n>D3D11_INPUT_PER_VERTEX_DATA</span><span class=p>,</span> <span class=mi>0</span><span class=p>}</span>
+<span class=p>};</span>
+
+<span class=n>GFX_THROW_INFO</span><span class=p>(</span><span class=n>pDevice</span><span class=o>-&gt;</span><span class=n>CreateInputLayout</span><span class=p>(</span>
+	<span class=n>ied</span><span class=p>,</span> <span class=p>(</span><span class=n>UINT</span><span class=p>)</span><span class=n>std</span><span class=o>::</span><span class=n>size</span><span class=p>(</span><span class=n>ied</span><span class=p>),</span>
+	<span class=n>pBlob</span><span class=o>-&gt;</span><span class=n>GetBufferPointer</span><span class=p>(),</span>
+	<span class=n>pBlob</span><span class=o>-&gt;</span><span class=n>GetBufferSize</span><span class=p>(),</span>
+	<span class=o>&amp;</span><span class=n>pInputLayout</span>
+<span class=p>));</span>
+
+<span class=c1>//// Bind Input Layout
+</span><span class=c1></span><span class=n>pContext</span><span class=o>-&gt;</span><span class=n>IASetInputLayout</span><span class=p>(</span><span class=n>pInputLayout</span><span class=p>.</span><span class=n>Get</span><span class=p>());</span>
+
+<span class=c1>// Bind Render Target
+</span><span class=c1>// **COME BACK TO THIS IN CASE ERROR** 
+</span><span class=c1></span><span class=n>pContext</span><span class=o>-&gt;</span><span class=n>OMSetRenderTargets</span><span class=p>(</span><span class=mi>1u</span><span class=p>,</span> <span class=n>pTarget</span><span class=p>.</span><span class=n>GetAddressOf</span><span class=p>(),</span> <span class=n>pDSV</span><span class=p>.</span><span class=n>Get</span><span class=p>());</span>
+
+<span class=c1>// Set primitive topology to triangle list (groups of verticies make multiple triangles)
+</span><span class=c1></span><span class=n>pContext</span><span class=o>-&gt;</span><span class=n>IASetPrimitiveTopology</span><span class=p>(</span><span class=n>D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST</span><span class=p>);</span>
+
+
+
+<span class=n>GFX_THROW_INFO_ONLY</span><span class=p>(</span><span class=n>pContext</span><span class=o>-&gt;</span><span class=n>DrawIndexed</span><span class=p>(</span><span class=n>count</span><span class=p>,</span> <span class=mi>0u</span><span class=p>,</span> <span class=mi>0u</span><span class=p>));</span>
+</code></pre></div><h3 id=vertex-buffer>Vertex Buffer</h3>
+<p><strong>Device Step</strong></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=k>struct</span> <span class=nc>Vertex</span>
+<span class=p>{</span>
+   <span class=k>struct</span> <span class=p>{</span>
+	<span class=kt>float</span> <span class=n>x</span><span class=p>;</span>
+	<span class=kt>float</span> <span class=n>y</span><span class=p>;</span>
+	<span class=kt>float</span> <span class=n>z</span><span class=p>;</span>
+   <span class=p>}</span> <span class=n>pos</span><span class=p>;</span>		
+<span class=p>};</span>
+
+<span class=c1>////Create Vertex Buffer (2d Triangle)
+</span><span class=c1></span><span class=k>const</span> <span class=n>Vertex</span> <span class=n>vertices</span><span class=p>[]</span> <span class=o>=</span> <span class=p>{</span>
+
+	<span class=p>{</span><span class=o>-</span><span class=mf>1.0f</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0f</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0f</span><span class=p>},</span>
+	<span class=p>{</span><span class=mf>1.0f</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0f</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0f</span><span class=p>},</span>
+	<span class=p>{</span><span class=o>-</span><span class=mf>1.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0f</span><span class=p>},</span>
+	<span class=p>{</span><span class=mf>1.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0f</span><span class=p>},</span>
+	<span class=p>{</span><span class=o>-</span><span class=mf>1.0f</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>},</span>
+	<span class=p>{</span><span class=mf>1.0f</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>},</span>
+	<span class=p>{</span><span class=o>-</span><span class=mf>1.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>},</span>
+	<span class=p>{</span><span class=mf>1.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>}</span>
+
+<span class=p>};</span>
+
+
+
+<span class=n>wrl</span><span class=o>::</span><span class=n>ComPtr</span><span class=o>&lt;</span><span class=n>ID3D11Buffer</span><span class=o>&gt;</span> <span class=n>pVertexBuffer</span><span class=p>;</span>
+<span class=n>D3D11_BUFFER_DESC</span> <span class=n>bd</span> <span class=o>=</span> <span class=p>{};</span>
+<span class=n>bd</span><span class=p>.</span><span class=n>BindFlags</span> <span class=o>=</span> <span class=n>D3D11_BIND_VERTEX_BUFFER</span><span class=p>;</span>
+<span class=n>bd</span><span class=p>.</span><span class=n>Usage</span> <span class=o>=</span> <span class=n>D3D11_USAGE_DEFAULT</span><span class=p>;</span>
+<span class=n>bd</span><span class=p>.</span><span class=n>CPUAccessFlags</span> <span class=o>=</span> <span class=mi>0u</span><span class=p>;</span>
+<span class=n>bd</span><span class=p>.</span><span class=n>MiscFlags</span> <span class=o>=</span> <span class=mi>0u</span><span class=p>;</span>
+<span class=n>bd</span><span class=p>.</span><span class=n>ByteWidth</span> <span class=o>=</span> <span class=k>sizeof</span><span class=p>(</span><span class=n>vertices</span><span class=p>);</span>
+<span class=n>bd</span><span class=p>.</span><span class=n>StructureByteStride</span> <span class=o>=</span> <span class=k>sizeof</span><span class=p>(</span><span class=n>Vertex</span><span class=p>);</span>
+<span class=n>D3D11_SUBRESOURCE_DATA</span> <span class=n>sd</span> <span class=o>=</span> <span class=p>{};</span>
+<span class=n>sd</span><span class=p>.</span><span class=n>pSysMem</span> <span class=o>=</span> <span class=n>vertices</span><span class=p>;</span>
+<span class=n>GFX_THROW_INFO</span><span class=p>(</span><span class=n>pDevice</span><span class=o>-&gt;</span><span class=n>CreateBuffer</span><span class=p>(</span><span class=o>&amp;</span><span class=n>bd</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>sd</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>pVertexBuffer</span><span class=p>));</span>
+</code></pre></div><p><strong>Context Step</strong></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=c1>//// Attach Vertex Buffer to Pipeline
+</span><span class=c1></span><span class=k>const</span> <span class=n>UINT</span> <span class=n>stride</span> <span class=o>=</span> <span class=k>sizeof</span><span class=p>(</span><span class=n>Vertex</span><span class=p>);</span>
+<span class=k>const</span> <span class=n>UINT</span> <span class=n>offset</span> <span class=o>=</span> <span class=mi>0u</span><span class=p>;</span>
+<span class=n>pContext</span><span class=o>-&gt;</span><span class=n>IASetVertexBuffers</span><span class=p>(</span><span class=mi>0u</span><span class=p>,</span><span class=mi>1u</span><span class=p>,</span> <span class=n>pVertexBuffer</span><span class=p>.</span><span class=n>GetAddressOf</span><span class=p>(),</span> <span class=o>&amp;</span><span class=n>stride</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>offset</span><span class=p>);</span>
+</code></pre></div><h3 id=index-buffer>Index Buffer</h3>
+<p><strong>Device Step</strong></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=c1>//// Create Index Buffer (Used for reusing predfined vertices for multiple triangles)
+</span><span class=c1></span><span class=k>const</span> <span class=kt>unsigned</span> <span class=kt>short</span> <span class=n>indices</span><span class=p>[]</span> <span class=o>=</span> <span class=p>{</span>
+	<span class=mi>0</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span>
+	<span class=mi>1</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>5</span><span class=p>,</span> <span class=mi>3</span><span class=p>,</span><span class=mi>7</span><span class=p>,</span><span class=mi>5</span><span class=p>,</span>
+	<span class=mi>2</span><span class=p>,</span><span class=mi>6</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span> <span class=mi>3</span><span class=p>,</span><span class=mi>6</span><span class=p>,</span><span class=mi>7</span><span class=p>,</span>
+	<span class=mi>4</span><span class=p>,</span><span class=mi>5</span><span class=p>,</span><span class=mi>7</span><span class=p>,</span> <span class=mi>4</span><span class=p>,</span><span class=mi>7</span><span class=p>,</span><span class=mi>6</span><span class=p>,</span>
+	<span class=mi>0</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>6</span><span class=p>,</span>
+	<span class=mi>0</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span><span class=mi>5</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span>
+<span class=p>};</span>
+
+<span class=n>wrl</span><span class=o>::</span><span class=n>ComPtr</span><span class=o>&lt;</span><span class=n>ID3D11Buffer</span><span class=o>&gt;</span> <span class=n>pIndexBuffer</span><span class=p>;</span>
+<span class=n>D3D11_BUFFER_DESC</span> <span class=n>ibd</span> <span class=o>=</span> <span class=p>{};</span>
+<span class=n>ibd</span><span class=p>.</span><span class=n>BindFlags</span> <span class=o>=</span> <span class=n>D3D11_BIND_INDEX_BUFFER</span><span class=p>;</span>
+<span class=n>ibd</span><span class=p>.</span><span class=n>Usage</span> <span class=o>=</span> <span class=n>D3D11_USAGE_DEFAULT</span><span class=p>;</span>
+<span class=n>ibd</span><span class=p>.</span><span class=n>CPUAccessFlags</span> <span class=o>=</span> <span class=mi>0u</span><span class=p>;</span>
+<span class=n>ibd</span><span class=p>.</span><span class=n>MiscFlags</span> <span class=o>=</span> <span class=mi>0u</span><span class=p>;</span>
+<span class=n>ibd</span><span class=p>.</span><span class=n>ByteWidth</span> <span class=o>=</span> <span class=k>sizeof</span><span class=p>(</span><span class=n>indices</span><span class=p>);</span>
+<span class=n>ibd</span><span class=p>.</span><span class=n>StructureByteStride</span> <span class=o>=</span> <span class=k>sizeof</span><span class=p>(</span><span class=kt>unsigned</span> <span class=kt>short</span><span class=p>);</span>
+<span class=n>D3D11_SUBRESOURCE_DATA</span> <span class=n>isd</span> <span class=o>=</span> <span class=p>{};</span>
+<span class=n>isd</span><span class=p>.</span><span class=n>pSysMem</span> <span class=o>=</span> <span class=n>indices</span><span class=p>;</span>
+<span class=n>GFX_THROW_INFO</span><span class=p>(</span><span class=n>pDevice</span><span class=o>-&gt;</span><span class=n>CreateBuffer</span><span class=p>(</span><span class=o>&amp;</span><span class=n>ibd</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>isd</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>pIndexBuffer</span><span class=p>));</span>
+</code></pre></div><p><strong>Context Step</strong></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=c1>//// Attach Index Buffer to Pipeline
+</span><span class=c1></span><span class=n>pContext</span><span class=o>-&gt;</span><span class=n>IASetIndexBuffer</span><span class=p>(</span><span class=n>pIndexBuffer</span><span class=p>.</span><span class=n>Get</span><span class=p>(),</span> <span class=n>DXGI_FORMAT_R16_UINT</span><span class=p>,</span> <span class=mi>0u</span><span class=p>);</span>
+</code></pre></div><h3 id=constant-buffers-vertex-and-pixel>Constant Buffers (Vertex and Pixel)</h3>
+<p><strong>Device Step</strong></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=c1>//// Create const buffer for transformation matrix (Do matrix transformation instead of moving sending a new vertex buffer)
+</span><span class=c1></span><span class=k>struct</span> <span class=nc>ConstantBuffer</span> <span class=p>{</span>
+	<span class=n>dx</span><span class=o>::</span><span class=n>XMMATRIX</span> <span class=n>transform</span><span class=p>;</span>
+<span class=p>};</span>
+
+<span class=k>const</span> <span class=n>ConstantBuffer</span> <span class=n>cb</span> <span class=o>=</span> <span class=p>{</span>
+	<span class=p>{</span>
+		<span class=n>dx</span><span class=o>::</span><span class=n>XMMatrixTranspose</span><span class=p>(</span>
+			<span class=n>dx</span><span class=o>::</span><span class=n>XMMatrixRotationZ</span><span class=p>(</span><span class=n>angle</span><span class=p>)</span> <span class=o>*</span>
+			<span class=n>dx</span><span class=o>::</span><span class=n>XMMatrixRotationX</span><span class=p>(</span><span class=n>angle</span><span class=p>)</span> <span class=o>*</span>
+			<span class=n>dx</span><span class=o>::</span><span class=n>XMMatrixTranslation</span><span class=p>(</span><span class=n>x</span><span class=p>,</span> <span class=mf>0.0f</span><span class=p>,</span> <span class=n>z</span> <span class=o>+</span> <span class=mf>4.0f</span><span class=p>)</span> <span class=o>*</span>
+			<span class=n>dx</span><span class=o>::</span><span class=n>XMMatrixPerspectiveLH</span><span class=p>(</span><span class=mf>1.0f</span><span class=p>,</span> <span class=mf>3.0f</span><span class=o>/</span> <span class=mf>4.0f</span><span class=p>,</span> <span class=mf>0.5f</span><span class=p>,</span> <span class=mf>10.0f</span><span class=p>)</span>
+		<span class=p>)</span>
+	<span class=p>}</span>
+<span class=p>};</span>
+
+
+<span class=n>wrl</span><span class=o>::</span><span class=n>ComPtr</span><span class=o>&lt;</span><span class=n>ID3D11Buffer</span><span class=o>&gt;</span> <span class=n>pConstantBuffer</span><span class=p>;</span>
+<span class=n>D3D11_BUFFER_DESC</span> <span class=n>cbd</span> <span class=o>=</span> <span class=p>{};</span>
+<span class=n>cbd</span><span class=p>.</span><span class=n>BindFlags</span> <span class=o>=</span> <span class=n>D3D11_BIND_CONSTANT_BUFFER</span><span class=p>;</span>
+<span class=n>cbd</span><span class=p>.</span><span class=n>Usage</span> <span class=o>=</span> <span class=n>D3D11_USAGE_DYNAMIC</span><span class=p>;</span>
+<span class=n>cbd</span><span class=p>.</span><span class=n>CPUAccessFlags</span> <span class=o>=</span> <span class=n>D3D11_CPU_ACCESS_WRITE</span><span class=p>;</span>
+<span class=n>cbd</span><span class=p>.</span><span class=n>MiscFlags</span> <span class=o>=</span> <span class=mi>0u</span><span class=p>;</span>
+<span class=n>cbd</span><span class=p>.</span><span class=n>ByteWidth</span> <span class=o>=</span> <span class=k>sizeof</span><span class=p>(</span><span class=n>cb</span><span class=p>);</span>
+<span class=n>cbd</span><span class=p>.</span><span class=n>StructureByteStride</span> <span class=o>=</span> <span class=mi>0u</span><span class=p>;</span>
+<span class=n>D3D11_SUBRESOURCE_DATA</span> <span class=n>csd</span> <span class=o>=</span> <span class=p>{};</span>
+<span class=n>csd</span><span class=p>.</span><span class=n>pSysMem</span> <span class=o>=</span> <span class=o>&amp;</span><span class=n>cb</span><span class=p>;</span>
+<span class=n>GFX_THROW_INFO</span><span class=p>(</span><span class=n>pDevice</span><span class=o>-&gt;</span><span class=n>CreateBuffer</span><span class=p>(</span><span class=o>&amp;</span><span class=n>cbd</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>csd</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>pConstantBuffer</span><span class=p>));</span>
+</code></pre></div><p><strong>Context Step</strong></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=c1>//// Attach const buffer to vertex shader
+</span><span class=c1></span><span class=n>pContext</span><span class=o>-&gt;</span><span class=n>VSSetConstantBuffers</span><span class=p>(</span><span class=mi>0u</span><span class=p>,</span> <span class=mi>1u</span><span class=p>,</span> <span class=n>pConstantBuffer</span><span class=p>.</span><span class=n>GetAddressOf</span><span class=p>());</span>
+</code></pre></div><p><strong>Device Step</strong></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=c1>//// Create another constant buffer for tagging triangle indexes to colors (individual colors per cube face)
+</span><span class=c1></span><span class=k>struct</span> <span class=nc>ConstantBuffer2</span> <span class=p>{</span>
+  <span class=k>struct</span> <span class=p>{</span>
+	<span class=kt>float</span> <span class=n>r</span><span class=p>;</span>
+	<span class=kt>float</span> <span class=n>g</span><span class=p>;</span>
+	<span class=kt>float</span> <span class=n>b</span><span class=p>;</span>
+	<span class=kt>float</span> <span class=n>a</span><span class=p>;</span>
+   <span class=p>}</span><span class=n>face_colors</span><span class=p>[</span><span class=mi>6</span><span class=p>];</span>
+<span class=p>};</span>
+
+<span class=k>const</span> <span class=n>ConstantBuffer2</span> <span class=n>cb2</span> <span class=o>=</span> <span class=p>{</span>
+	<span class=p>{</span>
+		<span class=p>{</span><span class=mf>1.0f</span><span class=p>,</span> <span class=mf>0.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>},</span>
+		<span class=p>{</span><span class=mf>1.0f</span><span class=p>,</span> <span class=mf>0.0f</span><span class=p>,</span> <span class=mf>0.0f</span><span class=p>},</span>
+		<span class=p>{</span><span class=mf>0.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>,</span> <span class=mf>0.0f</span><span class=p>},</span>
+		<span class=p>{</span><span class=mf>0.0f</span><span class=p>,</span> <span class=mf>0.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>},</span>
+		<span class=p>{</span><span class=mf>1.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>,</span> <span class=mf>0.0f</span><span class=p>},</span>
+		<span class=p>{</span><span class=mf>0.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>},</span>
+	<span class=p>}</span>
+<span class=p>};</span>
+
+<span class=n>wrl</span><span class=o>::</span><span class=n>ComPtr</span><span class=o>&lt;</span><span class=n>ID3D11Buffer</span><span class=o>&gt;</span> <span class=n>pConstantBuffer2</span><span class=p>;</span>
+<span class=n>D3D11_BUFFER_DESC</span> <span class=n>cbd2</span> <span class=o>=</span> <span class=p>{};</span>
+<span class=n>cbd2</span><span class=p>.</span><span class=n>BindFlags</span> <span class=o>=</span> <span class=n>D3D11_BIND_CONSTANT_BUFFER</span><span class=p>;</span>
+<span class=n>cbd2</span><span class=p>.</span><span class=n>Usage</span> <span class=o>=</span> <span class=n>D3D11_USAGE_DEFAULT</span><span class=p>;</span>
+<span class=n>cbd2</span><span class=p>.</span><span class=n>CPUAccessFlags</span> <span class=o>=</span> <span class=mi>0u</span><span class=p>;</span>
+<span class=n>cbd2</span><span class=p>.</span><span class=n>MiscFlags</span> <span class=o>=</span> <span class=mi>0u</span><span class=p>;</span>
+<span class=n>cbd2</span><span class=p>.</span><span class=n>ByteWidth</span> <span class=o>=</span> <span class=k>sizeof</span><span class=p>(</span><span class=n>cb2</span><span class=p>);</span>
+<span class=n>cbd2</span><span class=p>.</span><span class=n>StructureByteStride</span> <span class=o>=</span> <span class=mi>0u</span><span class=p>;</span>
+<span class=n>D3D11_SUBRESOURCE_DATA</span> <span class=n>csd2</span> <span class=o>=</span> <span class=p>{};</span>
+<span class=n>csd2</span><span class=p>.</span><span class=n>pSysMem</span> <span class=o>=</span> <span class=o>&amp;</span><span class=n>cb2</span><span class=p>;</span>
+<span class=n>GFX_THROW_INFO</span><span class=p>(</span><span class=n>pDevice</span><span class=o>-&gt;</span><span class=n>CreateBuffer</span><span class=p>(</span><span class=o>&amp;</span><span class=n>cbd2</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>csd2</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>pConstantBuffer2</span><span class=p>));</span>
+</code></pre></div><p><strong>Context Step</strong></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=c1>//// Attach const buffer to vertex shader
+</span><span class=c1></span><span class=n>pContext</span><span class=o>-&gt;</span><span class=n>PSSetConstantBuffers</span><span class=p>(</span><span class=mi>0u</span><span class=p>,</span> <span class=mi>1u</span><span class=p>,</span> <span class=n>pConstantBuffer2</span><span class=p>.</span><span class=n>GetAddressOf</span><span class=p>());</span>
+</code></pre></div><h3 id=input-layout>Input Layout</h3>
+<p><strong>Device Step</strong></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=c1>//// Input (vertex) layout (2d position only)
+</span><span class=c1></span><span class=n>wrl</span><span class=o>::</span><span class=n>ComPtr</span><span class=o>&lt;</span><span class=n>ID3D11InputLayout</span><span class=o>&gt;</span> <span class=n>pInputLayout</span><span class=p>;</span>
+<span class=k>const</span> <span class=n>D3D11_INPUT_ELEMENT_DESC</span> <span class=n>ied</span><span class=p>[]</span> <span class=o>=</span> <span class=p>{</span>
+<span class=c1>//	// Reads positions as 2 4 byte values
+</span><span class=c1></span>	<span class=p>{</span><span class=s>&#34;POSITION&#34;</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=n>DXGI_FORMAT_R32G32B32_FLOAT</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=n>D3D11_INPUT_PER_VERTEX_DATA</span><span class=p>,</span> <span class=mi>0</span><span class=p>},</span>
+<span class=c1>//	// Reads color as 4 byte values and normalizes them from 0 - 1
+</span><span class=c1></span>	 <span class=p>{</span><span class=s>&#34;COLOR&#34;</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=n>DXGI_FORMAT_R8G8B8A8_UNORM</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=n>D3D11_APPEND_ALIGNED_ELEMENT</span><span class=p>,</span> <span class=n>D3D11_INPUT_PER_VERTEX_DATA</span><span class=p>,</span> <span class=mi>0</span><span class=p>}</span>
+<span class=p>};</span>
+
+<span class=n>GFX_THROW_INFO</span><span class=p>(</span><span class=n>pDevice</span><span class=o>-&gt;</span><span class=n>CreateInputLayout</span><span class=p>(</span>
+	<span class=n>ied</span><span class=p>,</span> <span class=p>(</span><span class=n>UINT</span><span class=p>)</span><span class=n>std</span><span class=o>::</span><span class=n>size</span><span class=p>(</span><span class=n>ied</span><span class=p>),</span>
+	<span class=n>pBlob</span><span class=o>-&gt;</span><span class=n>GetBufferPointer</span><span class=p>(),</span>
+	<span class=n>pBlob</span><span class=o>-&gt;</span><span class=n>GetBufferSize</span><span class=p>(),</span>
+	<span class=o>&amp;</span><span class=n>pInputLayout</span>
+<span class=p>));</span>
+</code></pre></div><p><strong>Context Step</strong></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=c1>//// Bind Input Layout
+</span><span class=c1></span><span class=n>pContext</span><span class=o>-&gt;</span><span class=n>IASetInputLayout</span><span class=p>(</span><span class=n>pInputLayout</span><span class=p>.</span><span class=n>Get</span><span class=p>());</span>
+</code></pre></div><h3 id=topology>Topology</h3>
+<p><strong>Context Step</strong></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=c1>// Set primitive topology to triangle list (groups of verticies make multiple triangles)
+</span><span class=c1></span><span class=n>pContext</span><span class=o>-&gt;</span><span class=n>IASetPrimitiveTopology</span><span class=p>(</span><span class=n>D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST</span><span class=p>);</span>
+</code></pre></div><h1 id=drawable--bindable-framework-design>Drawable & Bindable Framework Design</h1>
+<p><em><strong>The Drawable & Bindable Graphics framework was designed by PlanetChilli (Otherwise known as ChiliTomatoNoodle on yt)</strong></em></p>
+<p><strong>The framework is designed to shorten and abstract the creation of objects in DirectX. There are 3 parts of it, the Graphics interface, the Bindable Interface, and the Drawable Interface. These all work together to allow multiple object creation in a single 3D scene</strong></p>
+<h2 id=graphics>Graphics</h2>
+<p><strong>This interface is the main controller of 3D scene</strong></p>
+<h3 id=pipeline-setup>Pipeline setup</h3>
+<p><strong>This interface will handle the creation of the crucial components of the pipeline (Device, Swap Chain, Context)</strong></p>
+<p>Along with that, it will keep a reference to:</p>
+<ul>
+<li>Device</li>
+<li>Swap Chain</li>
+<li>Context</li>
+<li>RenderTargetView
+: A pipeline handled data structure for referencing the current back buffer</li>
+<li>DepthStencilView
+: A pipeline handled data structure for referncing the current depth view frame</li>
+<li>A projection matrix
+: Used for translating the vertex position to 3D camera space (perspective, orthographic)</li>
+</ul>
+<p>There are also five key functions to the Graphics interface:</p>
+<ul>
+<li><code>EndFrame()</code>
+: Presents the current back buffer by switching the front and back buffer</li>
+<li><code>ClearBuffer()</code>
+: Wipes everything on the current back buffer</li>
+<li><code>DrawIndex()</code>
+: Draws onto the back buffer with the resources attached to the pipeline (assumes that indexing is done, can be changed to work without indexing)</li>
+<li><code>SetProjection()</code>
+: Updates the current projection matrix in the 3D Scene</li>
+<li><code>GetProjection()</code>
+: Returns the current project matrix being used in the 3D scene</li>
+</ul>
+<h2 id=bindable>Bindable</h2>
+<p><strong>This interface represents one of the data structures that can be attached to the pipline</strong></p>
+<p>Some examples of Bindable structures are:</p>
+<ul>
+<li>VertexBuffer</li>
+<li>ConstantBuffers</li>
+<li>IndexBuffer</li>
+<li>InputLayout</li>
+<li>Shaders (Vertex and Pixel)</li>
+<li>Topology</li>
+<li>etc</li>
+</ul>
+<p>The only function required of a Bindable is called <code>Bind()</code>. The expected implementation is that the context step of attaching to the pipeline is done in this function while the device step is handled in the constructor.</p>
+<h3 id=helper-functions>Helper Functions</h3>
+<p><strong>There are helper functions that only Bindable objects can call, these are implemented by the Bindable interface and allow Bindables to interact with the Graphics instance:</strong></p>
+<ul>
+<li><code>GetContext()</code>
+: Returns the current reference to the Context of a Graphics instance</li>
+<li><code>GetDevice()</code>
+: Returns the current reference to the Device of a Graphics instance</li>
+</ul>
+<h2 id=drawable>Drawable</h2>
+<p><strong>This interface represents a drawable object such as a Box, Triangle, or any other 3D(or 2D) object</strong></p>
+<p>There are 5 functions tied to a Drawable:</p>
+<ul>
+<li><code>GetTransformXM()</code>
+: Returns the current transformation matrix of the object (rotation + translation + etc, excluding the projection matrix stored in Graphics)</li>
+<li><code>Draw()</code>
+: Binds the Drawable&rsquo;s bindables to the pipeline and tells the Graphics instance to draw it</li>
+<li><code>AddBind()</code>
+: Adds a bindable to the Drawable&rsquo;s collection</li>
+<li><code>AddIndexBuffer()</code>
+: Performs the same as AddBind() except with the condition that only 1 IndexBuffer can be added to a Drawable object</li>
+<li><code>Update()</code>
+: Performs changes to a Drawable&rsquo;s state based off a change of time (movement, rotation, scaling, etc)</li>
+</ul>
+<p>The Drawable interface already implements the crucial functions listed, new Drawables will only need to implement certain functions due to behavior varying between Drawables:</p>
+<ul>
+<li><code>GetTransformXM()</code></li>
+<li><code>Update()</code></li>
+</ul>
+<p>The expected behavior is that creating Bindables and adding them to Drawables are done in a Drawable constructor</p>
+<h3 id=example-of-the-drawable--bindable-framework>Example of the Drawable & Bindable Framework</h3>
+<p><strong>Box.h</strong></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=cp>#include</span> <span class=cpf>&#34;Drawable.h&#34;</span><span class=cp>
+</span><span class=cp></span><span class=k>class</span> <span class=nc>Box</span> <span class=o>:</span> <span class=k>public</span> <span class=n>Drawable</span>
+<span class=p>{</span>
+<span class=k>public</span><span class=o>:</span>
+	<span class=n>Box</span><span class=p>(</span><span class=n>Graphics</span><span class=o>&amp;</span> <span class=n>gfx</span><span class=p>,</span>
+		<span class=n>std</span><span class=o>::</span><span class=n>mt19937</span><span class=o>&amp;</span> <span class=n>rng</span><span class=p>,</span>
+		<span class=n>std</span><span class=o>::</span><span class=n>uniform_real_distribution</span><span class=o>&lt;</span><span class=kt>float</span><span class=o>&gt;&amp;</span> <span class=n>adist</span><span class=p>,</span>
+		<span class=n>std</span><span class=o>::</span><span class=n>uniform_real_distribution</span><span class=o>&lt;</span><span class=kt>float</span><span class=o>&gt;&amp;</span> <span class=n>ddist</span><span class=p>,</span>
+		<span class=n>std</span><span class=o>::</span><span class=n>uniform_real_distribution</span><span class=o>&lt;</span><span class=kt>float</span><span class=o>&gt;&amp;</span> <span class=n>odist</span><span class=p>,</span>
+		<span class=n>std</span><span class=o>::</span><span class=n>uniform_real_distribution</span><span class=o>&lt;</span><span class=kt>float</span><span class=o>&gt;&amp;</span> <span class=n>rdist</span><span class=p>);</span>
+	<span class=kt>void</span> <span class=nf>Update</span><span class=p>(</span><span class=kt>float</span> <span class=n>dt</span><span class=p>)</span> <span class=k>noexcept</span> <span class=k>override</span><span class=p>;</span>
+	<span class=n>DirectX</span><span class=o>::</span><span class=n>XMMATRIX</span> <span class=n>GetTransformXM</span><span class=p>()</span> <span class=k>const</span> <span class=k>noexcept</span> <span class=k>override</span><span class=p>;</span>
+<span class=k>private</span><span class=o>:</span>
+	<span class=kt>float</span> <span class=n>r</span><span class=p>;</span>
+	<span class=c1>// z-axis
+</span><span class=c1></span>	<span class=kt>float</span> <span class=n>roll</span> <span class=o>=</span> <span class=mf>0.0f</span><span class=p>;</span>
+	<span class=c1>// x-axis
+</span><span class=c1></span>	<span class=kt>float</span> <span class=n>pitch</span> <span class=o>=</span> <span class=mf>0.0f</span><span class=p>;</span>
+	<span class=c1>// y-axis
+</span><span class=c1></span>	<span class=kt>float</span> <span class=n>yaw</span> <span class=o>=</span> <span class=mf>0.0f</span><span class=p>;</span>
+	<span class=kt>float</span> <span class=n>theta</span><span class=p>;</span>
+	<span class=kt>float</span> <span class=n>phi</span><span class=p>;</span>
+	<span class=kt>float</span> <span class=n>chi</span><span class=p>;</span>
+
+	<span class=c1>// z-axis
+</span><span class=c1></span>	<span class=kt>float</span> <span class=n>droll</span><span class=p>;</span>
+	<span class=c1>// x-axis
+</span><span class=c1></span>	<span class=kt>float</span> <span class=n>dpitch</span><span class=p>;</span>
+	<span class=c1>// y-axis
+</span><span class=c1></span>	<span class=kt>float</span> <span class=n>dyaw</span><span class=p>;</span>
+	<span class=kt>float</span> <span class=n>dtheta</span><span class=p>;</span>
+	<span class=kt>float</span> <span class=n>dphi</span><span class=p>;</span>
+	<span class=kt>float</span> <span class=n>dchi</span><span class=p>;</span>
+<span class=p>};</span>
+</code></pre></div><p><strong>Box.cpp (constructor)</strong></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=n>Box</span><span class=o>::</span><span class=n>Box</span><span class=p>(</span><span class=n>Graphics</span><span class=o>&amp;</span> <span class=n>gfx</span><span class=p>,</span>
+	<span class=n>std</span><span class=o>::</span><span class=n>mt19937</span><span class=o>&amp;</span> <span class=n>rng</span><span class=p>,</span>
+	<span class=n>std</span><span class=o>::</span><span class=n>uniform_real_distribution</span><span class=o>&lt;</span><span class=kt>float</span><span class=o>&gt;&amp;</span> <span class=n>adist</span><span class=p>,</span>
+	<span class=n>std</span><span class=o>::</span><span class=n>uniform_real_distribution</span><span class=o>&lt;</span><span class=kt>float</span><span class=o>&gt;&amp;</span> <span class=n>ddist</span><span class=p>,</span>
+	<span class=n>std</span><span class=o>::</span><span class=n>uniform_real_distribution</span><span class=o>&lt;</span><span class=kt>float</span><span class=o>&gt;&amp;</span> <span class=n>odist</span><span class=p>,</span>
+	<span class=n>std</span><span class=o>::</span><span class=n>uniform_real_distribution</span><span class=o>&lt;</span><span class=kt>float</span><span class=o>&gt;&amp;</span> <span class=n>rdist</span><span class=p>)</span> <span class=o>:</span>
+	<span class=n>r</span><span class=p>(</span><span class=n>rdist</span><span class=p>(</span><span class=n>rng</span><span class=p>)),</span>
+	<span class=n>droll</span><span class=p>(</span><span class=n>ddist</span><span class=p>(</span><span class=n>rng</span><span class=p>)),</span>
+	<span class=n>dpitch</span><span class=p>(</span><span class=n>ddist</span><span class=p>(</span><span class=n>rng</span><span class=p>)),</span>
+	<span class=n>dyaw</span><span class=p>(</span><span class=n>ddist</span><span class=p>(</span><span class=n>rng</span><span class=p>)),</span>
+	<span class=n>dphi</span><span class=p>(</span><span class=n>odist</span><span class=p>(</span><span class=n>rng</span><span class=p>)),</span>
+	<span class=n>dtheta</span><span class=p>(</span><span class=n>odist</span><span class=p>(</span><span class=n>rng</span><span class=p>)),</span>
+	<span class=n>dchi</span><span class=p>(</span><span class=n>odist</span><span class=p>(</span><span class=n>rng</span><span class=p>)),</span>
+	<span class=n>chi</span><span class=p>(</span><span class=n>adist</span><span class=p>(</span><span class=n>rng</span><span class=p>)),</span>
+	<span class=n>theta</span><span class=p>(</span><span class=n>adist</span><span class=p>(</span><span class=n>rng</span><span class=p>)),</span>
+	<span class=n>phi</span><span class=p>(</span><span class=n>adist</span><span class=p>(</span><span class=n>rng</span><span class=p>))</span>
+<span class=p>{</span>
+	<span class=k>struct</span> <span class=nc>Vertex</span> <span class=p>{</span>
+		<span class=k>struct</span> <span class=p>{</span>
+			<span class=kt>float</span> <span class=n>x</span><span class=p>;</span>
+			<span class=kt>float</span> <span class=n>y</span><span class=p>;</span>
+			<span class=kt>float</span> <span class=n>z</span><span class=p>;</span>
+		<span class=p>}</span><span class=n>pos</span><span class=p>;</span>
+		<span class=k>struct</span> <span class=p>{</span>
+			<span class=kt>unsigned</span> <span class=kt>char</span> <span class=n>r</span><span class=p>;</span>
+			<span class=kt>unsigned</span> <span class=kt>char</span> <span class=n>g</span><span class=p>;</span>
+			<span class=kt>unsigned</span> <span class=kt>char</span> <span class=n>b</span><span class=p>;</span>
+		<span class=p>}</span><span class=n>color</span><span class=p>;</span>
+	<span class=p>};</span>
+
+	<span class=k>const</span> <span class=n>std</span><span class=o>::</span><span class=n>vector</span><span class=o>&lt;</span><span class=n>Vertex</span><span class=o>&gt;</span> <span class=n>vertices</span> <span class=o>=</span>
+	<span class=p>{</span>
+		<span class=p>{</span><span class=o>-</span><span class=mf>1.0f</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0f</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0f</span><span class=p>,</span> <span class=mi>255</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>255</span> <span class=p>},</span>
+		<span class=p>{</span><span class=mf>1.0f</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0f</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0f</span><span class=p>,</span> <span class=mi>255</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span> <span class=p>},</span>
+		<span class=p>{</span><span class=o>-</span><span class=mf>1.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0f</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span><span class=mi>255</span><span class=p>,</span><span class=mi>0</span><span class=p>},</span>
+		<span class=p>{</span><span class=mf>1.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0f</span><span class=p>,</span>  <span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>255</span><span class=p>},</span>
+		<span class=p>{</span><span class=o>-</span><span class=mf>1.0f</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>,</span> <span class=mi>255</span><span class=p>,</span><span class=mi>255</span><span class=p>,</span><span class=mi>0</span><span class=p>},</span>
+		<span class=p>{</span><span class=mf>1.0f</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span><span class=mi>255</span><span class=p>,</span><span class=mi>255</span><span class=p>},</span>
+		<span class=p>{</span><span class=o>-</span><span class=mf>1.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>,</span> <span class=mi>255</span><span class=p>,</span><span class=mi>255</span><span class=p>,</span><span class=mi>255</span><span class=p>},</span>
+		<span class=p>{</span><span class=mf>1.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>,</span> <span class=mf>1.0f</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span><span class=mi>255</span><span class=p>,</span><span class=mi>255</span><span class=p>}</span>
+	<span class=p>};</span>
+
+	<span class=n>AddBind</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>make_unique</span><span class=o>&lt;</span><span class=n>VertexBuffer</span><span class=o>&lt;</span><span class=n>Vertex</span><span class=o>&gt;&gt;</span><span class=p>(</span><span class=n>gfx</span><span class=p>,</span> <span class=n>vertices</span><span class=p>));</span>
+
+	<span class=k>auto</span> <span class=n>pvs</span> <span class=o>=</span> <span class=n>std</span><span class=o>::</span><span class=n>make_unique</span><span class=o>&lt;</span><span class=n>VertexShader</span><span class=o>&gt;</span><span class=p>(</span><span class=n>gfx</span><span class=p>,</span> <span class=sa>L</span><span class=s>&#34;VertexShader.cso&#34;</span><span class=p>);</span>
+	<span class=k>auto</span> <span class=n>pvbc</span> <span class=o>=</span> <span class=n>pvs</span><span class=o>-&gt;</span><span class=n>GetByteCode</span><span class=p>();</span>
+	<span class=n>AddBind</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>move</span><span class=p>(</span><span class=n>pvs</span><span class=p>));</span>
+
+	<span class=n>AddBind</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>make_unique</span><span class=o>&lt;</span><span class=n>PixelShader</span><span class=o>&gt;</span><span class=p>(</span><span class=n>gfx</span><span class=p>,</span> <span class=sa>L</span><span class=s>&#34;PixelShader.cso&#34;</span><span class=p>));</span>
+
+	<span class=k>const</span> <span class=n>std</span><span class=o>::</span><span class=n>vector</span><span class=o>&lt;</span><span class=kt>unsigned</span> <span class=kt>short</span><span class=o>&gt;</span> <span class=n>indices</span> <span class=o>=</span>
+	<span class=p>{</span>
+		<span class=mi>0</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span>
+		<span class=mi>1</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>5</span><span class=p>,</span> <span class=mi>3</span><span class=p>,</span><span class=mi>7</span><span class=p>,</span><span class=mi>5</span><span class=p>,</span>
+		<span class=mi>2</span><span class=p>,</span><span class=mi>6</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span> <span class=mi>3</span><span class=p>,</span><span class=mi>6</span><span class=p>,</span><span class=mi>7</span><span class=p>,</span>
+		<span class=mi>4</span><span class=p>,</span><span class=mi>5</span><span class=p>,</span><span class=mi>7</span><span class=p>,</span> <span class=mi>4</span><span class=p>,</span><span class=mi>7</span><span class=p>,</span><span class=mi>6</span><span class=p>,</span>
+		<span class=mi>0</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>6</span><span class=p>,</span>
+		<span class=mi>0</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span><span class=mi>5</span><span class=p>,</span><span class=mi>4</span>
+	<span class=p>};</span>
+
+	<span class=n>AddIndexBuffer</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>make_unique</span><span class=o>&lt;</span><span class=n>IndexBuffer</span><span class=o>&gt;</span><span class=p>(</span><span class=n>gfx</span><span class=p>,</span> <span class=n>indices</span><span class=p>));</span>
+
+	<span class=k>struct</span> <span class=nc>FaceColorConstantBuffer</span> <span class=p>{</span>
+		<span class=k>struct</span> <span class=p>{</span>
+			<span class=kt>float</span> <span class=n>r</span><span class=p>;</span>
+			<span class=kt>float</span> <span class=n>g</span><span class=p>;</span>
+			<span class=kt>float</span> <span class=n>b</span><span class=p>;</span>
+			<span class=kt>float</span> <span class=n>a</span><span class=p>;</span>
+		<span class=p>}</span><span class=n>face_colors</span><span class=p>[</span><span class=mi>6</span><span class=p>];</span>
+	<span class=p>};</span>
+
+	<span class=k>const</span> <span class=n>std</span><span class=o>::</span><span class=n>vector</span><span class=o>&lt;</span><span class=n>D3D11_INPUT_ELEMENT_DESC</span><span class=o>&gt;</span> <span class=n>ied</span> <span class=o>=</span>
+	<span class=p>{</span>
+		<span class=p>{</span><span class=s>&#34;POSITION&#34;</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=n>DXGI_FORMAT_R32G32B32_FLOAT</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=n>D3D11_INPUT_PER_VERTEX_DATA</span><span class=p>,</span> <span class=mi>0</span><span class=p>},</span>
+		<span class=p>{</span><span class=s>&#34;COLOR&#34;</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=n>DXGI_FORMAT_R8G8B8A8_UNORM</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=n>D3D11_APPEND_ALIGNED_ELEMENT</span><span class=p>,</span> <span class=n>D3D11_INPUT_PER_VERTEX_DATA</span><span class=p>,</span> <span class=mi>0</span><span class=p>}</span>
+	<span class=p>};</span>
+
+	<span class=n>AddBind</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>make_unique</span><span class=o>&lt;</span><span class=n>InputLayout</span><span class=o>&gt;</span><span class=p>(</span><span class=n>gfx</span><span class=p>,</span> <span class=n>ied</span><span class=p>,</span> <span class=n>pvbc</span><span class=p>));</span>
+
+	<span class=n>AddBind</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>make_unique</span><span class=o>&lt;</span><span class=n>Topology</span><span class=o>&gt;</span><span class=p>(</span><span class=n>D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST</span><span class=p>));</span>
+
+	<span class=n>AddBind</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>make_unique</span><span class=o>&lt;</span><span class=n>TransformConstantBuffer</span><span class=o>&gt;</span><span class=p>(</span><span class=n>gfx</span><span class=p>,</span> <span class=o>*</span><span class=k>this</span><span class=p>));</span>
+<span class=p>}</span>
+</code></pre></div><p><strong>Box.cpp (Update)</strong></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=kt>void</span> <span class=n>Box</span><span class=o>::</span><span class=n>Update</span><span class=p>(</span><span class=kt>float</span> <span class=n>dt</span><span class=p>)</span> <span class=k>noexcept</span> <span class=p>{</span>
+	<span class=n>roll</span> <span class=o>+=</span> <span class=n>droll</span> <span class=o>*</span> <span class=n>dt</span><span class=p>;</span>
+	<span class=n>pitch</span> <span class=o>+=</span> <span class=n>dpitch</span> <span class=o>*</span> <span class=n>dt</span><span class=p>;</span>
+	<span class=n>yaw</span> <span class=o>+=</span> <span class=n>dyaw</span> <span class=o>*</span> <span class=n>dt</span><span class=p>;</span>
+	<span class=n>phi</span> <span class=o>+=</span> <span class=n>dphi</span> <span class=o>*</span> <span class=n>dt</span><span class=p>;</span>
+	<span class=n>chi</span> <span class=o>+=</span> <span class=n>dchi</span> <span class=o>*</span> <span class=n>dt</span><span class=p>;</span>
+<span class=p>}</span>
+</code></pre></div><p><strong>Box.cpp (GetTransformXM)</strong></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=n>DirectX</span><span class=o>::</span><span class=n>XMMATRIX</span> <span class=n>Box</span><span class=o>::</span><span class=n>GetTransformXM</span><span class=p>()</span> <span class=k>const</span> <span class=k>noexcept</span> <span class=p>{</span>
+	<span class=k>return</span> <span class=n>DirectX</span><span class=o>::</span><span class=n>XMMatrixRotationRollPitchYaw</span><span class=p>(</span><span class=n>pitch</span><span class=p>,</span> <span class=n>yaw</span><span class=p>,</span> <span class=n>roll</span><span class=p>)</span> <span class=o>*</span>
+		<span class=n>DirectX</span><span class=o>::</span><span class=n>XMMatrixTranslation</span><span class=p>(</span><span class=n>r</span><span class=p>,</span> <span class=mf>0.0f</span><span class=p>,</span> <span class=mf>0.0f</span><span class=p>)</span><span class=o>*</span>
+		<span class=n>DirectX</span><span class=o>::</span><span class=n>XMMatrixRotationRollPitchYaw</span><span class=p>(</span><span class=n>theta</span><span class=p>,</span> <span class=n>phi</span><span class=p>,</span> <span class=n>chi</span><span class=p>)</span><span class=o>*</span>
+		<span class=n>DirectX</span><span class=o>::</span><span class=n>XMMatrixTranslation</span><span class=p>(</span><span class=mf>0.0f</span><span class=p>,</span> <span class=mf>0.0f</span><span class=p>,</span> <span class=mf>20.0f</span><span class=p>);</span>
+
+<span class=p>}</span>
+</code></pre></div><p><strong>Main</strong></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=n>std</span><span class=o>::</span><span class=n>mt19937</span> <span class=n>rng</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>random_device</span><span class=p>{}());</span>
+<span class=n>std</span><span class=o>::</span><span class=n>uniform_real_distribution</span><span class=o>&lt;</span><span class=kt>float</span><span class=o>&gt;</span> <span class=n>adist</span><span class=p>(</span><span class=mf>0.0f</span><span class=p>,</span> <span class=mf>3.1415f</span> <span class=o>*</span> <span class=mf>2.0f</span><span class=p>);</span>
+<span class=n>std</span><span class=o>::</span><span class=n>uniform_real_distribution</span><span class=o>&lt;</span><span class=kt>float</span><span class=o>&gt;</span> <span class=n>ddist</span><span class=p>(</span><span class=mf>0.0f</span><span class=p>,</span> <span class=mf>3.1415f</span> <span class=o>*</span> <span class=mf>2.0f</span><span class=p>);</span>
+<span class=n>std</span><span class=o>::</span><span class=n>uniform_real_distribution</span><span class=o>&lt;</span><span class=kt>float</span><span class=o>&gt;</span> <span class=n>odist</span><span class=p>(</span><span class=mf>0.0f</span><span class=p>,</span> <span class=mf>3.1415f</span> <span class=o>*</span> <span class=mf>2.0f</span><span class=p>);</span>
+<span class=n>std</span><span class=o>::</span><span class=n>uniform_real_distribution</span><span class=o>&lt;</span><span class=kt>float</span><span class=o>&gt;</span> <span class=n>rdist</span><span class=p>(</span><span class=mf>6.0f</span><span class=p>,</span> <span class=mf>20.0f</span><span class=p>);</span>
+
+<span class=k>for</span> <span class=p>(</span><span class=k>auto</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=mi>150</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+	<span class=n>boxes</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>make_unique</span><span class=o>&lt;</span><span class=n>Box</span><span class=o>&gt;</span><span class=p>(</span>
+		<span class=p>(</span><span class=n>Graphics</span> <span class=n>instance</span> <span class=n>here</span><span class=p>),</span>
+		<span class=n>rng</span><span class=p>,</span>
+		<span class=n>adist</span><span class=p>,</span>
+		<span class=n>ddist</span><span class=p>,</span>
+		<span class=n>odist</span><span class=p>,</span>
+		<span class=n>rdist</span>
+	<span class=p>));</span>
+<span class=p>}</span>
+
+<span class=p>(</span><span class=n>Graphics</span> <span class=n>instance</span> <span class=n>here</span><span class=p>).</span><span class=n>SetProjecton</span><span class=p>(</span><span class=n>DirectX</span><span class=o>::</span><span class=n>XMMatrixPerspectiveLH</span><span class=p>(</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>3.0f</span> <span class=o>/</span> <span class=mf>4.0f</span><span class=p>,</span> <span class=mf>0.5f</span><span class=p>,</span> <span class=mf>40.0f</span><span class=p>));</span>
+</code></pre></div><p><strong>Some other function that executes a frame</strong></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=k>auto</span> <span class=n>dt</span> <span class=o>=</span> <span class=n>timer</span><span class=p>.</span><span class=n>Mark</span><span class=p>();</span>
+<span class=p>(</span><span class=n>Graphics</span> <span class=n>instance</span> <span class=n>here</span><span class=p>).</span><span class=n>ClearBuffer</span><span class=p>(</span><span class=mf>0.07f</span><span class=p>,</span> <span class=mf>0.0f</span><span class=p>,</span> <span class=mf>0.12f</span><span class=p>);</span>
+<span class=k>for</span> <span class=p>(</span><span class=k>auto</span><span class=o>&amp;</span> <span class=nl>b</span> <span class=p>:</span> <span class=n>boxes</span><span class=p>)</span> <span class=p>{</span>
+	<span class=n>b</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>(</span><span class=n>dt</span><span class=o>/</span><span class=mi>8</span><span class=p>);</span>
+	<span class=n>b</span><span class=o>-&gt;</span><span class=n>Draw</span><span class=p>((</span><span class=n>Graphics</span> <span class=n>instance</span> <span class=n>here</span><span class=p>));</span>
+<span class=p>}</span>
+<span class=p>(</span><span class=n>Graphics</span> <span class=n>instance</span> <span class=n>here</span><span class=p>).</span><span class=n>EndFrame</span><span class=p>();</span>
+</code></pre></div><p><figure>
+<a href=https://media.giphy.com/media/hVsP8KfbcwItVhMg5s/giphy-downsized-large.gif>
+<img src=https://media.giphy.com/media/hVsP8KfbcwItVhMg5s/giphy-downsized-large.gif loading=lazy alt="Result of Code">
+</a>
+<figcaption>Result of Code</figcaption>
+</figure></p>
+<p><a class=link href=https://media.giphy.com/media/hVsP8KfbcwItVhMg5s/giphy-downsized.gif target=_blank rel=noopener>GIF Source Link</a></p>
+</section>
+<footer class=article-footer>
+<section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span>
+</section>
+</footer>
+</article>
+<aside class=related-contents--wrapper>
+</aside>
+<div class=disqus-container>
+<div id=disqus_thread></div>
+<script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return}var b=document,a=b.createElement('script');a.async=!0,a.src='//hugo-theme-stack.disqus.com/embed.js',a.setAttribute('data-timestamp',+new Date),(b.head||b.body).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</div>
+<style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style>
+<script>window.addEventListener('onColorSchemeChange',a=>{DISQUS&&DISQUS.reset({reload:!0})})</script>
+<footer class=site-footer>
+<section class=copyright>
+&copy;
+2020 -
+2022 Esau's Page
+</section>
+<section class=powerby>
+Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>
+Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.5.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>
+</section>
+</footer>
+<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
+<div class=pswp__bg></div>
+<div class=pswp__scroll-wrap>
+<div class=pswp__container>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+</div>
+<div class="pswp__ui pswp__ui--hidden">
+<div class=pswp__top-bar>
+<div class=pswp__counter></div>
+<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+<div class=pswp__preloader>
+<div class=pswp__preloader__icn>
+<div class=pswp__preloader__cut>
+<div class=pswp__preloader__donut></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+<div class=pswp__share-tooltip></div>
+</div>
+<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+</button>
+<div class=pswp__caption>
+<div class=pswp__caption__center></div>
+</div>
+</div>
+</div>
+</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css integrity="sha256-c0uckgykQ9v5k+IqViZOZKc47Jn7KQil4/MP3ySA3F8=" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE=" crossorigin=anonymous>
+</main>
+<aside class="sidebar right-sidebar sticky">
+<section class="widget archives">
+<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
+</div>
+<h2 class="widget-title section-title">Table of contents</h2>
+<div class=widget--toc>
+<nav id=TableOfContents>
+<ol>
+<li><a href=#device>Device</a></li>
+<li><a href=#swap-chain>Swap Chain</a></li>
+<li><a href=#context>Context</a></li>
+<li><a href=#extra>Extra</a></li>
+<li><a href=#creating-an-object>Creating an Object</a>
+<ol>
+<li><a href=#example-of-creating-a-box>Example of creating a box</a></li>
+<li><a href=#vertex-buffer>Vertex Buffer</a></li>
+<li><a href=#index-buffer>Index Buffer</a></li>
+<li><a href=#constant-buffers-vertex-and-pixel>Constant Buffers (Vertex and Pixel)</a></li>
+<li><a href=#input-layout>Input Layout</a></li>
+<li><a href=#topology>Topology</a></li>
+</ol>
+</li>
+</ol>
+<ol>
+<li><a href=#graphics>Graphics</a>
+<ol>
+<li><a href=#pipeline-setup>Pipeline setup</a></li>
+</ol>
+</li>
+<li><a href=#bindable>Bindable</a>
+<ol>
+<li><a href=#helper-functions>Helper Functions</a></li>
+</ol>
+</li>
+<li><a href=#drawable>Drawable</a>
+<ol>
+<li><a href=#example-of-the-drawable--bindable-framework>Example of the Drawable & Bindable Framework</a></li>
+</ol>
+</li>
+</ol>
+</nav>
+</div>
+</section>
+</aside>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin=anonymous defer></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
+</body>
+</html>
