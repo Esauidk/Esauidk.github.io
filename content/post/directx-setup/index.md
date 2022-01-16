@@ -1,5 +1,5 @@
 ---
-title: "DirectX Setup"
+title: "DirectX 3D Intro"
 author: Esau Abraham
 date: 2021-12-22T18:11:43-08:00
 draft: false
