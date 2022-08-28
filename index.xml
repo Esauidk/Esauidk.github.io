@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Esau's Page</title><link>/</link><description>Recent content on Esau's Page</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 28 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>PersonalityManGame Blog 1: Unreal Engine Intro</title><link>/p/personalitymangame-blog-1-unreal-engine-intro/</link><pubDate>Sat, 27 Aug 2022 00:00:00 +0000</pubDate><guid>/p/personalitymangame-blog-1-unreal-engine-intro/</guid><description>&lt;img src="https://media.giphy.com/media/22VCh90itjL8rr5uza/giphy.gif" alt="Featured image of post PersonalityManGame Blog 1: Unreal Engine Intro" />&lt;p>&lt;strong>Ever heard of Unreal Engine?&lt;/strong>&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Esau's Page</title><link>/</link><description>Recent content on Esau's Page</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 28 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>My Unreal Adventure! Blog 1: Unreal Engine Intro</title><link>/p/my-unreal-adventure-blog-1-unreal-engine-intro/</link><pubDate>Sat, 27 Aug 2022 00:00:00 +0000</pubDate><guid>/p/my-unreal-adventure-blog-1-unreal-engine-intro/</guid><description>&lt;img src="https://media.giphy.com/media/22VCh90itjL8rr5uza/giphy.gif" alt="Featured image of post My Unreal Adventure! Blog 1: Unreal Engine Intro" />&lt;p>&lt;strong>Ever heard of Unreal Engine?&lt;/strong>&lt;/p>
 &lt;p>&lt;figure
 >
 &lt;a href="https://knowtechie.com/wp-content/uploads/2022/04/unreal-engine-5.jpg" >
@@ -42,9 +42,16 @@ alt="Blueprints exmaple">
 &lt;h3 id="c-coding">C++ Coding&lt;/h3>
 &lt;p>Unreal Engine is built and compiled in C++, it comes with libraries that allow users to create their Unreal Objects, Classes, Modules, Game Systems, and more&lt;/p>
 &lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 184;
+flex-basis: 443px"
 >
-&lt;a href="/content/post/unreal-engine-intro/cplusShot.png" >
-&lt;img src="/content/post/unreal-engine-intro/cplusShot.png"
+&lt;a href="/p/my-unreal-adventure-blog-1-unreal-engine-intro/cplusShot.png" data-size="1920x1040">
+&lt;img src="/p/my-unreal-adventure-blog-1-unreal-engine-intro/cplusShot.png"
+width="1920"
+height="1040"
+srcset="/p/my-unreal-adventure-blog-1-unreal-engine-intro/cplusShot_hu15c650f631927a821a010d1e5ac398a8_303712_480x0_resize_box_3.png 480w, /p/my-unreal-adventure-blog-1-unreal-engine-intro/cplusShot_hu15c650f631927a821a010d1e5ac398a8_303712_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="Image of Visual Studio">
 &lt;/a>
