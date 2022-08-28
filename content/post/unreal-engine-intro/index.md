@@ -1,5 +1,5 @@
 ---
-title: "PersonalityManGame Blog 1: Unreal Engine Intro"
+title: "My Unreal Adventure! Blog 1: Unreal Engine Intro"
 author: Esau Abraham
 date: 2022-08-27
 draft: false
@@ -37,7 +37,7 @@ Blueprints are a visual scripting interface that allows you to code using visual
 ### C++ Coding
 Unreal Engine is built and compiled in C++, it comes with libraries that allow users to create their Unreal Objects, Classes, Modules, Game Systems, and more
 
-![**Image of Visual Studio**](/content/post/unreal-engine-intro/cplusShot.png "C++ Enviornment Example in Visual Studios")
+![**Image of Visual Studio**](cplusShot.png "C++ Enviornment Example in Visual Studios")
 
 ### Compatibility
 The blueprint system and C++ enviornment is designed in a way that your code can easily be converted between the two types
