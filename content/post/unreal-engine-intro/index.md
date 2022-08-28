@@ -3,7 +3,10 @@ title: "PersonalityManGame Blog 1: Unreal Engine Intro"
 author: Esau Abraham
 date: 2022-08-27
 draft: false
-categories: Unreal Engine, Game Development, C++
+categories: 
+    - Unreal Engine
+    - Game Development
+    - C++
 description: My exploration with coding in C++ with Unreal Engine 5
 image: https://media.giphy.com/media/22VCh90itjL8rr5uza/giphy.gif
 ---
