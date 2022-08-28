@@ -1,13 +1,13 @@
 ---
 title: About
 description: Esau Abraham, Computer Science student
-date: '2021-11-15'
+date: '2022-08-28'
 aliases:
   - about-us
   - about-hugo
   - contact
 license: CC BY-NC-ND
-lastmod: '2021-11-15'
+lastmod: '2022-08-28'
 menu:
     main: 
         weight: -90

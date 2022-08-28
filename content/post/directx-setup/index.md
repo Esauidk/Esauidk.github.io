@@ -45,7 +45,7 @@ The names **front** and **back** represent which buffer is the one being present
 
 Once the drawing of the **back** buffer has been completed, the buffers will be *switched* and the previous **back** buffer will be the current **front** buffer while the previous **front** buffer will be the current **back** buffer
 
-![A representation of a triple buffer swap chain](https://upload.wikimedia.org/wikipedia/en/thumb/d/df/Swap_chain_depiction.svg/1920px-Swap_chain_depiction.svg.png "A representation of a triple buffer swap chain")
+![A representation of a triple buffer swap chain](https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Swap_chain_depiction.svg/440px-Swap_chain_depiction.svg.png "A representation of a triple buffer swap chain")
 
 [**For more information about the swap chain**](https://docs.microsoft.com/en-us/windows/win32/direct3d9/what-is-a-swap-chain-)
 
