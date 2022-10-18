@@ -526,7 +526,409 @@ alt="workingTank">
 &lt;/a>
 &lt;figcaption>workingTank&lt;/figcaption>
 &lt;/figure>&lt;/p>
-&lt;p>Viola! A working moving, shooting, and rotating tank!&lt;/p></description></item><item><title>My Unreal Adventure! Blog 1: Unreal Engine Intro</title><link>/p/my-unreal-adventure-blog-1-unreal-engine-intro/</link><pubDate>Sat, 27 Aug 2022 00:00:00 +0000</pubDate><guid>/p/my-unreal-adventure-blog-1-unreal-engine-intro/</guid><description>&lt;img src="https://media.giphy.com/media/22VCh90itjL8rr5uza/giphy.gif" alt="Featured image of post My Unreal Adventure! Blog 1: Unreal Engine Intro" />&lt;p>&lt;strong>Ever heard of Unreal Engine?&lt;/strong>&lt;/p>
+&lt;p>Viola! A working moving, shooting, and rotating tank!&lt;/p>
+&lt;h1 id="enemy">Enemy&lt;/h1>
+&lt;p>Now that we have a working tank, it&amp;rsquo;s time to make a target to shoot at! ENEMIES&lt;/p>
+&lt;p>Let&amp;rsquo;s start witha dummy enemy, just to shoot at&lt;/p>
+&lt;h2 id="dummy">Dummy&lt;/h2>
+&lt;h3 id="sprite-1">Sprite&lt;/h3>
+&lt;p>Again we need a visual representation of the enemy, let&amp;rsquo;s use the &lt;code>hexagon flat top&lt;/code> default sprite from Unity! Also let&amp;rsquo;s do the same hierarchy we did with the player (Empty -&amp;gt; Body)&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 331;
+flex-basis: 795px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/dummyEnemySprite.png" data-size="2042x616">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/dummyEnemySprite.png"
+width="2042"
+height="616"
+srcset="/p/game-development-club-tutorial-top-down-shooter/dummyEnemySprite_hu961f5ade31df9f783b3f0cc02e0742b3_92148_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/dummyEnemySprite_hu961f5ade31df9f783b3f0cc02e0742b3_92148_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="dummySprite">
+&lt;/a>
+&lt;figcaption>dummySprite&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>Let&amp;rsquo;s go ahead and make this a prefab for future use&lt;/p>
+&lt;h3 id="collision">Collision&lt;/h3>
+&lt;p>So if you move the player towards the enemy or shoot at it, you&amp;rsquo;ll notice that everything goes through it. That&amp;rsquo;s because there is no notion of collision for this enemy. We can fix that by adding a collider!&lt;/p>
+&lt;p>Go ahead an add a &lt;code>CircleCollider2D&lt;/code> this is a circular collider for our enemy (close enough to the hexagon shape, does not need to be exact)&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 232;
+flex-basis: 559px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/dummyEnemyCollider.png" data-size="1752x752">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/dummyEnemyCollider.png"
+width="1752"
+height="752"
+srcset="/p/game-development-club-tutorial-top-down-shooter/dummyEnemyCollider_hu17a38894c067936b87f80de432167e1d_159813_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/dummyEnemyCollider_hu17a38894c067936b87f80de432167e1d_159813_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="enemyCollider">
+&lt;/a>
+&lt;figcaption>enemyCollider&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>This is not enough, colliders only work against other colliders, so we need to add colliders to our canonballs and player&lt;/p>
+&lt;p>Go ahead an add a &lt;code>CircleCollider2D&lt;/code> to the canonball prefab and a &lt;code>BoxCollider2D&lt;/code> to our player&lt;/p>
+&lt;p>Now if we launch the game, we&amp;rsquo;ll see that everything collides now!&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://media.giphy.com/media/aRmSs5rcZvRyOQfzCM/giphy.gif" >
+&lt;img src="https://media.giphy.com/media/aRmSs5rcZvRyOQfzCM/giphy.gif"
+loading="lazy"
+alt="shootDummy">
+&lt;/a>
+&lt;figcaption>shootDummy&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;h3 id="enemy-statuslogic">Enemy Status/Logic&lt;/h3>
+&lt;p>So now we have a visual representation of the enemy, we need to give it some substance (health, damage, death)&lt;/p>
+&lt;p>We&amp;rsquo;re going to create a script for any enemy to use, but we&amp;rsquo;re going to do it in a different way. In the project tab right click and do &lt;code>Create -&amp;gt; C# Script&lt;/code> and let&amp;rsquo;s call it &lt;code>EnemyBase&lt;/code> this will hold logic that all enemies need&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">UnityEngine&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">public&lt;/span> &lt;span class="k">class&lt;/span> &lt;span class="nc">EnemyBase&lt;/span> &lt;span class="p">:&lt;/span> &lt;span class="n">MonoBehaviour&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na"> [SerializeField]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">maxHealth&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="m">5&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">curHealth&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Start is called before the first frame update&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">void&lt;/span> &lt;span class="n">Start&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">curHealth&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">maxHealth&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// This runs whenever an object with a collider touches this object&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">OnCollisionEnter2D&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Collision2D&lt;/span> &lt;span class="n">other&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">other&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">collider&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">tag&lt;/span> &lt;span class="p">==&lt;/span> &lt;span class="s">&amp;#34;canon&amp;#34;&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">curHealth&lt;/span> &lt;span class="p">&amp;lt;=&lt;/span> &lt;span class="m">1&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Destroy&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">gameObject&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>&lt;span class="k">else&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">curHealth&lt;/span>&lt;span class="p">--;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>If you check in the code, we compare against a &lt;code>tag&lt;/code>, this is a piece of metadata you can attach to objects, we&amp;rsquo;re going to give this metadata to our canons.&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 117;
+flex-basis: 280px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/tagCanon.png" data-size="702x600">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/tagCanon.png"
+width="702"
+height="600"
+srcset="/p/game-development-club-tutorial-top-down-shooter/tagCanon_hu0df016ac953ad458bae90921f18a33ef_125245_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/tagCanon_hu0df016ac953ad458bae90921f18a33ef_125245_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="tagCanon">
+&lt;/a>
+&lt;figcaption>tagCanon&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>To test this, let&amp;rsquo;s attach it to our dummy enemy&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://media.giphy.com/media/AK5OjYa5HDJgRYs3Vo/giphy.gif" >
+&lt;img src="https://media.giphy.com/media/AK5OjYa5HDJgRYs3Vo/giphy.gif"
+loading="lazy"
+alt="dummytest">
+&lt;/a>
+&lt;figcaption>dummytest&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>Awesome! We have an enemy that albiet can&amp;rsquo;t move or attack you, can take damage and die!&lt;/p>
+&lt;p>Side note: We can do the same logic we used for destroying the enemy for the canonballs. In &lt;code>CanonballAction&lt;/code>, we can add:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">OnCollisionEnter2D&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Collision2D&lt;/span> &lt;span class="n">other&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Destroy&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">gameObject&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;figure
+>
+&lt;a href="https://media.giphy.com/media/hAFCRiQZ6NiYcFzLJj/giphy.gif" >
+&lt;img src="https://media.giphy.com/media/hAFCRiQZ6NiYcFzLJj/giphy.gif"
+loading="lazy"
+alt="canonDie">
+&lt;/a>
+&lt;figcaption>canonDie&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;h2 id="follow-enenmy">Follow Enenmy&lt;/h2>
+&lt;p>Now with this base enenmy logic, let&amp;rsquo;s make an enemy that follows the player&lt;/p>
+&lt;h3 id="follow-logic">Follow Logic&lt;/h3>
+&lt;p>Let&amp;rsquo;s make a new script called &lt;code>FollowEnemy&lt;/code>. It will inherit the logic from &lt;code>EnemyBase&lt;/code> (health, damage, death), but we will insert new logic for following the player&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">UnityEngine&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">public&lt;/span> &lt;span class="k">class&lt;/span> &lt;span class="nc">FollowEnemy&lt;/span> &lt;span class="p">:&lt;/span> &lt;span class="n">EnemyBase&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na"> [SerializeField]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="n">Transform&lt;/span> &lt;span class="n">target&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na"> [SerializeField]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">movementSpeed&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Update is called once per frame&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">void&lt;/span> &lt;span class="n">Update&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Vector2&lt;/span> &lt;span class="n">direction&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">target&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">position&lt;/span> &lt;span class="p">-&lt;/span> &lt;span class="n">transform&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">position&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">float&lt;/span> &lt;span class="n">angle&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Mathf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Atan2&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">direction&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">direction&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">*&lt;/span> &lt;span class="n">Mathf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Rad2Deg&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">transform&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rotation&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Quaternion&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Euler&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">angle&lt;/span> &lt;span class="p">-&lt;/span> &lt;span class="m">90&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">transform&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">position&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">transform&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">up&lt;/span> &lt;span class="p">*&lt;/span> &lt;span class="n">movementSpeed&lt;/span> &lt;span class="p">*&lt;/span> &lt;span class="n">Time&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">deltaTime&lt;/span> &lt;span class="p">+&lt;/span> &lt;span class="n">transform&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">position&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>This tells the enemy to look at the target and move towards it&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://media.giphy.com/media/jWHOUvPe0NJO8oasMv/giphy.gif" >
+&lt;img src="https://media.giphy.com/media/jWHOUvPe0NJO8oasMv/giphy.gif"
+loading="lazy"
+alt="followEnemy">
+&lt;/a>
+&lt;figcaption>followEnemy&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;h3 id="damaging-player">Damaging Player&lt;/h3>
+&lt;p>Now that our enemy can follow the player, we need to let it damage the player. Let&amp;rsquo;s go back to &lt;code>PlayerController&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">maxHealth&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="m">5&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">curHealth&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">invisTime&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="m">2&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="kt">bool&lt;/span> &lt;span class="n">invis&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">false&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">OnTriggerStay2D&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Collider2D&lt;/span> &lt;span class="n">other&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">other&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">tag&lt;/span> &lt;span class="p">==&lt;/span> &lt;span class="s">&amp;#34;Enemy&amp;#34;&lt;/span> &lt;span class="p">&amp;amp;&amp;amp;&lt;/span> &lt;span class="p">!&lt;/span>&lt;span class="n">invis&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">curHealth&lt;/span> &lt;span class="p">&amp;lt;=&lt;/span> &lt;span class="m">1&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Debug&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Dead!&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>&lt;span class="k">else&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">StartCoroutine&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">takeDamage&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="n">IEnumerator&lt;/span> &lt;span class="n">takeDamage&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">invis&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">true&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">curHealth&lt;/span>&lt;span class="p">--;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">yield&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">WaitForSeconds&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">invisTime&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">invis&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">false&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>This uses a part of the colider system! &lt;strong>Trigger&lt;/strong>! Imagine you want to detect collision without enacting the actual collision, that&amp;rsquo;s what triggers are!&lt;/p>
+&lt;p>Make sure to create an &lt;code>Enemy&lt;/code> tag for the Enemy GameObject and have these settings on the player object&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 55;
+flex-basis: 132px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/playerCollision.png" data-size="678x1230">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/playerCollision.png"
+width="678"
+height="1230"
+srcset="/p/game-development-club-tutorial-top-down-shooter/playerCollision_hu3d4be69c0a952b966e95a14cc097389b_129822_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/playerCollision_hu3d4be69c0a952b966e95a14cc097389b_129822_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="playerCollision">
+&lt;/a>
+&lt;figcaption>playerCollision&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;h1 id="game-manager--singletons">Game Manager / Singletons&lt;/h1>
+&lt;p>Now that we have a working player and a working enemy we need a way to share critical information between entities in the game and perform critical game events&lt;/p>
+&lt;p>We call these objects &lt;code>Managers&lt;/code> or &lt;code>Singletons&lt;/code>, they are unique objects that have no copy existing in a scene that is accessible from all scripts&lt;/p>
+&lt;h2 id="general-game-manager">General Game Manager&lt;/h2>
+&lt;p>Some things we want to do is:&lt;/p>
+&lt;ol>
+&lt;li>Reset the level/game&lt;/li>
+&lt;li>Spawn the player at a particular position&lt;/li>
+&lt;li>Distribute the player&amp;rsquo;s position so all enemies can find it&lt;/li>
+&lt;li>Whatever else we think we want to handle :3&lt;/li>
+&lt;/ol>
+&lt;p>Let&amp;rsquo;s start with creating our GameManager object(empty gameobject) along with a &lt;code>GameManager&lt;/code> script:&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 125;
+flex-basis: 300px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/gameManager.png" data-size="700x560">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/gameManager.png"
+width="700"
+height="560"
+srcset="/p/game-development-club-tutorial-top-down-shooter/gameManager_hu3ab0d054d8f87c494667285616ae78fb_67907_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/gameManager_hu3ab0d054d8f87c494667285616ae78fb_67907_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="gamemanager">
+&lt;/a>
+&lt;figcaption>gamemanager&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">UnityEngine&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">UnityEngine.SceneManagement&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">public&lt;/span> &lt;span class="k">class&lt;/span> &lt;span class="nc">GameManager&lt;/span> &lt;span class="p">:&lt;/span> &lt;span class="n">MonoBehaviour&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="k">static&lt;/span> &lt;span class="n">GameManager&lt;/span> &lt;span class="n">_instance&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">static&lt;/span> &lt;span class="n">GameManager&lt;/span> &lt;span class="n">instance&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">get&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">_instance&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na"> [SerializeField]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="n">Transform&lt;/span> &lt;span class="n">playerSpawnLocation&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na"> [SerializeField]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="n">GameObject&lt;/span> &lt;span class="n">playerObject&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="n">Transform&lt;/span> &lt;span class="n">playerPosition&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">Awake&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_instance&lt;/span> &lt;span class="p">==&lt;/span> &lt;span class="k">null&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">_instance&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">DontDestroyOnLoad&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">gameObject&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>&lt;span class="k">else&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Destroy&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">gameObject&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Start is called before the first frame update&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">void&lt;/span> &lt;span class="n">Start&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">spawnPlayer&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="n">Transform&lt;/span> &lt;span class="n">getPlayerPosition&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">playerPosition&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">spawnPlayer&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">GameObject&lt;/span> &lt;span class="n">player&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Instantiate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">playerObject&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">playerSpawnLocation&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">position&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Quaternion&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">identity&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">playerPosition&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">player&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">transform&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">reset&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">spawnPlayer&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>DontDestroyOnLoad&lt;/code> is a special method that marks a gameobject to never to be deleted when changing unity scenes (ex: changing levels).&lt;/p>
+&lt;p>A static variable belongs to the class and can be accessed from anywhere, hence why we have the variable &lt;code>instance&lt;/code>. This way, anyone can touch this manager and call its methods&lt;/p>
+&lt;h2 id="updating-existing-functions">Updating Existing Functions&lt;/h2>
+&lt;h3 id="follow-enemy">Follow Enemy&lt;/h3>
+&lt;p>If you remember, our enemy uses the transform of our player to figure out how to move towards it. Sadly this won&amp;rsquo;t work at scale since we had to manually assign the transform variable in the inspector.&lt;/p>
+&lt;p>Now that we have &lt;code>GameManager&lt;/code> which can return to us the player&amp;rsquo;s position, now is a great time to update that code.&lt;/p>
+&lt;p>Let&amp;rsquo;s make some changes to &lt;code>EnemyBase&lt;/code> and &lt;code>FollowEnemy&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// EnemyBase.cs&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">virtual&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">Start&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">curHealth&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">maxHealth&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// FollowEnemy.cs&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="n">Transform&lt;/span> &lt;span class="n">target&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">override&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">Start&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">target&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">GameManager&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">instance&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">getPlayerPosition&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">base&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Start&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Update is called once per frame&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">void&lt;/span> &lt;span class="n">Update&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">target&lt;/span> &lt;span class="p">==&lt;/span> &lt;span class="k">null&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">target&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">GameManager&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">instance&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">getPlayerPosition&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>&lt;span class="k">else&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Vector2&lt;/span> &lt;span class="n">direction&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">target&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">position&lt;/span> &lt;span class="p">-&lt;/span> &lt;span class="n">transform&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">position&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">float&lt;/span> &lt;span class="n">angle&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Mathf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Atan2&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">direction&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">direction&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">*&lt;/span> &lt;span class="n">Mathf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Rad2Deg&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">transform&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rotation&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Quaternion&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Euler&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">angle&lt;/span> &lt;span class="p">-&lt;/span> &lt;span class="m">90&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">transform&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">position&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">transform&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">up&lt;/span> &lt;span class="p">*&lt;/span> &lt;span class="n">movementSpeed&lt;/span> &lt;span class="p">*&lt;/span> &lt;span class="n">Time&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">deltaTime&lt;/span> &lt;span class="p">+&lt;/span> &lt;span class="n">transform&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">position&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="player-death">Player Death&lt;/h3>
+&lt;p>Currently, if you player dies, only a print statement in the console is done. Let&amp;rsquo;s reset the game if the player dies&lt;/p>
+&lt;p>Going back to &lt;code>PlayerController&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">OnTriggerStay2D&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Collider2D&lt;/span> &lt;span class="n">other&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">other&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">tag&lt;/span> &lt;span class="p">==&lt;/span> &lt;span class="s">&amp;#34;Enemy&amp;#34;&lt;/span> &lt;span class="p">&amp;amp;&amp;amp;&lt;/span> &lt;span class="p">!&lt;/span>&lt;span class="n">invis&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">curHealth&lt;/span> &lt;span class="p">&amp;lt;=&lt;/span> &lt;span class="m">1&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">GameManager&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">instance&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">reset&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Destroy&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">gameObject&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>&lt;span class="k">else&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">StartCoroutine&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">takeDamage&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>We&amp;rsquo;ll destroy this version of the player and let the game manger handle recreating it, along with it&amp;rsquo;s details&lt;/p>
+&lt;p>Now if we put multiple enemies into the scene:
+&lt;figure
+>
+&lt;a href="https://media.giphy.com/media/FMoBHGx8MqFVtGprP1/giphy.gif" >
+&lt;img src="https://media.giphy.com/media/FMoBHGx8MqFVtGprP1/giphy.gif"
+loading="lazy"
+alt="enemieees">
+&lt;/a>
+&lt;figcaption>enemieees&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>Everything is looking good, very promising! Of course, the game manager can be extended further in the future, but for now let&amp;rsquo;s move on&lt;/p>
+&lt;h1 id="camera">Camera&lt;/h1>
+&lt;p>The game camera is what allows you to view what is happening in your scene. Since objects move around in a since, they will eventually move outside of the scope of the camera. But we always have things we want to never leave the frame of the camera: THE PLAYER&lt;/p>
+&lt;p>Currently the camera is stantionary, does not move at allllll. Let&amp;rsquo;s make the camera follow the the player now!&lt;/p>
+&lt;p>In our scene, we always have an object that is chosen to be the camera. In this case it is called &lt;code>Main Camera&lt;/code>&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 67;
+flex-basis: 161px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/camera.png" data-size="694x1032">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/camera.png"
+width="694"
+height="1032"
+srcset="/p/game-development-club-tutorial-top-down-shooter/camera_hu04dee188e45fdfa64545c81ff3d1c427_112366_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/camera_hu04dee188e45fdfa64545c81ff3d1c427_112366_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="camera">
+&lt;/a>
+&lt;figcaption>camera&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>Let&amp;rsquo;s add a new script to this object called &lt;code>CameraFollow&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">UnityEngine&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">public&lt;/span> &lt;span class="k">class&lt;/span> &lt;span class="nc">CameraFollow&lt;/span> &lt;span class="p">:&lt;/span> &lt;span class="n">MonoBehaviour&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na"> [SerializeField]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na"> [Range(0.005f, 0.05f)]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">followSpeed&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="n">Transform&lt;/span> &lt;span class="n">target&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Start is called before the first frame update&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">void&lt;/span> &lt;span class="n">Start&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">target&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">GameManager&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">instance&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">getPlayerPosition&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// LateUpdate gets called after Update and FixedUpdate&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">void&lt;/span> &lt;span class="n">LateUpdate&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">target&lt;/span> &lt;span class="p">==&lt;/span> &lt;span class="k">null&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">target&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">GameManager&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">instance&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">getPlayerPosition&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>&lt;span class="k">else&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Vector2&lt;/span> &lt;span class="n">newPos&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Vector2&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Lerp&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">transform&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">position&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">target&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">position&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">followSpeed&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">transform&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">position&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Vector3&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">newPos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">newPos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">transform&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">position&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">z&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>This script does a simple action of moving the position towards the player&amp;rsquo;s position at a given speed.&lt;/p>
+&lt;p>Again, with our game manager already made, grabbing the player&amp;rsquo;s position is very easy&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://media.giphy.com/media/QDDQC4fhRGeoMrTc9l/giphy.gif" >
+&lt;img src="https://media.giphy.com/media/QDDQC4fhRGeoMrTc9l/giphy.gif"
+loading="lazy"
+alt="cameraAction">
+&lt;/a>
+&lt;figcaption>cameraAction&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;h1 id="ui">UI&lt;/h1>
+&lt;p>At this point, we&amp;rsquo;ve created almost all the pieces needed before we can start making levels&lt;/p>
+&lt;p>We have a notion of health under the hood but we can&amp;rsquo;t tell that it exists on the screen. It&amp;rsquo;s time to add a UI&lt;/p>
+&lt;h2 id="health-bar">Health Bar&lt;/h2></description></item><item><title>My Unreal Adventure! Blog 1: Unreal Engine Intro</title><link>/p/my-unreal-adventure-blog-1-unreal-engine-intro/</link><pubDate>Sat, 27 Aug 2022 00:00:00 +0000</pubDate><guid>/p/my-unreal-adventure-blog-1-unreal-engine-intro/</guid><description>&lt;img src="https://media.giphy.com/media/22VCh90itjL8rr5uza/giphy.gif" alt="Featured image of post My Unreal Adventure! Blog 1: Unreal Engine Intro" />&lt;p>&lt;strong>Ever heard of Unreal Engine?&lt;/strong>&lt;/p>
 &lt;p>&lt;figure
 >
 &lt;a href="https://knowtechie.com/wp-content/uploads/2022/04/unreal-engine-5.jpg" >
