@@ -8,7 +8,7 @@ categories:
     - Game Development
     - C#
 description: A tutorial to make very simple top down shooter
-image: https://media.giphy.com/media/22VCh90itjL8rr5uza/giphy.gif
+image: https://media.giphy.com/media/XBuy9qvp3CDZes7YC5/giphy.gif
 ---
 
 # Welcome!
@@ -511,6 +511,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject playerObject;
     private Transform playerPosition;
+    private GameObject curPlayer;
 
     public void Awake(){
         if(_instance == null){
@@ -532,19 +533,21 @@ public class GameManager : MonoBehaviour
     }
 
     public void spawnPlayer(){
-        GameObject player = Instantiate(playerObject, playerSpawnLocation.position, Quaternion.identity);
-        playerPosition = player.transform;
+        curPlayer = Instantiate(playerObject, playerSpawnLocation.position, Quaternion.identity);
+        playerPosition = curPlayer.transform;
     }
 
     public void reset(){
+        Destroy(curPlayer);
         spawnPlayer();
     }
 }
 ```
-`DontDestroyOnLoad` is a special method that marks a gameobject to never to be deleted when changing unity scenes (ex: changing levels). 
+`DontDestroyOnLoad` is a special method that marks a gameobject to never to be deleted when changing unity scenes (ex: changing levels)
 
 A static variable belongs to the class and can be accessed from anywhere, hence why we have the variable `instance`. This way, anyone can touch this manager and call its methods
 
+To keep in mind for future reference, the logic inside the `Awake()` method is general what is done when creating singletons
 ## Updating Existing Functions
 
 ### Follow Enemy
@@ -597,7 +600,6 @@ Going back to `PlayerController`:
         if(other.tag == "Enemy" && !invis){
             if(curHealth <= 1){
                 GameManager.instance.reset();
-                Destroy(this.gameObject);
             }else{
                 StartCoroutine(takeDamage());
             }
@@ -664,4 +666,299 @@ At this point, we've created almost all the pieces needed before we can start ma
 
 We have a notion of health under the hood but we can't tell that it exists on the screen. It's time to add a UI
 
+To add a canvas, go to the hierarchy, right click and create a canvas, name it `UI`
+
+![uiCreation](uiCreation.png)
+
+On the UI, set the canvas scaler to scale with the screen size (WE DON'T WANT A FIXED SIZED CANVAS)
+
+![canvasScaler](canvasScaler.png)
+
+Let's make this a prefab so we can spawn it in through the `GameManager`
+
+For easier editing, I recommend opening up the UI prefab so all you have to see is the UI area
+
 ## Health Bar
+
+### Sprite
+We need a sprite to use for the health bar. Guess what? We're gonna use default sprites AGAIN!
+
+Go ahead and go to the projet tab and create a sprite rectangle
+
+![healthSprite](healthBarSprite.png)
+
+Make sure to name it `healthbar` or something similar so we can find it later
+
+Go ahead and create a UI image under the UI gameobject
+
+![healthUI](healthUI.png)
+
+call it `HealthBarBg`, we're going to use it as the background for our health bar
+
+In the Inspector, set the image to be the healthbar sprite we created in the project tab (it might be a different name, but it's a rectangle sprite)
+
+Go ahead and make it black too
+
+![setting](healthBarSetting.png)
+
+Next, duplicate this object and make it a child of `HealthBarBg` call it just `HealthBar`. Set it to these settings:
+
+![healthBar](redHealthBar.png)
+
+### UI Logic
+
+Since there is only every going to be one existing UI, let's make it a `Singleton/Manager`! That way anything that needs to touch the UI can reach it
+
+On the top UI gameobject, creating a script called `UIManager`. Using the similar logic to the `GameManager`
+
+```csharp
+using UnityEngine;
+using UnityEngine.UI;
+
+public class UIManager : MonoBehaviour
+{
+    private static UIManager _instance;
+    public static UIManager instance{
+        get{
+            return _instance;
+        }
+    }
+
+    [SerializeField]
+    private Image healthBar;
+
+    public void Awake(){
+        if(_instance == null){
+            _instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }else{
+            Destroy(this.gameObject);
+        }
+    }
+
+    public void setHealth(float precentage){
+        healthBar.fillAmount = precentage;
+    }
+}
+```
+
+Inside `GameManager` we're going to make some additional changes:
+```csharp
+    [SerializeField]
+    private GameObject uiObject;
+    ...
+
+    void Start()
+    {
+        spawnUI();
+        spawnPlayer();
+    }
+
+    ...
+
+    public void spawnUI(){
+        Instantiate(uiObject, Vector3.zero, Quaternion.identity);
+    }
+```
+
+In the inspector you can attach the health bar image as `UIManager`'s `healthbar` variable. You can also set the UI prefab to be the `uiObject` variable in `GameManager`
+
+Let's start using this healthbar!!! In `PlayerController`, we'll make a tiny change:
+
+```csharp
+    void Start()
+    {
+        curHealth = maxHealth;
+        UIManager.instance.setHealth(1);
+    }
+
+    ...
+
+    public IEnumerator takeDamage(){
+        invis = true;
+        curHealth--;
+        UIManager.instance.setHealth(curHealth/maxHealth);
+        yield return new WaitForSeconds(invisTime);
+        invis = false;
+    }
+```
+
+Now we have a working health bar!!!
+![healthInAction](https://media.giphy.com/media/F5Z5yM28Fxdaz8olXK/giphy.gif)
+
+# Level Making
+
+With that, we have enough to make our level!!!
+
+## Boxing out level
+
+Let's clear out our scene to only have the camera, Global Light, GameManager, and Player Spawn position in it
+
+![minimal](minimalScene.png)
+
+Let's make this game a horror house, where you need to reach the end of the map without dying to win the game. 
+
+We're going to just block out the level using the default sprites of unity
+
+![levelBlock](levelBlock.png)
+
+This will be the layout of our level! If you run it now though, the player can easily move outside of the boudaries, so let's make boundaries!
+
+It's a pretty simple process, give all the blocks of the level colliders with the "Used by Composite" option toggled
+
+![boundary](boundary.png)
+
+Then give them a parent and attach the `Composite Collider 2D` component, this puts all the coliders together to be come one giant collider
+
+![composite](compositeBoundary.png)
+
+Now we need to change some things to the player:
+
+1. Change its box collider to not be a trigger
+2. Change this set up code in `PlayerController`
+
+```csharp
+    public void OnTriggerStay2D(Collider2D other){
+        if(other.tag == "Enemy" && !invis){
+            if(curHealth <= 1){
+                GameManager.instance.reset();
+            }else{
+                StartCoroutine(takeDamage());
+            }
+        }
+    }
+```
+to 
+```csharp
+    public void OnCollisionStay2D(Collision2D other){
+        if(other.collider.tag == "Enemy" && !invis){
+            if(curHealth <= 1){
+                GameManager.instance.reset();
+            }else{
+                StartCoroutine(takeDamage());
+            }
+        }
+    }
+```
+
+And now~ We have our boundary!!!
+
+![boundary](https://media.giphy.com/media/Z0nmLehvrWha49hzvI/giphy.gif)
+
+## Loop
+
+Let's add the finish line so when you making it to the end, it restarts to level
+
+We're just going to make an yellow capsule sprite with a 2D capsulef collider set to is Trigger
+
+![finishLine](finishCapsule.png)
+
+We're going to attach a new script to it called `Goal` and it will be a simple function
+
+```csharp
+using UnityEngine;
+
+public class Goal : MonoBehaviour
+{
+    public void OnTriggerEnter2D(Collider2D other){
+        if(other.tag == "Player"){
+            GameManager.instance.reset();
+        }
+    }
+}
+```
+
+If the player reaches this, reset the game! Reminder to give the player object to "Player" tag
+
+## Obstacles
+Now that we have a start and finish let's add some obstacles!
+
+We can just keep using the box sprite as a different color to be obstacles. 
+
+Remember to have the "Used by Compisite" option off for these obstacles
+
+![obstacles](obstacles.png)
+
+## Enemy Spawners
+Finally makes spawners for our enemies, so the player has something to worry about
+
+We're going to create empty gameobjects and give them trigger colliders (up to you what time), it will let us know if a player is in range to activate enemy spawning
+
+We're going to attach a script called `EnemySpawner` and inside it will hold:
+
+```csharp
+using UnityEngine;
+using System.Collections;
+
+public class EnemySpawner : MonoBehaviour
+{
+    [SerializeField]
+    private GameObject enemy;
+
+    [SerializeField]
+    private float enemyBurst;
+
+    [SerializeField]
+    private float cooldownTime;
+
+    private bool available = true;
+
+    public void OnTriggerEnter2D(Collider2D other){
+        if(other.tag == "Player" && available){
+            StartCoroutine(spawnEnemy());
+        }
+    }
+
+    private IEnumerator spawnEnemy(){
+        available = false;
+
+        for(int i = 0; i < enemyBurst; i++){
+            yield return new WaitForSeconds(0.5f);
+            Instantiate(enemy, transform.position, Quaternion.identity);
+        }
+
+        yield return new WaitForSeconds(cooldownTime);
+
+        available = true;
+        
+    }
+}
+```
+
+This will spawn our enemies if the player enters our trigger
+
+Now everything should be working properly except...
+
+![uhoh](https://media.giphy.com/media/9l6BTaWSGYppXXDtBg/giphy.gif)
+
+This is because the enemies don't have a rigidbody attached to them to enforce our boundaries for us! Let's go ahead and attach that
+
+![enemyEnforcer](enemyRigid.png)
+
+Now we have a working spawner!
+
+![kill](https://media.giphy.com/media/K4eG2XRfL0TGdM5Ehw/giphy.gif)
+
+![hurt](https://media.giphy.com/media/vvCoAJuKjf2pUvo1BZ/giphy.gif)
+
+Everythings working! Now for one final touch. Currently the background is blue due to the camera being set that way. 
+
+Let's make it fit the theme of the room! Go to the main camera and look at the enviornment tab. There you should see a background color to set, go ahead and set it to black
+
+![cambg](cameraBackground.png)
+
+Now we have a working game! 
+
+![final](https://media.giphy.com/media/XBuy9qvp3CDZes7YC5/giphy.gif)
+
+To summarize some of the main things we've created:
+- Working Character movement system
+- Canon shooting ability
+- GameManager System
+- UI Manager System
+- Collision
+- Game Loop
+- Enemies
+
+Hope you've learned many things in this tutorial!!!
+
