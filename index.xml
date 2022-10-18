@@ -1,4 +1,532 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Esau's Page</title><link>/</link><description>Recent content on Esau's Page</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 28 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>My Unreal Adventure! Blog 1: Unreal Engine Intro</title><link>/p/my-unreal-adventure-blog-1-unreal-engine-intro/</link><pubDate>Sat, 27 Aug 2022 00:00:00 +0000</pubDate><guid>/p/my-unreal-adventure-blog-1-unreal-engine-intro/</guid><description>&lt;img src="https://media.giphy.com/media/22VCh90itjL8rr5uza/giphy.gif" alt="Featured image of post My Unreal Adventure! Blog 1: Unreal Engine Intro" />&lt;p>&lt;strong>Ever heard of Unreal Engine?&lt;/strong>&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Esau's Page</title><link>/</link><description>Recent content on Esau's Page</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 16 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>Game Development Club Tutorial: Top Down Shooter</title><link>/p/game-development-club-tutorial-top-down-shooter/</link><pubDate>Sun, 16 Oct 2022 00:00:00 +0000</pubDate><guid>/p/game-development-club-tutorial-top-down-shooter/</guid><description>&lt;img src="https://media.giphy.com/media/22VCh90itjL8rr5uza/giphy.gif" alt="Featured image of post Game Development Club Tutorial: Top Down Shooter" />&lt;h1 id="welcome">Welcome!&lt;/h1>
+&lt;p>Welcome to the top down shooter tutorial! The purpose of this blog is to be used to follow along during the game development club tutorial meeting but all are welcome to view this and learn from it!&lt;/p>
+&lt;h1 id="getting-started">Getting Started&lt;/h1>
+&lt;h2 id="downloading-unity">Downloading Unity&lt;/h2>
+&lt;p>If you don&amp;rsquo;t already have Unity downloaded, go ahead and download the &lt;strong>&lt;a class="link" href="https://unity.com/download" target="_blank" rel="noopener"
+>hub&lt;/a>&lt;/strong>&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 289;
+flex-basis: 695px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/hub.png" data-size="2880x994">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/hub.png"
+width="2880"
+height="994"
+srcset="/p/game-development-club-tutorial-top-down-shooter/hub_huf68e7d75c7449343d525c7587c72f428_2271721_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/hub_huf68e7d75c7449343d525c7587c72f428_2271721_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Hub">
+&lt;/a>
+&lt;figcaption>Hub&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>Finishing signing in and navigate to the editor installation area&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 171;
+flex-basis: 411px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/editorinstall.png" data-size="2034x1186">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/editorinstall.png"
+width="2034"
+height="1186"
+srcset="/p/game-development-club-tutorial-top-down-shooter/editorinstall_huc99350abe2beda552a92cfe894d0671f_187908_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/editorinstall_huc99350abe2beda552a92cfe894d0671f_187908_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Editor">
+&lt;/a>
+&lt;figcaption>Editor&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>This tutorial will be using version &lt;strong>2021.3.11f1&lt;/strong> but what matters is that you use a version that is &lt;strong>2021.3.x&lt;/strong> and is &lt;strong>LTS&lt;/strong>&lt;/p>
+&lt;h2 id="creating-project">Creating Project&lt;/h2>
+&lt;p>We&amp;rsquo;re going to be creating a top down shooter so we&amp;rsquo;re going to want to use the 2D URP (Universal Render Pipeline). To ensures that the proper render settings are set&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 171;
+flex-basis: 411px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/projectCreation.png" data-size="2018x1178">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/projectCreation.png"
+width="2018"
+height="1178"
+srcset="/p/game-development-club-tutorial-top-down-shooter/projectCreation_hued6da820c98a54858c880b76565674f7_362215_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/projectCreation_hued6da820c98a54858c880b76565674f7_362215_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="project">
+&lt;/a>
+&lt;figcaption>project&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;h1 id="unity-introduction">Unity Introduction&lt;/h1>
+&lt;p>In case unity is new to you, here is a quick overivew of the parts of the unity editor&lt;/p>
+&lt;h2 id="hierarchy">Hierarchy&lt;/h2>
+&lt;p>This section of the editor shows you all the gameobjects in your scene and their relations to each other&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 52;
+flex-basis: 127px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/hierarchy.png" data-size="544x1028">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/hierarchy.png"
+width="544"
+height="1028"
+srcset="/p/game-development-club-tutorial-top-down-shooter/hierarchy_hu6ad4b4a24514b1fbaad76da5d33b511b_36917_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/hierarchy_hu6ad4b4a24514b1fbaad76da5d33b511b_36917_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="hierarchy">
+&lt;/a>
+&lt;figcaption>hierarchy&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;h2 id="views">Views&lt;/h2>
+&lt;p>There are two different cameras in use in the unity editor: the game camera &amp;amp; the scene camera&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 96;
+flex-basis: 231px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/views.png" data-size="1680x1744">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/views.png"
+width="1680"
+height="1744"
+srcset="/p/game-development-club-tutorial-top-down-shooter/views_hud4b7edc257eeba3ccfb18d4a5f2a8439_191435_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/views_hud4b7edc257eeba3ccfb18d4a5f2a8439_191435_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="views">
+&lt;/a>
+&lt;figcaption>views&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;h3 id="scene-view">Scene View&lt;/h3>
+&lt;p>The scene view is connected to the scene camera, this is controllable by the user and allows you to see around your scene&lt;/p>
+&lt;h3 id="game-view">Game View&lt;/h3>
+&lt;p>The game view is connected to the game camera, this is what the player &lt;em>potentially&lt;/em> will see (potentially because there can be more than one game camera in a scene). This is represented by an object in your scene marked as a camera. You can only move it if you move the camera object.&lt;/p>
+&lt;h2 id="inspector">Inspector&lt;/h2>
+&lt;p>Unity is a component based engine, this means that every object stores a collection of different scripts that do different things, they are all ran doing the object&amp;rsquo;s execution&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 72;
+flex-basis: 174px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/inspector.png" data-size="698x960">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/inspector.png"
+width="698"
+height="960"
+srcset="/p/game-development-club-tutorial-top-down-shooter/inspector_hu989e304cc4d6ef1cb1c48c4d3e382ae7_102469_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/inspector_hu989e304cc4d6ef1cb1c48c4d3e382ae7_102469_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="inspector">
+&lt;/a>
+&lt;figcaption>inspector&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;h2 id="project--console">Project &amp;amp; Console&lt;/h2>
+&lt;p>Project allows you to view all the assets you have available for use&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 222;
+flex-basis: 534px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/project.png" data-size="1540x692">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/project.png"
+width="1540"
+height="692"
+srcset="/p/game-development-club-tutorial-top-down-shooter/project_hu500896361bcf0faa43656b077628b6df_116898_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/project_hu500896361bcf0faa43656b077628b6df_116898_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="project">
+&lt;/a>
+&lt;figcaption>project&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>The console is a window used for debugging, it allows you to print information from your code&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 238;
+flex-basis: 572px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/console.png" data-size="1546x648">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/console.png"
+width="1546"
+height="648"
+srcset="/p/game-development-club-tutorial-top-down-shooter/console_hue79bc5d69054524e8cfce69ec59a4cc8_38052_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/console_hue79bc5d69054524e8cfce69ec59a4cc8_38052_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="console">
+&lt;/a>
+&lt;figcaption>console&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;h1 id="player">Player&lt;/h1>
+&lt;p>Getting started on making this top down, let&amp;rsquo;s start with the player&lt;/p>
+&lt;h2 id="sprite">Sprite&lt;/h2>
+&lt;p>We need some way to represent the character! We&amp;rsquo;re going to use the default spirtes available in unity to create the player&lt;/p>
+&lt;p>We&amp;rsquo;re going to create an empty gameboject and call it &lt;strong>playe&lt;/strong>r&lt;/p>
+&lt;p>We&amp;rsquo;re going to creating the body and call it &lt;strong>body&lt;/strong> and attach it to &lt;strong>player&lt;/strong>
+&lt;figure
+class="gallery-image"
+style="
+flex-grow: 157;
+flex-basis: 377px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/creatingSpirte.png" data-size="2158x1372">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/creatingSpirte.png"
+width="2158"
+height="1372"
+srcset="/p/game-development-club-tutorial-top-down-shooter/creatingSpirte_huf614cf6ca2f0abab915c5efae4f9e3fb_455484_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/creatingSpirte_huf614cf6ca2f0abab915c5efae4f9e3fb_455484_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="spirte">
+&lt;/a>
+&lt;figcaption>spirte&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>Let&amp;rsquo;s make this a tank! We&amp;rsquo;re going to attach the canon to it by creating another defaut sprite but attaching it to the &lt;strong>body&lt;/strong> GameObject. We&amp;rsquo;re also going to scale it to become a canon. We&amp;rsquo;re also going to name this gameobject &lt;strong>canon&lt;/strong>&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 290;
+flex-basis: 696px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/createCanon.png" data-size="2872x990">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/createCanon.png"
+width="2872"
+height="990"
+srcset="/p/game-development-club-tutorial-top-down-shooter/createCanon_hu338291832793733b8c1f85cd6ce6e9dd_301984_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/createCanon_hu338291832793733b8c1f85cd6ce6e9dd_301984_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="canon">
+&lt;/a>
+&lt;figcaption>canon&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>Perfect! Now we have our tank&lt;/p>
+&lt;h2 id="movement">Movement&lt;/h2>
+&lt;p>Now that we have a tank, let&amp;rsquo;s make it move!&lt;/p>
+&lt;p>Let&amp;rsquo;s create our own custom code for this, navigate to the player object, click on it, and in the inspector click &amp;ldquo;add compoent&amp;rdquo;&lt;/p>
+&lt;p>Navigate to the bottom of the of the components options and click &amp;ldquo;new script&amp;rdquo; and call it &lt;code>PlayerController&lt;/code>&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 160;
+flex-basis: 384px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/creatingController.png" data-size="2880x1800">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/creatingController.png"
+width="2880"
+height="1800"
+srcset="/p/game-development-club-tutorial-top-down-shooter/creatingController_hu63cd197203e8f773d3685414daf2ea57_461832_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/creatingController_hu63cd197203e8f773d3685414daf2ea57_461832_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="controller">
+&lt;/a>
+&lt;figcaption>controller&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>Inside of our new script we&amp;rsquo;re going to write this!&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">UnityEngine&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">public&lt;/span> &lt;span class="k">class&lt;/span> &lt;span class="nc">PlayerController&lt;/span> &lt;span class="p">:&lt;/span> &lt;span class="n">MonoBehaviour&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na"> [SerializeField]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">movementSpeed&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="m">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Start is called before the first frame update&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">void&lt;/span> &lt;span class="n">Start&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Update is called once per frame&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">void&lt;/span> &lt;span class="n">Update&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">HandleMovement&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">HandleMovement&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// If our horizontal buttons are pressed (a or d)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Input&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">GetButton&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Horizontal&amp;#34;&lt;/span>&lt;span class="p">)){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// which direction are we pressing (-1 == left and 1 == right)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">int&lt;/span> &lt;span class="n">direction&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Input&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">GetAxis&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Horizontal&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">&amp;lt;&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="p">?&lt;/span> &lt;span class="p">-&lt;/span>&lt;span class="m">1&lt;/span> &lt;span class="p">:&lt;/span> &lt;span class="m">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Update our horizontal position &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// (multiple by Time.deltaTime to ensure proper movement if frames come faster or later than normal)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">transform&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">position&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Vector3&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">transform&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">position&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">x&lt;/span> &lt;span class="p">+&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">Time&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">deltaTime&lt;/span> &lt;span class="p">*&lt;/span> &lt;span class="n">direction&lt;/span> &lt;span class="p">*&lt;/span> &lt;span class="n">movementSpeed&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">transform&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">position&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">transform&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">position&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">z&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// If our vertical buttons are pressed (w or s)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Input&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">GetButton&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Vertical&amp;#34;&lt;/span>&lt;span class="p">)){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// which direction are we pressing (-1 == down and 1 == up)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">int&lt;/span> &lt;span class="n">direction&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Input&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">GetAxis&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Vertical&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">&amp;lt;&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="p">?&lt;/span> &lt;span class="p">-&lt;/span>&lt;span class="m">1&lt;/span> &lt;span class="p">:&lt;/span> &lt;span class="m">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Update our vertical position &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// (multiple by Time.deltaTime to ensure proper movement if frames come faster or later than normal)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">transform&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">position&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Vector3&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">transform&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">position&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">transform&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">position&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">y&lt;/span> &lt;span class="p">+&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">Time&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">deltaTime&lt;/span> &lt;span class="p">*&lt;/span> &lt;span class="n">direction&lt;/span> &lt;span class="p">*&lt;/span> &lt;span class="n">movementSpeed&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">transform&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">position&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">z&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>This will update our position by a certain movement speed each frame if the vertical or horizontal buttons are pressed. This uses Unity&amp;rsquo;s input system (allows you to define specific inputs for actions)&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://media.giphy.com/media/0OfX7KEi59eIHkxg2V/giphy.gif" >
+&lt;img src="https://media.giphy.com/media/0OfX7KEi59eIHkxg2V/giphy.gif"
+loading="lazy"
+alt="movementFinished">
+&lt;/a>
+&lt;figcaption>movementFinished&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;h2 id="shooting">Shooting&lt;/h2>
+&lt;p>Now that we can move, let&amp;rsquo;s move on to shooting canonballs out of our canon!&lt;/p>
+&lt;p>To start off, let&amp;rsquo;s create out canon. We&amp;rsquo;re going to create the canon the same way we create the body of tank (with a circle sprite), but we&amp;rsquo;re going to scale down by some degree (you can choose what you&amp;rsquo;d like)&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 160;
+flex-basis: 384px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/canonball.png" data-size="2880x1800">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/canonball.png"
+width="2880"
+height="1800"
+srcset="/p/game-development-club-tutorial-top-down-shooter/canonball_hu63cd197203e8f773d3685414daf2ea57_495777_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/canonball_hu63cd197203e8f773d3685414daf2ea57_495777_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="canonballs">
+&lt;/a>
+&lt;figcaption>canonballs&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;h3 id="prefabs">Prefabs&lt;/h3>
+&lt;p>Since this is our canon balls, we&amp;rsquo;re going to need to create multiple copies of these. Prefabs are a way to store your GameObjects as assets to be used and copied later. To make this canon a prefab you just need to drag the gameobject from the hierarchy to the project tab. Let&amp;rsquo;s make the player a prefab too!&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 474;
+flex-basis: 1138px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/prefabs.png" data-size="1044x220">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/prefabs.png"
+width="1044"
+height="220"
+srcset="/p/game-development-club-tutorial-top-down-shooter/prefabs_huf0dfd54df6265e6b35ebac0cad7b2cbe_40564_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/prefabs_huf0dfd54df6265e6b35ebac0cad7b2cbe_40564_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="prefab">
+&lt;/a>
+&lt;figcaption>prefab&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>With that we&amp;rsquo;re going to go back to our &lt;code>PlayerController&lt;/code> and add a fire ability&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl">&lt;span class="na"> [SerializeField]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">movementSpeed&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="m">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na"> [SerializeField]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="n">GameObject&lt;/span> &lt;span class="n">canonBall&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na"> [SerializeField]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="n">Transform&lt;/span> &lt;span class="n">canonSpawnLocation&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Start is called before the first frame update&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">void&lt;/span> &lt;span class="n">Start&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Update is called once per frame&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">void&lt;/span> &lt;span class="n">Update&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">HandleMovement&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">HandleCanonFiring&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">HandleCanonFiring&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Input&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">GetButtonDown&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Fire1&amp;#34;&lt;/span>&lt;span class="p">)){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Instantiate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">canonBall&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">canonSpawnLocation&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">position&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Quaternion&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">identity&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>Instantiate()&lt;/code> spawns a prefab into the scene world, in this usage at the location where we want the canonballs to spawn at. You can ignore &lt;code>Quaternion.identity&lt;/code> it represents a rotation of 0 degrees in all axis&amp;rsquo;s&lt;/p>
+&lt;p>Make sure to set &lt;code>canonBall&lt;/code> to be the canonball prefab, you can set this in the inspector. And set the &lt;code>canonSpawnLocation&lt;/code> variable/field to be a transform of where you want the canonball to spawn at(you can do this by creating an empty gameobject and place it in the place you want the canonball to be placed)&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 160;
+flex-basis: 384px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/canonBallSpawn.png" data-size="2880x1800">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/canonBallSpawn.png"
+width="2880"
+height="1800"
+srcset="/p/game-development-club-tutorial-top-down-shooter/canonBallSpawn_hu63cd197203e8f773d3685414daf2ea57_470077_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/canonBallSpawn_hu63cd197203e8f773d3685414daf2ea57_470077_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="canonBallSpawn">
+&lt;/a>
+&lt;figcaption>canonBallSpawn&lt;/figcaption>
+&lt;/figure>
+&lt;figure
+class="gallery-image"
+style="
+flex-grow: 238;
+flex-basis: 573px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/canonSpawnLocation.png" data-size="1606x672">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/canonSpawnLocation.png"
+width="1606"
+height="672"
+srcset="/p/game-development-club-tutorial-top-down-shooter/canonSpawnLocation_hu048a8d37821d32b19aa2f919257e04b5_100909_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/canonSpawnLocation_hu048a8d37821d32b19aa2f919257e04b5_100909_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="canonSpawnLocation">
+&lt;/a>
+&lt;figcaption>canonSpawnLocation&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://media.giphy.com/media/TMtRL5FlQvgy2orVml/giphy.gif" >
+&lt;img src="https://media.giphy.com/media/TMtRL5FlQvgy2orVml/giphy.gif"
+loading="lazy"
+alt="canonSpawnComplete">
+&lt;/a>
+&lt;figcaption>canonSpawnComplete&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>As you can tell, our canonballs aren&amp;rsquo;t&amp;hellip;.moving&lt;/p>
+&lt;h3 id="rigidbody">Rigidbody&lt;/h3>
+&lt;p>That&amp;rsquo;s where rigidbodies come into play! Unity has its own physics system that allows you to act physics upon game objects in your scene. Rigidbody allows you to act forces onto your object (like gravity, friction, and other forces)&lt;/p>
+&lt;p>Go ahead an add a &lt;code>rigibody2D&lt;/code> component to the canonball gameobject prefab&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 48;
+flex-basis: 117px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/rigidbody.png" data-size="694x1422">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/rigidbody.png"
+width="694"
+height="1422"
+srcset="/p/game-development-club-tutorial-top-down-shooter/rigidbody_hu9f0c0599c81836aabde0c6b8bd50e728_169888_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/rigidbody_hu9f0c0599c81836aabde0c6b8bd50e728_169888_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="rigidbody">
+&lt;/a>
+&lt;figcaption>rigidbody&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>If you played the game as is you&amp;rsquo;ll see that the canonballs just falls downwards to the void, this is because by default, gravity is acted on the canonball. Since we&amp;rsquo;re doing a top down shooter, we don&amp;rsquo;t want this to happen.&lt;/p>
+&lt;p>Go back to the &lt;code>rigidobdy2D&lt;/code> component and set the gravity scale to 0, now gravity will no longer act upon our canonball. While you&amp;rsquo;re at it, go to the constraints section and toggle the free z-rotation option.&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 100;
+flex-basis: 240px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/rigidbodySettings.png" data-size="676x674">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/rigidbodySettings.png"
+width="676"
+height="674"
+srcset="/p/game-development-club-tutorial-top-down-shooter/rigidbodySettings_hue4c6f3bc4f3c7f3b1faaf72a2788829c_77420_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/rigidbodySettings_hue4c6f3bc4f3c7f3b1faaf72a2788829c_77420_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="rigidbodySetting">
+&lt;/a>
+&lt;figcaption>rigidbodySetting&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;h3 id="canonball-impulse">Canonball Impulse&lt;/h3>
+&lt;p>Now that we can have forces act upon our canonballs, it&amp;rsquo;s time to write the code to do that. We&amp;rsquo;re going to create a new script called &lt;code>CanonballAction&lt;/code> and attach it to the canonball gameobject prefab&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">UnityEngine&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">public&lt;/span> &lt;span class="k">class&lt;/span> &lt;span class="nc">CanonballAction&lt;/span> &lt;span class="p">:&lt;/span> &lt;span class="n">MonoBehaviour&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="n">Rigidbody2D&lt;/span> &lt;span class="n">rb&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Start is called before the first frame update&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">void&lt;/span> &lt;span class="n">Start&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// GetComponent grabs a reference of a type of component living on this gameobject &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// can be null if the type isn&amp;#39;t living on this gameobject&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">rb&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">GetComponent&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="n">Rigidbody2D&lt;/span>&lt;span class="p">&amp;gt;();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Send this object in direction with a magnitude of force&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">SendBall&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Vector2&lt;/span> &lt;span class="n">direction&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">force&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">rb&lt;/span> &lt;span class="p">==&lt;/span> &lt;span class="k">null&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">rb&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">GetComponent&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="n">Rigidbody2D&lt;/span>&lt;span class="p">&amp;gt;();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">rb&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">AddForce&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">direction&lt;/span> &lt;span class="p">*&lt;/span> &lt;span class="n">force&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>We then go back to &lt;code>PlayerController&lt;/code> and use the &lt;code>SendBall&lt;/code> method to make the canonball to move on creation&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl">&lt;span class="na"> [SerializeField]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">movementSpeed&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="m">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na"> [SerializeField]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na"> [Range(200, 500)]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">canonForce&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="m">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na"> [SerializeField]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="n">GameObject&lt;/span> &lt;span class="n">canonBall&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na"> [SerializeField]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="n">Transform&lt;/span> &lt;span class="n">canonSpawnLocation&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">HandleCanonFiring&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Input&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">GetButtonDown&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Fire1&amp;#34;&lt;/span>&lt;span class="p">)){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">GameObject&lt;/span> &lt;span class="n">ball&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Instantiate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">canonBall&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">canonSpawnLocation&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">position&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Quaternion&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">identity&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">CanonballAction&lt;/span> &lt;span class="n">action&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">ball&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">GetComponent&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="n">CanonballAction&lt;/span>&lt;span class="p">&amp;gt;();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">action&lt;/span> &lt;span class="p">!=&lt;/span> &lt;span class="k">null&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">action&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">SendBall&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">canonSpawnLocation&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">up&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">canonForce&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>And that we now have a shooting tank!&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://media.giphy.com/media/FDvaLOeTIgCDncGN72/giphy.gif" >
+&lt;img src="https://media.giphy.com/media/FDvaLOeTIgCDncGN72/giphy.gif"
+loading="lazy"
+alt="tankShoot">
+&lt;/a>
+&lt;figcaption>tankShoot&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;h2 id="aiming">Aiming&lt;/h2>
+&lt;p>So&amp;hellip; we can move and shoot, but only aim in one direction what do I do if there is an enemy to my right, left, or behind me???&lt;/p>
+&lt;h3 id="rotating-the-body">Rotating the body&lt;/h3>
+&lt;p>So if you remember our player&amp;rsquo;s hierarchy, it goes Empty - &amp;gt; Body -&amp;gt; Canon. And movement happens on Empty. Since we don&amp;rsquo;t want movement to be affected by rotation, we will enact rotation on the body! This way visually it will look like it&amp;rsquo;s rotated in underneath, but everything is still the same. We will go to &lt;code>PlayerController&lt;/code> and add some stuff&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl">&lt;span class="na"> [SerializeField]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="n">Transform&lt;/span> &lt;span class="n">body&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">void&lt;/span> &lt;span class="n">Update&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">HandleMovement&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">HandleCanonFiring&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">HandleOrientation&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Does math to calculate the angle to rotate the body so it is facing towards the mouse&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">HandleOrientation&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Vector3&lt;/span> &lt;span class="n">mousePos&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Input&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">mousePosition&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Vector3&lt;/span> &lt;span class="n">objectPos&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Camera&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">main&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">WorldToScreenPoint&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">body&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">position&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">mousePos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">x&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">mousePos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">x&lt;/span> &lt;span class="p">-&lt;/span> &lt;span class="n">objectPos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">mousePos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">y&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">mousePos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">y&lt;/span> &lt;span class="p">-&lt;/span> &lt;span class="n">objectPos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">float&lt;/span> &lt;span class="n">angle&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Mathf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Atan2&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mousePos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">mousePos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">*&lt;/span> &lt;span class="n">Mathf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Rad2Deg&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">body&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rotation&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Quaternion&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Euler&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">new&lt;/span> &lt;span class="n">Vector3&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">angle&lt;/span> &lt;span class="p">-&lt;/span> &lt;span class="m">90&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>You might have noticed the canonballs are still moving in a straight up direction, that&amp;rsquo;s because of our hierarchy!&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 261;
+flex-basis: 628px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/hierarchyIssue.png" data-size="550x210">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/hierarchyIssue.png"
+width="550"
+height="210"
+srcset="/p/game-development-club-tutorial-top-down-shooter/hierarchyIssue_hu1deb7d851e4545fee68c453532a2a8d6_22667_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/hierarchyIssue_hu1deb7d851e4545fee68c453532a2a8d6_22667_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="hierarchyIssue">
+&lt;/a>
+&lt;figcaption>hierarchyIssue&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>If you take a look, the CanonSpawnLocation object (which is used for both deciding where to spawn the canonballs and what the &lt;strong>direction&lt;/strong> of their movement is) is not under the body. This means that when the body rotates, the spawner does not! Let&amp;rsquo;s fixing that by moving the spawner to be under the body&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://media.giphy.com/media/GC3bMkUfVRmTjHZh0W/giphy.gif" >
+&lt;img src="https://media.giphy.com/media/GC3bMkUfVRmTjHZh0W/giphy.gif"
+loading="lazy"
+alt="workingTank">
+&lt;/a>
+&lt;figcaption>workingTank&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>Viola! A working moving, shooting, and rotating tank!&lt;/p></description></item><item><title>My Unreal Adventure! Blog 1: Unreal Engine Intro</title><link>/p/my-unreal-adventure-blog-1-unreal-engine-intro/</link><pubDate>Sat, 27 Aug 2022 00:00:00 +0000</pubDate><guid>/p/my-unreal-adventure-blog-1-unreal-engine-intro/</guid><description>&lt;img src="https://media.giphy.com/media/22VCh90itjL8rr5uza/giphy.gif" alt="Featured image of post My Unreal Adventure! Blog 1: Unreal Engine Intro" />&lt;p>&lt;strong>Ever heard of Unreal Engine?&lt;/strong>&lt;/p>
 &lt;p>&lt;figure
 >
 &lt;a href="https://knowtechie.com/wp-content/uploads/2022/04/unreal-engine-5.jpg" >
