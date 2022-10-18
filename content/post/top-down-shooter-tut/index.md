@@ -318,3 +318,350 @@ If you take a look, the CanonSpawnLocation object (which is used for both decidi
 
 Viola! A working moving, shooting, and rotating tank!
 
+# Enemy
+Now that we have a working tank, it's time to make a target to shoot at! ENEMIES
+
+Let's start witha dummy enemy, just to shoot at
+
+## Dummy
+
+### Sprite
+Again we need a visual representation of the enemy, let's use the `hexagon flat top` default sprite from Unity! Also let's do the same hierarchy we did with the player (Empty -> Body)
+
+![dummySprite](dummyEnemySprite.png)
+
+Let's go ahead and make this a prefab for future use
+
+### Collision
+
+So if you move the player towards the enemy or shoot at it, you'll notice that everything goes through it. That's because there is no notion of collision for this enemy. We can fix that by adding a collider!
+
+Go ahead an add a `CircleCollider2D` this is a circular collider for our enemy (close enough to the hexagon shape, does not need to be exact)
+
+![enemyCollider](dummyEnemyCollider.png)
+
+This is not enough, colliders only work against other colliders, so we need to add colliders to our canonballs and player
+
+Go ahead an add a `CircleCollider2D` to the canonball prefab and a `BoxCollider2D` to our player
+
+Now if we launch the game, we'll see that everything collides now!
+
+![shootDummy](https://media.giphy.com/media/aRmSs5rcZvRyOQfzCM/giphy.gif)
+
+### Enemy Status/Logic
+So now we have a visual representation of the enemy, we need to give it some substance (health, damage, death)
+
+We're going to create a script for any enemy to use, but we're going to do it in a different way. In the project tab right click and do `Create -> C# Script` and let's call it `EnemyBase` this will hold logic that all enemies need
+
+```csharp
+using UnityEngine;
+
+public class EnemyBase : MonoBehaviour
+{
+    [SerializeField]
+    private float maxHealth = 5;
+
+    private float curHealth;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        curHealth = maxHealth;
+    }
+
+    // This runs whenever an object with a collider touches this object
+    public void OnCollisionEnter2D(Collision2D other){
+        if(other.collider.tag == "canon"){
+            if(curHealth <= 1){
+                Destroy(this.gameObject);
+            }else{
+                curHealth--;
+            }
+        }
+    }
+
+}
+```
+
+If you check in the code, we compare against a `tag`, this is a piece of metadata you can attach to objects, we're going to give this metadata to our canons.
+
+![tagCanon](tagCanon.png)
+
+To test this, let's attach it to our dummy enemy
+
+![dummytest](https://media.giphy.com/media/AK5OjYa5HDJgRYs3Vo/giphy.gif)
+
+Awesome! We have an enemy that albiet can't move or attack you, can take damage and die!
+
+Side note: We can do the same logic we used for destroying the enemy for the canonballs. In `CanonballAction`, we can add:
+
+```csharp
+
+    public void OnCollisionEnter2D(Collision2D other){
+        Destroy(this.gameObject);
+    }
+```
+
+![canonDie](https://media.giphy.com/media/hAFCRiQZ6NiYcFzLJj/giphy.gif)
+
+## Follow Enenmy
+
+Now with this base enenmy logic, let's make an enemy that follows the player
+
+### Follow Logic
+Let's make a new script called `FollowEnemy`. It will inherit the logic from `EnemyBase` (health, damage, death), but we will insert new logic for following the player
+
+```csharp
+using UnityEngine;
+
+public class FollowEnemy : EnemyBase
+{
+    [SerializeField]
+    private Transform target;
+
+    [SerializeField]
+    private float movementSpeed;
+
+    // Update is called once per frame
+    void Update()
+    {
+        Vector2 direction = target.position - transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        this.transform.rotation = Quaternion.Euler(0, 0, angle - 90);
+
+        this.transform.position = transform.up * movementSpeed * Time.deltaTime + transform.position;
+    }
+}
+```
+
+This tells the enemy to look at the target and move towards it
+
+![followEnemy](https://media.giphy.com/media/jWHOUvPe0NJO8oasMv/giphy.gif)
+
+### Damaging Player
+Now that our enemy can follow the player, we need to let it damage the player. Let's go back to `PlayerController`
+
+```csharp
+    public float maxHealth = 5;
+    private float curHealth; 
+
+    public float invisTime = 2;
+    private bool invis = false;
+
+    ...
+
+    public void OnTriggerStay2D(Collider2D other){
+        if(other.tag == "Enemy" && !invis){
+            if(curHealth <= 1){
+                Debug.Log("Dead!");
+            }else{
+                StartCoroutine(takeDamage());
+            }
+        }
+    }
+
+    public IEnumerator takeDamage(){
+        invis = true;
+        curHealth--;
+        yield return new WaitForSeconds(invisTime);
+        invis = false;
+    }
+```
+
+This uses a part of the colider system! **Trigger**! Imagine you want to detect collision without enacting the actual collision, that's what triggers are!
+
+Make sure to create an `Enemy` tag for the Enemy GameObject and have these settings on the player object
+
+![playerCollision](playerCollision.png)
+
+# Game Manager / Singletons
+
+Now that we have a working player and a working enemy we need a way to share critical information between entities in the game and perform critical game events
+
+We call these objects `Managers` or `Singletons`, they are unique objects that have no copy existing in a scene that is accessible from all scripts
+
+## General Game Manager
+
+Some things we want to do is:
+1. Reset the level/game
+2. Spawn the player at a particular position
+3. Distribute the player's position so all enemies can find it
+4. Whatever else we think we want to handle :3
+
+Let's start with creating our GameManager object(empty gameobject) along with a `GameManager` script:
+
+![gamemanager](gameManager.png)
+
+```csharp
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class GameManager : MonoBehaviour
+{
+    private static GameManager _instance;
+    public static GameManager instance{
+        get{
+            return _instance;
+        }
+    }
+
+    [SerializeField]
+    private Transform playerSpawnLocation;
+
+    [SerializeField]
+    private GameObject playerObject;
+    private Transform playerPosition;
+
+    public void Awake(){
+        if(_instance == null){
+            _instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }else{
+            Destroy(this.gameObject);
+        }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        spawnPlayer();
+    }
+
+    public Transform getPlayerPosition(){
+        return playerPosition;
+    }
+
+    public void spawnPlayer(){
+        GameObject player = Instantiate(playerObject, playerSpawnLocation.position, Quaternion.identity);
+        playerPosition = player.transform;
+    }
+
+    public void reset(){
+        spawnPlayer();
+    }
+}
+```
+`DontDestroyOnLoad` is a special method that marks a gameobject to never to be deleted when changing unity scenes (ex: changing levels). 
+
+A static variable belongs to the class and can be accessed from anywhere, hence why we have the variable `instance`. This way, anyone can touch this manager and call its methods
+
+## Updating Existing Functions
+
+### Follow Enemy
+If you remember, our enemy uses the transform of our player to figure out how to move towards it. Sadly this won't work at scale since we had to manually assign the transform variable in the inspector.
+
+Now that we have `GameManager` which can return to us the player's position, now is a great time to update that code.
+
+Let's make some changes to `EnemyBase` and `FollowEnemy`:
+
+```csharp
+    // EnemyBase.cs
+    public virtual void Start()
+    {
+        curHealth = maxHealth;
+    }
+```
+
+```csharp
+    // FollowEnemy.cs
+    private Transform target;
+    ...
+
+    public override void Start(){
+        target =  GameManager.instance.getPlayerPosition();
+        base.Start();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(target == null){
+            target = GameManager.instance.getPlayerPosition();
+        }else{
+            Vector2 direction = target.position - transform.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            this.transform.rotation = Quaternion.Euler(0, 0, angle - 90);
+
+            this.transform.position = transform.up * movementSpeed * Time.deltaTime + transform.position;
+        }
+        
+    }
+```
+
+### Player Death
+Currently, if you player dies, only a print statement in the console is done. Let's reset the game if the player dies
+
+Going back to `PlayerController`:
+```csharp
+    public void OnTriggerStay2D(Collider2D other){
+        if(other.tag == "Enemy" && !invis){
+            if(curHealth <= 1){
+                GameManager.instance.reset();
+                Destroy(this.gameObject);
+            }else{
+                StartCoroutine(takeDamage());
+            }
+        }
+    }
+```
+
+We'll destroy this version of the player and let the game manger handle recreating it, along with it's details
+
+Now if we put multiple enemies into the scene:
+![enemieees](https://media.giphy.com/media/FMoBHGx8MqFVtGprP1/giphy.gif)
+
+Everything is looking good, very promising! Of course, the game manager can be extended further in the future, but for now let's move on
+
+# Camera
+The game camera is what allows you to view what is happening in your scene. Since objects move around in a since, they will eventually move outside of the scope of the camera. But we always have things we want to never leave the frame of the camera: THE PLAYER
+
+Currently the camera is stantionary, does not move at allllll. Let's make the camera follow the the player now!
+
+In our scene, we always have an object that is chosen to be the camera. In this case it is called `Main Camera`
+
+![camera](camera.png)
+
+Let's add a new script to this object called `CameraFollow`
+
+```csharp
+using UnityEngine;
+
+public class CameraFollow : MonoBehaviour
+{
+    [SerializeField]
+    [Range(0.005f, 0.05f)]
+    private float followSpeed;
+
+    private Transform target;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        target = GameManager.instance.getPlayerPosition();
+    }
+
+    // LateUpdate gets called after Update and FixedUpdate
+    void LateUpdate()
+    {
+        if(target == null){
+            target = GameManager.instance.getPlayerPosition();
+        }else{
+            Vector2 newPos = Vector2.Lerp(transform.position, target.position, followSpeed);
+            transform.position = new Vector3(newPos.x, newPos.y, transform.position.z);
+        }
+    }
+}
+```
+
+This script does a simple action of moving the position towards the player's position at a given speed.
+
+ Again, with our game manager already made, grabbing the player's position is very easy
+
+![cameraAction](https://media.giphy.com/media/QDDQC4fhRGeoMrTc9l/giphy.gif)
+
+# UI 
+At this point, we've created almost all the pieces needed before we can start making levels 
+
+We have a notion of health under the hood but we can't tell that it exists on the screen. It's time to add a UI
+
+## Health Bar
