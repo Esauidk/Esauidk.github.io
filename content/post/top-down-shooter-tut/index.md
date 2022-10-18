@@ -2,7 +2,7 @@
 title: "Game Development Club Tutorial: Top Down Shooter"
 author: Esau Abraham
 date: 2022-10-16
-draft: true
+draft: false
 categories: 
     - Unity
     - Game Development
@@ -156,7 +156,7 @@ To start off, let's create out canon. We're going to create the canon the same w
 
 Since this is our canon balls, we're going to need to create multiple copies of these. Prefabs are a way to store your GameObjects as assets to be used and copied later. To make this canon a prefab you just need to drag the gameobject from the hierarchy to the project tab. Let's make the player a prefab too!
 
-![prefab](prefabs.png)
+![**prefab**](prefabs.png)
 
 With that we're going to go back to our `PlayerController` and add a fire ability
 
@@ -197,7 +197,7 @@ Make sure to set `canonBall` to be the canonball prefab, you can set this in the
 ![canonBallSpawn](canonBallSpawn.png)
 ![canonSpawnLocation](canonSpawnLocation.png)
 
-![canonSpawnComplete](https://media.giphy.com/media/TMtRL5FlQvgy2orVml/giphy.gif)
+![**canonSpawnComplete**](https://media.giphy.com/media/TMtRL5FlQvgy2orVml/giphy.gif)
 
 As you can tell, our canonballs aren't....moving
 
@@ -215,7 +215,7 @@ Go back to the `rigidobdy2D` component and set the gravity scale to 0, now gravi
 ![rigidbodySetting](rigidbodySettings.png)
 
 ### Canonball Impulse
-Now that we can have forces act upon our canonballs, it's time to right the code to do that. We're going to create a new script called `CanonballAction` and attach it to the canonball gameobject prefab
+Now that we can have forces act upon our canonballs, it's time to write the code to do that. We're going to create a new script called `CanonballAction` and attach it to the canonball gameobject prefab
 
 ```csharp
 using UnityEngine;
@@ -227,6 +227,8 @@ public class CanonballAction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // GetComponent grabs a reference of a type of component living on this gameobject 
+        // can be null if the type isn't living on this gameobject
         rb = GetComponent<Rigidbody2D>();    
     }
 
