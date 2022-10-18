@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Esau's Page</title><link>/</link><description>Recent content on Esau's Page</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 16 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>Game Development Club Tutorial: Top Down Shooter</title><link>/p/game-development-club-tutorial-top-down-shooter/</link><pubDate>Sun, 16 Oct 2022 00:00:00 +0000</pubDate><guid>/p/game-development-club-tutorial-top-down-shooter/</guid><description>&lt;img src="https://media.giphy.com/media/22VCh90itjL8rr5uza/giphy.gif" alt="Featured image of post Game Development Club Tutorial: Top Down Shooter" />&lt;h1 id="welcome">Welcome!&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Esau's Page</title><link>/</link><description>Recent content on Esau's Page</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 16 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>Game Development Club Tutorial: Top Down Shooter</title><link>/p/game-development-club-tutorial-top-down-shooter/</link><pubDate>Sun, 16 Oct 2022 00:00:00 +0000</pubDate><guid>/p/game-development-club-tutorial-top-down-shooter/</guid><description>&lt;img src="https://media.giphy.com/media/XBuy9qvp3CDZes7YC5/giphy.gif" alt="Featured image of post Game Development Club Tutorial: Top Down Shooter" />&lt;h1 id="welcome">Welcome!&lt;/h1>
 &lt;p>Welcome to the top down shooter tutorial! The purpose of this blog is to be used to follow along during the game development club tutorial meeting but all are welcome to view this and learn from it!&lt;/p>
 &lt;h1 id="getting-started">Getting Started&lt;/h1>
 &lt;h2 id="downloading-unity">Downloading Unity&lt;/h2>
@@ -777,6 +777,7 @@ alt="gamemanager">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na"> [SerializeField]&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="n">GameObject&lt;/span> &lt;span class="n">playerObject&lt;/span>&lt;span class="p">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="n">Transform&lt;/span> &lt;span class="n">playerPosition&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="n">GameObject&lt;/span> &lt;span class="n">curPlayer&lt;/span>&lt;span class="p">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">Awake&lt;/span>&lt;span class="p">(){&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_instance&lt;/span> &lt;span class="p">==&lt;/span> &lt;span class="k">null&lt;/span>&lt;span class="p">){&lt;/span>
@@ -798,16 +799,18 @@ alt="gamemanager">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">spawnPlayer&lt;/span>&lt;span class="p">(){&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">GameObject&lt;/span> &lt;span class="n">player&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Instantiate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">playerObject&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">playerSpawnLocation&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">position&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Quaternion&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">identity&lt;/span>&lt;span class="p">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">playerPosition&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">player&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">transform&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">curPlayer&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Instantiate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">playerObject&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">playerSpawnLocation&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">position&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Quaternion&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">identity&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">playerPosition&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">curPlayer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">transform&lt;/span>&lt;span class="p">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">reset&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Destroy&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">curPlayer&lt;/span>&lt;span class="p">);&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">spawnPlayer&lt;/span>&lt;span class="p">();&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>DontDestroyOnLoad&lt;/code> is a special method that marks a gameobject to never to be deleted when changing unity scenes (ex: changing levels).&lt;/p>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>DontDestroyOnLoad&lt;/code> is a special method that marks a gameobject to never to be deleted when changing unity scenes (ex: changing levels)&lt;/p>
 &lt;p>A static variable belongs to the class and can be accessed from anywhere, hence why we have the variable &lt;code>instance&lt;/code>. This way, anyone can touch this manager and call its methods&lt;/p>
+&lt;p>To keep in mind for future reference, the logic inside the &lt;code>Awake()&lt;/code> method is general what is done when creating singletons&lt;/p>
 &lt;h2 id="updating-existing-functions">Updating Existing Functions&lt;/h2>
 &lt;h3 id="follow-enemy">Follow Enemy&lt;/h3>
 &lt;p>If you remember, our enemy uses the transform of our player to figure out how to move towards it. Sadly this won&amp;rsquo;t work at scale since we had to manually assign the transform variable in the inspector.&lt;/p>
@@ -848,7 +851,6 @@ alt="gamemanager">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">other&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">tag&lt;/span> &lt;span class="p">==&lt;/span> &lt;span class="s">&amp;#34;Enemy&amp;#34;&lt;/span> &lt;span class="p">&amp;amp;&amp;amp;&lt;/span> &lt;span class="p">!&lt;/span>&lt;span class="n">invis&lt;/span>&lt;span class="p">){&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">curHealth&lt;/span> &lt;span class="p">&amp;lt;=&lt;/span> &lt;span class="m">1&lt;/span>&lt;span class="p">){&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">GameManager&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">instance&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">reset&lt;/span>&lt;span class="p">();&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Destroy&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">gameObject&lt;/span>&lt;span class="p">);&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>&lt;span class="k">else&lt;/span>&lt;span class="p">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">StartCoroutine&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">takeDamage&lt;/span>&lt;span class="p">());&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
@@ -928,7 +930,474 @@ alt="cameraAction">
 &lt;h1 id="ui">UI&lt;/h1>
 &lt;p>At this point, we&amp;rsquo;ve created almost all the pieces needed before we can start making levels&lt;/p>
 &lt;p>We have a notion of health under the hood but we can&amp;rsquo;t tell that it exists on the screen. It&amp;rsquo;s time to add a UI&lt;/p>
-&lt;h2 id="health-bar">Health Bar&lt;/h2></description></item><item><title>My Unreal Adventure! Blog 1: Unreal Engine Intro</title><link>/p/my-unreal-adventure-blog-1-unreal-engine-intro/</link><pubDate>Sat, 27 Aug 2022 00:00:00 +0000</pubDate><guid>/p/my-unreal-adventure-blog-1-unreal-engine-intro/</guid><description>&lt;img src="https://media.giphy.com/media/22VCh90itjL8rr5uza/giphy.gif" alt="Featured image of post My Unreal Adventure! Blog 1: Unreal Engine Intro" />&lt;p>&lt;strong>Ever heard of Unreal Engine?&lt;/strong>&lt;/p>
+&lt;p>To add a canvas, go to the hierarchy, right click and create a canvas, name it &lt;code>UI&lt;/code>&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 86;
+flex-basis: 208px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/uiCreation.png" data-size="1282x1476">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/uiCreation.png"
+width="1282"
+height="1476"
+srcset="/p/game-development-club-tutorial-top-down-shooter/uiCreation_hu32c16fad4201e8c7e1134a8c907a2a33_366071_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/uiCreation_hu32c16fad4201e8c7e1134a8c907a2a33_366071_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="uiCreation">
+&lt;/a>
+&lt;figcaption>uiCreation&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>On the UI, set the canvas scaler to scale with the screen size (WE DON&amp;rsquo;T WANT A FIXED SIZED CANVAS)&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 254;
+flex-basis: 611px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/canvasScaler.png" data-size="678x266">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/canvasScaler.png"
+width="678"
+height="266"
+srcset="/p/game-development-club-tutorial-top-down-shooter/canvasScaler_hu64efa1ad59513a27c3cf27c81bcd56d4_36839_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/canvasScaler_hu64efa1ad59513a27c3cf27c81bcd56d4_36839_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="canvasScaler">
+&lt;/a>
+&lt;figcaption>canvasScaler&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>Let&amp;rsquo;s make this a prefab so we can spawn it in through the &lt;code>GameManager&lt;/code>&lt;/p>
+&lt;p>For easier editing, I recommend opening up the UI prefab so all you have to see is the UI area&lt;/p>
+&lt;h2 id="health-bar">Health Bar&lt;/h2>
+&lt;h3 id="sprite-2">Sprite&lt;/h3>
+&lt;p>We need a sprite to use for the health bar. Guess what? We&amp;rsquo;re gonna use default sprites AGAIN!&lt;/p>
+&lt;p>Go ahead and go to the projet tab and create a sprite rectangle&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 97;
+flex-basis: 233px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/healthBarSprite.png" data-size="2076x2138">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/healthBarSprite.png"
+width="2076"
+height="2138"
+srcset="/p/game-development-club-tutorial-top-down-shooter/healthBarSprite_hu9e15dfb4b7124b73d3d9011845a33628_1158539_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/healthBarSprite_hu9e15dfb4b7124b73d3d9011845a33628_1158539_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="healthSprite">
+&lt;/a>
+&lt;figcaption>healthSprite&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>Make sure to name it &lt;code>healthbar&lt;/code> or something similar so we can find it later&lt;/p>
+&lt;p>Go ahead and create a UI image under the UI gameobject&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 71;
+flex-basis: 171px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/healthUI.png" data-size="1116x1562">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/healthUI.png"
+width="1116"
+height="1562"
+srcset="/p/game-development-club-tutorial-top-down-shooter/healthUI_hu3c6eafb580f4d503e1e7846c2c04cd2c_526129_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/healthUI_hu3c6eafb580f4d503e1e7846c2c04cd2c_526129_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="healthUI">
+&lt;/a>
+&lt;figcaption>healthUI&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>call it &lt;code>HealthBarBg&lt;/code>, we&amp;rsquo;re going to use it as the background for our health bar&lt;/p>
+&lt;p>In the Inspector, set the image to be the healthbar sprite we created in the project tab (it might be a different name, but it&amp;rsquo;s a rectangle sprite)&lt;/p>
+&lt;p>Go ahead and make it black too&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 177;
+flex-basis: 424px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/healthBarSetting.png" data-size="896x506">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/healthBarSetting.png"
+width="896"
+height="506"
+srcset="/p/game-development-club-tutorial-top-down-shooter/healthBarSetting_hu60393d784ba15857d4f01c5798177be7_54832_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/healthBarSetting_hu60393d784ba15857d4f01c5798177be7_54832_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="setting">
+&lt;/a>
+&lt;figcaption>setting&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>Next, duplicate this object and make it a child of &lt;code>HealthBarBg&lt;/code> call it just &lt;code>HealthBar&lt;/code>. Set it to these settings:&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 125;
+flex-basis: 301px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/redHealthBar.png" data-size="686x546">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/redHealthBar.png"
+width="686"
+height="546"
+srcset="/p/game-development-club-tutorial-top-down-shooter/redHealthBar_hubdc635a2915f08218da7ae4d315da0ff_62725_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/redHealthBar_hubdc635a2915f08218da7ae4d315da0ff_62725_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="healthBar">
+&lt;/a>
+&lt;figcaption>healthBar&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;h3 id="ui-logic">UI Logic&lt;/h3>
+&lt;p>Since there is only every going to be one existing UI, let&amp;rsquo;s make it a &lt;code>Singleton/Manager&lt;/code>! That way anything that needs to touch the UI can reach it&lt;/p>
+&lt;p>On the top UI gameobject, creating a script called &lt;code>UIManager&lt;/code>. Using the similar logic to the &lt;code>GameManager&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">UnityEngine&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">UnityEngine.UI&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">public&lt;/span> &lt;span class="k">class&lt;/span> &lt;span class="nc">UIManager&lt;/span> &lt;span class="p">:&lt;/span> &lt;span class="n">MonoBehaviour&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="k">static&lt;/span> &lt;span class="n">UIManager&lt;/span> &lt;span class="n">_instance&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">static&lt;/span> &lt;span class="n">UIManager&lt;/span> &lt;span class="n">instance&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">get&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">_instance&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na"> [SerializeField]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="n">Image&lt;/span> &lt;span class="n">healthBar&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">Awake&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_instance&lt;/span> &lt;span class="p">==&lt;/span> &lt;span class="k">null&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">_instance&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">DontDestroyOnLoad&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">gameObject&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>&lt;span class="k">else&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Destroy&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">gameObject&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">setHealth&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">float&lt;/span> &lt;span class="n">precentage&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">healthBar&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">fillAmount&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">precentage&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Inside &lt;code>GameManager&lt;/code> we&amp;rsquo;re going to make some additional changes:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl">&lt;span class="na"> [SerializeField]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="n">GameObject&lt;/span> &lt;span class="n">uiObject&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">void&lt;/span> &lt;span class="n">Start&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">spawnUI&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">spawnPlayer&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">spawnUI&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Instantiate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">uiObject&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Vector3&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">zero&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Quaternion&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">identity&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>In the inspector you can attach the health bar image as &lt;code>UIManager&lt;/code>&amp;rsquo;s &lt;code>healthbar&lt;/code> variable. You can also set the UI prefab to be the &lt;code>uiObject&lt;/code> variable in &lt;code>GameManager&lt;/code>&lt;/p>
+&lt;p>Let&amp;rsquo;s start using this healthbar!!! In &lt;code>PlayerController&lt;/code>, we&amp;rsquo;ll make a tiny change:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl"> &lt;span class="k">void&lt;/span> &lt;span class="n">Start&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">curHealth&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">maxHealth&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">UIManager&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">instance&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">setHealth&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="n">IEnumerator&lt;/span> &lt;span class="n">takeDamage&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">invis&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">true&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">curHealth&lt;/span>&lt;span class="p">--;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">UIManager&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">instance&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">setHealth&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">curHealth&lt;/span>&lt;span class="p">/&lt;/span>&lt;span class="n">maxHealth&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">yield&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">WaitForSeconds&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">invisTime&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">invis&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">false&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Now we have a working health bar!!!
+&lt;figure
+>
+&lt;a href="https://media.giphy.com/media/F5Z5yM28Fxdaz8olXK/giphy.gif" >
+&lt;img src="https://media.giphy.com/media/F5Z5yM28Fxdaz8olXK/giphy.gif"
+loading="lazy"
+alt="healthInAction">
+&lt;/a>
+&lt;figcaption>healthInAction&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;h1 id="level-making">Level Making&lt;/h1>
+&lt;p>With that, we have enough to make our level!!!&lt;/p>
+&lt;h2 id="boxing-out-level">Boxing out level&lt;/h2>
+&lt;p>Let&amp;rsquo;s clear out our scene to only have the camera, Global Light, GameManager, and Player Spawn position in it&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 184;
+flex-basis: 442px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/minimalScene.png" data-size="365x198">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/minimalScene.png"
+width="365"
+height="198"
+srcset="/p/game-development-club-tutorial-top-down-shooter/minimalScene_hu38f356a73914cdb9c25d9d7ecfd5fb49_11575_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/minimalScene_hu38f356a73914cdb9c25d9d7ecfd5fb49_11575_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="minimal">
+&lt;/a>
+&lt;figcaption>minimal&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>Let&amp;rsquo;s make this game a horror house, where you need to reach the end of the map without dying to win the game.&lt;/p>
+&lt;p>We&amp;rsquo;re going to just block out the level using the default sprites of unity&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 91;
+flex-basis: 219px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/levelBlock.png" data-size="890x974">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/levelBlock.png"
+width="890"
+height="974"
+srcset="/p/game-development-club-tutorial-top-down-shooter/levelBlock_hu7edc9949a9619ffac0244658b32bbdd6_45607_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/levelBlock_hu7edc9949a9619ffac0244658b32bbdd6_45607_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="levelBlock">
+&lt;/a>
+&lt;figcaption>levelBlock&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>This will be the layout of our level! If you run it now though, the player can easily move outside of the boudaries, so let&amp;rsquo;s make boundaries!&lt;/p>
+&lt;p>It&amp;rsquo;s a pretty simple process, give all the blocks of the level colliders with the &amp;ldquo;Used by Composite&amp;rdquo; option toggled&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 371;
+flex-basis: 891px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/boundary.png" data-size="1940x522">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/boundary.png"
+width="1940"
+height="522"
+srcset="/p/game-development-club-tutorial-top-down-shooter/boundary_huec7e89d078e41f373091577331839f06_134458_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/boundary_huec7e89d078e41f373091577331839f06_134458_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="boundary">
+&lt;/a>
+&lt;figcaption>boundary&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>Then give them a parent and attach the &lt;code>Composite Collider 2D&lt;/code> component, this puts all the coliders together to be come one giant collider&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 117;
+flex-basis: 281px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/compositeBoundary.png" data-size="1068x912">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/compositeBoundary.png"
+width="1068"
+height="912"
+srcset="/p/game-development-club-tutorial-top-down-shooter/compositeBoundary_hud301574f03d16df370578c8daf76bf07_48236_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/compositeBoundary_hud301574f03d16df370578c8daf76bf07_48236_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="composite">
+&lt;/a>
+&lt;figcaption>composite&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>Now we need to change some things to the player:&lt;/p>
+&lt;ol>
+&lt;li>Change its box collider to not be a trigger&lt;/li>
+&lt;li>Change this set up code in &lt;code>PlayerController&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">OnTriggerStay2D&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Collider2D&lt;/span> &lt;span class="n">other&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">other&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">tag&lt;/span> &lt;span class="p">==&lt;/span> &lt;span class="s">&amp;#34;Enemy&amp;#34;&lt;/span> &lt;span class="p">&amp;amp;&amp;amp;&lt;/span> &lt;span class="p">!&lt;/span>&lt;span class="n">invis&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">curHealth&lt;/span> &lt;span class="p">&amp;lt;=&lt;/span> &lt;span class="m">1&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">GameManager&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">instance&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">reset&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>&lt;span class="k">else&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">StartCoroutine&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">takeDamage&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>to&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">OnCollisionStay2D&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Collision2D&lt;/span> &lt;span class="n">other&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">other&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">collider&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">tag&lt;/span> &lt;span class="p">==&lt;/span> &lt;span class="s">&amp;#34;Enemy&amp;#34;&lt;/span> &lt;span class="p">&amp;amp;&amp;amp;&lt;/span> &lt;span class="p">!&lt;/span>&lt;span class="n">invis&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">curHealth&lt;/span> &lt;span class="p">&amp;lt;=&lt;/span> &lt;span class="m">1&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">GameManager&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">instance&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">reset&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>&lt;span class="k">else&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">StartCoroutine&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">takeDamage&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>And now~ We have our boundary!!!&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://media.giphy.com/media/Z0nmLehvrWha49hzvI/giphy.gif" >
+&lt;img src="https://media.giphy.com/media/Z0nmLehvrWha49hzvI/giphy.gif"
+loading="lazy"
+alt="boundary">
+&lt;/a>
+&lt;figcaption>boundary&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;h2 id="loop">Loop&lt;/h2>
+&lt;p>Let&amp;rsquo;s add the finish line so when you making it to the end, it restarts to level&lt;/p>
+&lt;p>We&amp;rsquo;re just going to make an yellow capsule sprite with a 2D capsulef collider set to is Trigger&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 220;
+flex-basis: 528px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/finishCapsule.png" data-size="2496x1134">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/finishCapsule.png"
+width="2496"
+height="1134"
+srcset="/p/game-development-club-tutorial-top-down-shooter/finishCapsule_hud4f06a9d7c60222e86a015ce6830b8a0_263116_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/finishCapsule_hud4f06a9d7c60222e86a015ce6830b8a0_263116_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="finishLine">
+&lt;/a>
+&lt;figcaption>finishLine&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>We&amp;rsquo;re going to attach a new script to it called &lt;code>Goal&lt;/code> and it will be a simple function&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">UnityEngine&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">public&lt;/span> &lt;span class="k">class&lt;/span> &lt;span class="nc">Goal&lt;/span> &lt;span class="p">:&lt;/span> &lt;span class="n">MonoBehaviour&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">OnTriggerEnter2D&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Collider2D&lt;/span> &lt;span class="n">other&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">other&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">tag&lt;/span> &lt;span class="p">==&lt;/span> &lt;span class="s">&amp;#34;Player&amp;#34;&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">GameManager&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">instance&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">reset&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>If the player reaches this, reset the game! Reminder to give the player object to &amp;ldquo;Player&amp;rdquo; tag&lt;/p>
+&lt;h2 id="obstacles">Obstacles&lt;/h2>
+&lt;p>Now that we have a start and finish let&amp;rsquo;s add some obstacles!&lt;/p>
+&lt;p>We can just keep using the box sprite as a different color to be obstacles.&lt;/p>
+&lt;p>Remember to have the &amp;ldquo;Used by Compisite&amp;rdquo; option off for these obstacles&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 141;
+flex-basis: 339px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/obstacles.png" data-size="1298x918">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/obstacles.png"
+width="1298"
+height="918"
+srcset="/p/game-development-club-tutorial-top-down-shooter/obstacles_hub74d95248fafd5614a2447a638f961d7_90702_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/obstacles_hub74d95248fafd5614a2447a638f961d7_90702_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="obstacles">
+&lt;/a>
+&lt;figcaption>obstacles&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;h2 id="enemy-spawners">Enemy Spawners&lt;/h2>
+&lt;p>Finally makes spawners for our enemies, so the player has something to worry about&lt;/p>
+&lt;p>We&amp;rsquo;re going to create empty gameobjects and give them trigger colliders (up to you what time), it will let us know if a player is in range to activate enemy spawning&lt;/p>
+&lt;p>We&amp;rsquo;re going to attach a script called &lt;code>EnemySpawner&lt;/code> and inside it will hold:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">UnityEngine&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">System.Collections&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">public&lt;/span> &lt;span class="k">class&lt;/span> &lt;span class="nc">EnemySpawner&lt;/span> &lt;span class="p">:&lt;/span> &lt;span class="n">MonoBehaviour&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na"> [SerializeField]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="n">GameObject&lt;/span> &lt;span class="n">enemy&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na"> [SerializeField]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">enemyBurst&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na"> [SerializeField]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="kt">float&lt;/span> &lt;span class="n">cooldownTime&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="kt">bool&lt;/span> &lt;span class="n">available&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">true&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">OnTriggerEnter2D&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Collider2D&lt;/span> &lt;span class="n">other&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">other&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">tag&lt;/span> &lt;span class="p">==&lt;/span> &lt;span class="s">&amp;#34;Player&amp;#34;&lt;/span> &lt;span class="p">&amp;amp;&amp;amp;&lt;/span> &lt;span class="n">available&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">StartCoroutine&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">spawnEnemy&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="n">IEnumerator&lt;/span> &lt;span class="n">spawnEnemy&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">available&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">false&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="m">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="p">&amp;lt;&lt;/span> &lt;span class="n">enemyBurst&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">++){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">yield&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">WaitForSeconds&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">0.5f&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Instantiate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">enemy&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">transform&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">position&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Quaternion&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">identity&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">yield&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">WaitForSeconds&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cooldownTime&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">available&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">true&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>This will spawn our enemies if the player enters our trigger&lt;/p>
+&lt;p>Now everything should be working properly except&amp;hellip;&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://media.giphy.com/media/9l6BTaWSGYppXXDtBg/giphy.gif" >
+&lt;img src="https://media.giphy.com/media/9l6BTaWSGYppXXDtBg/giphy.gif"
+loading="lazy"
+alt="uhoh">
+&lt;/a>
+&lt;figcaption>uhoh&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>This is because the enemies don&amp;rsquo;t have a rigidbody attached to them to enforce our boundaries for us! Let&amp;rsquo;s go ahead and attach that&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 58;
+flex-basis: 139px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/enemyRigid.png" data-size="890x1530">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/enemyRigid.png"
+width="890"
+height="1530"
+srcset="/p/game-development-club-tutorial-top-down-shooter/enemyRigid_hu999b63b4c21d9ec78ee1d507d4fb08fd_177202_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/enemyRigid_hu999b63b4c21d9ec78ee1d507d4fb08fd_177202_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="enemyEnforcer">
+&lt;/a>
+&lt;figcaption>enemyEnforcer&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>Now we have a working spawner!&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://media.giphy.com/media/K4eG2XRfL0TGdM5Ehw/giphy.gif" >
+&lt;img src="https://media.giphy.com/media/K4eG2XRfL0TGdM5Ehw/giphy.gif"
+loading="lazy"
+alt="kill">
+&lt;/a>
+&lt;figcaption>kill&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://media.giphy.com/media/vvCoAJuKjf2pUvo1BZ/giphy.gif" >
+&lt;img src="https://media.giphy.com/media/vvCoAJuKjf2pUvo1BZ/giphy.gif"
+loading="lazy"
+alt="hurt">
+&lt;/a>
+&lt;figcaption>hurt&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>Everythings working! Now for one final touch. Currently the background is blue due to the camera being set that way.&lt;/p>
+&lt;p>Let&amp;rsquo;s make it fit the theme of the room! Go to the main camera and look at the enviornment tab. There you should see a background color to set, go ahead and set it to black&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 124;
+flex-basis: 297px"
+>
+&lt;a href="/p/game-development-club-tutorial-top-down-shooter/cameraBackground.png" data-size="898x724">
+&lt;img src="/p/game-development-club-tutorial-top-down-shooter/cameraBackground.png"
+width="898"
+height="724"
+srcset="/p/game-development-club-tutorial-top-down-shooter/cameraBackground_hu8fe6596aba395d00e4fc51de17e6f2f8_83920_480x0_resize_box_3.png 480w, /p/game-development-club-tutorial-top-down-shooter/cameraBackground_hu8fe6596aba395d00e4fc51de17e6f2f8_83920_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="cambg">
+&lt;/a>
+&lt;figcaption>cambg&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>Now we have a working game!&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://media.giphy.com/media/XBuy9qvp3CDZes7YC5/giphy.gif" >
+&lt;img src="https://media.giphy.com/media/XBuy9qvp3CDZes7YC5/giphy.gif"
+loading="lazy"
+alt="final">
+&lt;/a>
+&lt;figcaption>final&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>To summarize some of the main things we&amp;rsquo;ve created:&lt;/p>
+&lt;ul>
+&lt;li>Working Character movement system&lt;/li>
+&lt;li>Canon shooting ability&lt;/li>
+&lt;li>GameManager System&lt;/li>
+&lt;li>UI Manager System&lt;/li>
+&lt;li>Collision&lt;/li>
+&lt;li>Game Loop&lt;/li>
+&lt;li>Enemies&lt;/li>
+&lt;/ul>
+&lt;p>Hope you&amp;rsquo;ve learned many things in this tutorial!!!&lt;/p></description></item><item><title>My Unreal Adventure! Blog 1: Unreal Engine Intro</title><link>/p/my-unreal-adventure-blog-1-unreal-engine-intro/</link><pubDate>Sat, 27 Aug 2022 00:00:00 +0000</pubDate><guid>/p/my-unreal-adventure-blog-1-unreal-engine-intro/</guid><description>&lt;img src="https://media.giphy.com/media/22VCh90itjL8rr5uza/giphy.gif" alt="Featured image of post My Unreal Adventure! Blog 1: Unreal Engine Intro" />&lt;p>&lt;strong>Ever heard of Unreal Engine?&lt;/strong>&lt;/p>
 &lt;p>&lt;figure
 >
 &lt;a href="https://knowtechie.com/wp-content/uploads/2022/04/unreal-engine-5.jpg" >
