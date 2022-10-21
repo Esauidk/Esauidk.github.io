@@ -10,7 +10,6 @@ categories:
 description: My notes on Hierarchal Models
 image: coordinateFrames.png
 math: true
-toc: true
 ---
 
 ## Matrix Transformation 

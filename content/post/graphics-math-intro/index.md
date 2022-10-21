@@ -9,7 +9,6 @@ categories:
 description: My notes on intro graphics material
 image: https://cdn5.vectorstock.com/i/1000x1000/47/14/3d-coordinate-axis-vector-7814714.jpg
 math: true
-toc: true
 ---
 
 # Overview & Affine Transformation
