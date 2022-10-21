@@ -9,6 +9,8 @@ categories:
     - 3D Models
 description: My notes on Hierarchal Models
 image: coordinateFrames.png
+katex: true
+markup: 'mmark'
 ---
 
 ## Matrix Transformation 
