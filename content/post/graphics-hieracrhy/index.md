@@ -9,8 +9,8 @@ categories:
     - 3D Models
 description: My notes on Hierarchal Models
 image: coordinateFrames.png
-katex: true
-markup: 'mmark'
+math: true
+toc: true
 ---
 
 ## Matrix Transformation 
@@ -70,14 +70,15 @@ In a hierachical system, each parent-child relationship comes with a coordinate 
 In a hiearchy, a coordinate frame is made up from the previous coordinate frames from the parents above.
 
 In the above example:
-C_0 = T_0
-C_1 =  T_1 * R_x_1 (ϴ) * C_0
-C_2 =  T_2 * R_x_2 * C_1
+$$C_0 = T_0$$
+$$C_1 =  T_1 * R_{x_1}(\theta) * C_0$$
+$$C_2 =  T_2 * R_{x_2}(\theta) * C_1$$
 
 Each object uses their own coordinate frame to determine the position of their pixels
-Blue = C_0 * T * S
-Red = C_1 * T * S
-Green = C_2 * T * S
+
+$$\text{Blue} = C_0 * T * S$$
+$$\text{Red} = C_1 * T * S$$
+$$\text{Green} = C_2 * T * S$$
 
 With these, if a parents moves in someway, the children will also be affected by them.
 
