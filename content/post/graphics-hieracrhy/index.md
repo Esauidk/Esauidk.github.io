@@ -6,7 +6,7 @@ draft: false
 categories: 
     - Graphics
     - Math
-	- 3D Models
+    - 3D Models
 description: My notes on Hierarchal Models
 image: coordinateFrames.png
 ---
