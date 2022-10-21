@@ -8,7 +8,7 @@ categories:
     - Math
 	- 3D Models
 description: My notes on Hierarchal Models
-image: coordinateFrame.png
+image: coordinateFrames.png
 ---
 
 ## Matrix Transformation 
