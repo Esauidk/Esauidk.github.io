@@ -1,5 +1,5 @@
 ---
-title: "3D Graphics INtro"
+title: "3D Graphics Intro"
 author: Esau Abraham
 date: 2022-10-16
 draft: false

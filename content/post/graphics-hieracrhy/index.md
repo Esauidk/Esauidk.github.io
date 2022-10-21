@@ -1,4 +1,15 @@
-
+---
+title: "3D Graphics: Hierarchy Models"
+author: Esau Abraham
+date: 2022-10-20
+draft: false
+categories: 
+    - Graphics
+    - Math
+	- 3D Models
+description: My notes on Hierarchal Models
+image: coordinateFrame.png
+---
 
 ## Matrix Transformation 
 The reason we keep things like translations as a matrix transformation instead of a simple collumn addition is for **EFFICIENCY**.
