@@ -1,3 +1,233 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>C++ on Esau's Page</title><link>/categories/c++/</link><description>Recent content in C++ on Esau's Page</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 27 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/c++/index.xml" rel="self" type="application/rss+xml"/><item><title>My Unreal Adventure! Blog 1: Unreal Engine Intro</title><link>/p/my-unreal-adventure-blog-1-unreal-engine-intro/</link><pubDate>Sat, 27 Aug 2022 00:00:00 +0000</pubDate><guid>/p/my-unreal-adventure-blog-1-unreal-engine-intro/</guid><description>Ever heard of Unreal Engine?
-Image of Unreal Engine Logo Image from Unreal Engine 5 Teaser Quick Explanation of Unreal Unreal Engine is a 3D creation tool that primarily enables game developers to create 3D envionrments and experiences. In there own definition:
-Free to download, Unreal Engine comes with everything you need to build and ship successful multi-platform games and location-based entertainment for any genre. With full access to source code, a robust C++ API, and Blueprint visual scripting at your fingertips, you can develop your title any way you like.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>C++ on Esau's Page</title><link>/categories/c++/</link><description>Recent content in C++ on Esau's Page</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 27 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/c++/index.xml" rel="self" type="application/rss+xml"/><item><title>My Unreal Adventure! Blog 1: Unreal Engine Intro</title><link>/p/my-unreal-adventure-blog-1-unreal-engine-intro/</link><pubDate>Sat, 27 Aug 2022 00:00:00 +0000</pubDate><guid>/p/my-unreal-adventure-blog-1-unreal-engine-intro/</guid><description>&lt;img src="https://media.giphy.com/media/22VCh90itjL8rr5uza/giphy.gif" alt="Featured image of post My Unreal Adventure! Blog 1: Unreal Engine Intro" />&lt;p>&lt;strong>Ever heard of Unreal Engine?&lt;/strong>&lt;/p>
+&lt;p>&lt;img src="https://knowtechie.com/wp-content/uploads/2022/04/unreal-engine-5.jpg"
+loading="lazy"
+alt="Image of Unreal Engine Logo"
+>&lt;/p>
+&lt;p>&lt;img src="https://www.spieltimes.com/wp-content/uploads/2022/04/Unreal-Engine-5.jpg"
+loading="lazy"
+alt="Image from Unreal Engine 5 Teaser"
+>&lt;/p>
+&lt;h1 id="quick-explanation-of-unreal">Quick Explanation of Unreal&lt;/h1>
+&lt;p>Unreal Engine is a 3D creation tool that primarily enables game developers to create 3D envionrments and experiences. In there own definition:&lt;/p>
+&lt;blockquote>
+&lt;p>Free to download, Unreal Engine comes with everything you need to build and ship successful multi-platform games and location-based entertainment for any genre. With full access to source code, a robust C++ API, and Blueprint visual scripting at your fingertips, you can develop your title any way you like.&lt;/p>
+&lt;/blockquote>
+&lt;h1 id="what-am-i-doing-with-unreal">What Am I Doing With Unreal?&lt;/h1>
+&lt;p>Me, wanted to start a new hobby game dev project, decided to start working on a first person game! After many years of using &lt;a class="link" href="https://unity.com/" target="_blank" rel="noopener"
+>Unity&lt;/a>, I thought it would be a great chance to finally learn how to properly take advantage of Unreal Engine&amp;rsquo;s power! It&amp;rsquo;s known for being exclusively good for first person games.&lt;/p>
+&lt;h1 id="how-does-unreal-work">How Does Unreal Work?&lt;/h1>
+&lt;h2 id="coding-process">Coding Process&lt;/h2>
+&lt;p>Unreal has 2 ways to code your games: &lt;strong>Blueprints&lt;/strong> and &lt;strong>C++&lt;/strong>&lt;/p>
+&lt;h3 id="blueprints">Blueprints&lt;/h3>
+&lt;p>Blueprints are a visual scripting interface that allows you to code using visual building blocks. It contains parts to it that reflect what you would see when making a class in C++: functions, variables, events, components&lt;/p>
+&lt;p>&lt;img src="https://docs.unrealengine.com/5.0/Images/programming-and-scripting/blueprints-visual-scripting/QuickStart/BPQS_6_Step4.png"
+loading="lazy"
+alt="Blueprints exmaple"
+>&lt;/p>
+&lt;h3 id="c-coding">C++ Coding&lt;/h3>
+&lt;p>Unreal Engine is built and compiled in C++, it comes with libraries that allow users to create their Unreal Objects, Classes, Modules, Game Systems, and more&lt;/p>
+&lt;p>&lt;img src="/p/my-unreal-adventure-blog-1-unreal-engine-intro/cplusShot.png"
+width="1920"
+height="1040"
+srcset="/p/my-unreal-adventure-blog-1-unreal-engine-intro/cplusShot_hu15c650f631927a821a010d1e5ac398a8_303712_480x0_resize_box_3.png 480w, /p/my-unreal-adventure-blog-1-unreal-engine-intro/cplusShot_hu15c650f631927a821a010d1e5ac398a8_303712_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Image of Visual Studio"
+class="gallery-image"
+data-flex-grow="184"
+data-flex-basis="443px"
+>&lt;/p>
+&lt;h3 id="compatibility">Compatibility&lt;/h3>
+&lt;p>The blueprint system and C++ enviornment is designed in a way that your code can easily be converted between the two types&lt;/p>
+&lt;p>&lt;img src="https://d3kjluh73b9h9o.cloudfront.net/optimized/3X/f/6/f6a555c08687118b57ffc5050f0a1b60e6fe6527_2_339x500.png"
+loading="lazy"
+alt="Image of Blueprint to C&amp;#43;&amp;#43; option"
+>&lt;/p>
+&lt;h2 id="core-components">Core Components&lt;/h2>
+&lt;p>There&amp;rsquo;s more for me to learn about the core workflow of Unreal but here is what I&amp;rsquo;ve grasped.&lt;/p>
+&lt;p>There are 2 important pieces of Unreal Engine: &lt;strong>Actors&lt;/strong> and &lt;strong>GameModes&lt;/strong>&lt;/p>
+&lt;h3 id="actors">Actors&lt;/h3>
+&lt;p>Actors are objects that can be spawn/instantiated into the game world. It is an all encompassing role that can be any object, some examples are the camera, the player, even things that are not physical like starting location points.&lt;/p>
+&lt;p>&lt;img src="https://docs.unrealengine.com/4.26/Images/BuildingWorlds/LDQuickStart/TableAndChairs.jpg"
+loading="lazy"
+alt="Image of Chair Actors"
+>&lt;/p>
+&lt;h4 id="pawn-actors">Pawn Actors&lt;/h4>
+&lt;p>A pawn actor is a more specifc type of actor. This is an actor that can be in UE&amp;rsquo;s words &lt;em>possessed&lt;/em>. I would like to say, you are able to control it during runtime to do certain actions. An example of this is the character that the player controls. The player will take control of this pawn and make it perform actions that progress the game and triggere events.&lt;/p>
+&lt;p>The entity that controls a pawn is not limited to just the player. An AI could be the one controlling the pawn, for example with enemies.&lt;/p>
+&lt;p>&lt;img src="https://gamedevacademy.org/wp-content/uploads/2020/05/ezgif-6-6c0eb29d6cf7.gif"
+loading="lazy"
+alt="Gif of Enemy"
+>&lt;/p>
+&lt;h4 id="character-actors">Character Actors&lt;/h4>
+&lt;p>A character actor is a &lt;em>varient&lt;/em> of the pawn actor, where it&amp;rsquo;s usage is still the same, but it comes with implementations of features such as movement related to land, water, sky. It also comes with skeleton mesh components which are allow complex animations to occur with the actor and a capsule which allows collision detection and interaction with the world. &lt;strong>This is recommended to be used for the actor that the player will control.&lt;/strong>&lt;/p>
+&lt;p>&lt;img src="https://c.tenor.com/D0-dH0cw95YAAAAC/kingdomhearts-running.gif"
+loading="lazy"
+alt="Character Actor Example"
+>&lt;/p>
+&lt;p>&lt;em>An example of a character actor can be seen from the UE5 First-Person template:&lt;/em>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Copyright Epic Games, Inc. All Rights Reserved.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#pragma once
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;#34;CoreMinimal.h&amp;#34;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;#34;GameFramework/Character.h&amp;#34;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;#34;PersonalityManGameCharacter.generated.h&amp;#34;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">class&lt;/span> &lt;span class="nc">UInputComponent&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">class&lt;/span> &lt;span class="nc">USkeletalMeshComponent&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">class&lt;/span> &lt;span class="nc">USceneComponent&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">class&lt;/span> &lt;span class="nc">UCameraComponent&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">class&lt;/span> &lt;span class="nc">UAnimMontage&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">class&lt;/span> &lt;span class="nc">USoundBase&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Declaration of the delegate that will be called when the Primary Action is triggered
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// It is declared as dynamic so it can be accessed also in Blueprints
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="n">DECLARE_DYNAMIC_MULTICAST_DELEGATE&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">FOnUseItem&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">UCLASS&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">Game&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">class&lt;/span> &lt;span class="nc">APersonalityManGameCharacter&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="k">public&lt;/span> &lt;span class="n">ACharacter&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">GENERATED_BODY&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cm">/** Pawn mesh: 1st person view (arms; seen only by self) */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">UPROPERTY&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">VisibleDefaultsOnly&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Category&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">Mesh&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">USkeletalMeshComponent&lt;/span>&lt;span class="o">*&lt;/span> &lt;span class="n">Mesh1P&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cm">/** First person camera */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">UPROPERTY&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">VisibleAnywhere&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">BlueprintReadOnly&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Category&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Camera&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">meta&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">AllowPrivateAccess&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;true&amp;#34;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">UCameraComponent&lt;/span>&lt;span class="o">*&lt;/span> &lt;span class="n">FirstPersonCameraComponent&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">public&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">APersonalityManGameCharacter&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">protected&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">virtual&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="n">BeginPlay&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">public&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cm">/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">UPROPERTY&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">EditDefaultsOnly&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">BlueprintReadWrite&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Category&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;PlayerCameraSettings&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">float&lt;/span> &lt;span class="n">GamepadSensitivity&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">UPROPERTY&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">EditDefaultsOnly&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">BlueprintReadWrite&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Category&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;PlayerCameraSettings&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">float&lt;/span> &lt;span class="n">MouseSensitivity&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">UPROPERTY&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">EditDefaultsOnly&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">BlueprintReadWrite&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Category&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;PlayerMovementSettings&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">float&lt;/span> &lt;span class="n">WalkSpeed&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">UPROPERTY&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">EditDefaultsOnly&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">BlueprintReadWrite&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Category&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;PlayerMovementSettings&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">float&lt;/span> &lt;span class="n">SprintSpeed&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cm">/** Delegate to whom anyone can subscribe to receive this event */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">UPROPERTY&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">BlueprintAssignable&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Category&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;Interaction&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">FOnUseItem&lt;/span> &lt;span class="n">OnUseItem&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">protected&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cm">/** Fires a projectile. */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">void&lt;/span> &lt;span class="n">OnPrimaryAction&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cm">/** Handles moving forward/backward */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">void&lt;/span> &lt;span class="nf">MoveForward&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">float&lt;/span> &lt;span class="n">Val&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cm">/** Handles strafing movement, left and right */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">void&lt;/span> &lt;span class="nf">MoveRight&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">float&lt;/span> &lt;span class="n">Val&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cm">/**
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * Called via mouse input to turn at a given rate.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * @param Rate This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">void&lt;/span> &lt;span class="nf">MouseTurnAtRate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">float&lt;/span> &lt;span class="n">Rate&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cm">/**
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * Called via mouse input to turn look up/down at a given rate.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * @param Rate This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">void&lt;/span> &lt;span class="nf">MouseLookUpRate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">float&lt;/span> &lt;span class="n">Rate&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cm">/**
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * Called via gamepad input to turn at a given rate.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * @param Rate This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">void&lt;/span> &lt;span class="nf">GamePadTurnAtRate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">float&lt;/span> &lt;span class="n">Rate&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cm">/**
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * Called via gamepad input to turn look up/down at a given rate.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * @param Rate This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">void&lt;/span> &lt;span class="nf">GamePadLookUpAtRate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">float&lt;/span> &lt;span class="n">Rate&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">void&lt;/span> &lt;span class="nf">SetSprint&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">void&lt;/span> &lt;span class="nf">SetWalk&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">struct&lt;/span> &lt;span class="nc">TouchData&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">TouchData&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="n">bIsPressed&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">false&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">Location&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">FVector&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">ZeroVector&lt;/span>&lt;span class="p">;}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">bool&lt;/span> &lt;span class="n">bIsPressed&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ETouchIndex&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">Type&lt;/span> &lt;span class="n">FingerIndex&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">FVector&lt;/span> &lt;span class="n">Location&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">bool&lt;/span> &lt;span class="n">bMoved&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">void&lt;/span> &lt;span class="nf">BeginTouch&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">const&lt;/span> &lt;span class="n">ETouchIndex&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">Type&lt;/span> &lt;span class="n">FingerIndex&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">const&lt;/span> &lt;span class="n">FVector&lt;/span> &lt;span class="n">Location&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">void&lt;/span> &lt;span class="nf">EndTouch&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">const&lt;/span> &lt;span class="n">ETouchIndex&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">Type&lt;/span> &lt;span class="n">FingerIndex&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">const&lt;/span> &lt;span class="n">FVector&lt;/span> &lt;span class="n">Location&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">void&lt;/span> &lt;span class="nf">TouchUpdate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">const&lt;/span> &lt;span class="n">ETouchIndex&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">Type&lt;/span> &lt;span class="n">FingerIndex&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">const&lt;/span> &lt;span class="n">FVector&lt;/span> &lt;span class="n">Location&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">TouchData&lt;/span> &lt;span class="n">TouchItem&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">protected&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// APawn interface
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">virtual&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="n">SetupPlayerInputComponent&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">UInputComponent&lt;/span>&lt;span class="o">*&lt;/span> &lt;span class="n">InputComponent&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">override&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// End of APawn interface
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cm">/*
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * Configures input for touchscreen devices if there is a valid touch interface for doing so
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> *
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * @param InputComponent The input component pointer to bind controls to
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * @returns true if touch controls were enabled.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">bool&lt;/span> &lt;span class="nf">EnableTouchscreenMovement&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">UInputComponent&lt;/span>&lt;span class="o">*&lt;/span> &lt;span class="n">InputComponent&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">public&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cm">/** Returns Mesh1P subobject **/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">USkeletalMeshComponent&lt;/span>&lt;span class="o">*&lt;/span> &lt;span class="n">GetMesh1P&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="k">const&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="n">Mesh1P&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cm">/** Returns FirstPersonCameraComponent subobject **/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">UCameraComponent&lt;/span>&lt;span class="o">*&lt;/span> &lt;span class="nf">GetFirstPersonCameraComponent&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="k">const&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="n">FirstPersonCameraComponent&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="gamemodes">GameModes&lt;/h3>
+&lt;p>The name &amp;ldquo;gamemode&amp;rdquo; is pretty self-explanitory on the use case of this module. It defines the rules of your game and &amp;ldquo;what&amp;rdquo; the game is. Some examples are &amp;ldquo;how is the player spawned into the game&amp;rdquo;, &amp;ldquo;what systems are spawn&amp;rdquo;, &amp;ldquo;how many players can be in the game at once&amp;rdquo;, the list goes on.&lt;/p>
+&lt;blockquote>
+&lt;p>While certain fundamentals, like the number of players required to play, or the method by which those players join the game, are common to many types of games, limitless rule variations are possible depending on the specific game you are developing. Regardless of what those rules are, Game Modes are designed to define and implement them. There are currently two commonly-used base classes for Game Modes. - Unreal Engine Documentation&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;em>An example of a gamemode can be seen from the UE5 First-Person template:&lt;/em>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Copyright Epic Games, Inc. All Rights Reserved.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#pragma once
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;#34;CoreMinimal.h&amp;#34;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;#34;GameFramework/GameModeBase.h&amp;#34;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;#34;PersonalityManGameGameMode.generated.h&amp;#34;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">UCLASS&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">minimalapi&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">class&lt;/span> &lt;span class="nc">APersonalityManGameGameMode&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="k">public&lt;/span> &lt;span class="n">AGameModeBase&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">GENERATED_BODY&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">public&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">APersonalityManGameGameMode&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Copyright Epic Games, Inc. All Rights Reserved.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;#34;PersonalityManGameGameMode.h&amp;#34;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;#34;PersonalityManGameCharacter.h&amp;#34;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;#34;UObject/ConstructorHelpers.h&amp;#34;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">APersonalityManGameGameMode&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">APersonalityManGameGameMode&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">:&lt;/span> &lt;span class="n">Super&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// set default pawn class to our Blueprinted character
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">static&lt;/span> &lt;span class="n">ConstructorHelpers&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">FClassFinder&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">APawn&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">PlayerPawnClassFinder&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">TEXT&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;/Game/FirstPerson/Blueprints/BP_FirstPersonCharacter&amp;#34;&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">DefaultPawnClass&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">PlayerPawnClassFinder&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Class&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="thats-it-for-now">That&amp;rsquo;s It For Now!&lt;/h1>
+&lt;p>That&amp;rsquo;s all the information I&amp;rsquo;ve acculmulated so far, look out for the next blog where I start working on that first-person project, specifically the movement system!&lt;/p></description></item></channel></rss>
