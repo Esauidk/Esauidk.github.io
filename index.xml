@@ -1,4 +1,55 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Esau's Page</title><link>/</link><description>Recent content on Esau's Page</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 16 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>Game Development Club Tutorial: Top Down Shooter</title><link>/p/game-development-club-tutorial-top-down-shooter/</link><pubDate>Sun, 16 Oct 2022 00:00:00 +0000</pubDate><guid>/p/game-development-club-tutorial-top-down-shooter/</guid><description>&lt;img src="https://media.giphy.com/media/XBuy9qvp3CDZes7YC5/giphy.gif" alt="Featured image of post Game Development Club Tutorial: Top Down Shooter" />&lt;h1 id="welcome">Welcome!&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Esau's Page</title><link>/</link><description>Recent content on Esau's Page</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 16 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>3D Graphics INtro</title><link>/p/3d-graphics-intro/</link><pubDate>Sun, 16 Oct 2022 00:00:00 +0000</pubDate><guid>/p/3d-graphics-intro/</guid><description>&lt;img src="https://cdn5.vectorstock.com/i/1000x1000/47/14/3d-coordinate-axis-vector-7814714.jpg" alt="Featured image of post 3D Graphics INtro" />&lt;h1 id="overview--affine-transformation">Overview &amp;amp; Affine Transformation&lt;/h1>
+&lt;h2 id="3d-rotation">3D Rotation&lt;/h2>
+&lt;ul>
+&lt;li>Cos(theta) in the matrix scaling spots&lt;/li>
+&lt;li>Sin(theta) and -Sin(theta) in the matrix sheering spots&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>2D Rotation&lt;/strong>
+$$
+\begin{bmatrix}
+Cos(ϴ) &amp;amp; -Sin(ϴ) \
+Sin(ϴ) &amp;amp; Cos(ϴ)
+\end{bmatrix}$$&lt;/p>
+&lt;p>&lt;strong>3D Rotation&lt;/strong>
+$$
+\begin{bmatrix}
+Cos(ϴ) &amp;amp; -Sin(ϴ) &amp;amp; 0 \
+Sin(ϴ) &amp;amp; Cos(ϴ) &amp;amp; 0 \
+0 &amp;amp; 0 &amp;amp; 1
+\end{bmatrix}
+$$&lt;/p>
+&lt;h2 id="homogeneous-coordinates">Homogeneous Coordinates&lt;/h2>
+&lt;p>Have an extra collumn in the transformation matrix to represent translation&lt;/p>
+&lt;p>&lt;strong>2D Translation&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Move to a 3D dimension and make the third collumn in the matrix a translation vector
+$$
+\begin{bmatrix}
+x+1 \
+y \
+0
+\end{bmatrix}
+=
+\begin{bmatrix}
+x+1 \
+y \
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 &amp;amp; 0 &amp;amp; 1 \
+0 &amp;amp; 1 &amp;amp; 0 \
+0 &amp;amp; 0 &amp;amp; 0
+\end{bmatrix}&lt;/li>
+&lt;/ul>
+&lt;ul>
+&lt;li>&lt;/li>
+&lt;/ul>
+&lt;p>\begin{bmatrix}
+x \
+y \
+1
+\end{bmatrix}
+$$&lt;/p></description></item><item><title>Game Development Club Tutorial: Top Down Shooter</title><link>/p/game-development-club-tutorial-top-down-shooter/</link><pubDate>Sun, 16 Oct 2022 00:00:00 +0000</pubDate><guid>/p/game-development-club-tutorial-top-down-shooter/</guid><description>&lt;img src="https://media.giphy.com/media/XBuy9qvp3CDZes7YC5/giphy.gif" alt="Featured image of post Game Development Club Tutorial: Top Down Shooter" />&lt;h1 id="welcome">Welcome!&lt;/h1>
 &lt;p>Welcome to the top down shooter tutorial! The purpose of this blog is to be used to follow along during the game development club tutorial meeting but all are welcome to view this and learn from it!&lt;/p>
 &lt;h1 id="getting-started">Getting Started&lt;/h1>
 &lt;h2 id="downloading-unity">Downloading Unity&lt;/h2>
@@ -2338,4 +2389,173 @@ alt="Result of Code">
 &lt;figcaption>Result of Code&lt;/figcaption>
 &lt;/figure>&lt;/p>
 &lt;p>&lt;a class="link" href="https://media.giphy.com/media/hVsP8KfbcwItVhMg5s/giphy-downsized.gif" target="_blank" rel="noopener"
->GIF Source Link&lt;/a>&lt;/p></description></item></channel></rss>
+>GIF Source Link&lt;/a>&lt;/p></description></item><item><title/><link>/p/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/p/</guid><description>&lt;h2 id="matrix-transformation">Matrix Transformation&lt;/h2>
+&lt;p>The reason we keep things like translations as a matrix transformation instead of a simple collumn addition is for &lt;strong>EFFICIENCY&lt;/strong>.&lt;/p>
+&lt;p>If we wanted to do multiple transformations on an objects.&lt;/p>
+&lt;p>$$(M_N * &amp;hellip; * M_1) * P $$&lt;/p>
+&lt;p>is easier than&lt;/p>
+&lt;p>$$(M_2 * ((M_1 * P ) + T_1) + T_2)$$&lt;/p>
+&lt;p>We can calculate the overall matrix onces instead of doing multiple computations for multiple points&lt;/p>
+&lt;h3 id="types-of-transformation">Types of transformation&lt;/h3>
+&lt;p>$$T(x,y,z) = Translation$$
+$$S(x,y,z) = Scaling$$
+$$Rx(theta) = \text{Rotation over x-axis}$$
+$$Ry(theta) = \text{Rotation over y-axis}$$
+$$Rz(theta) = \text{Rotation over z-axis}$$&lt;/p>
+&lt;h3 id="example-of-transformation">Example of transformation&lt;/h3>
+&lt;p>Let&amp;rsquo;s say we want to rotate an object ϴ on a 2D plane with a point P as it&amp;rsquo;s rotation pivot:&lt;/p>
+&lt;ol>
+&lt;li>You want to first translate the object to have point P of the object be at the origin (anything at the origin will not be affected during scaling, translation, or rotation)
+&lt;ol>
+&lt;li>$$T(-p.x,-p.y,-p.z) = P $$&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>Next you want to do a rotation around the z-axis (since we are in 2D)
+&lt;ol>
+&lt;li>$$Rz(ϴ) * T(-p.x, -p.y, -p.z) = P$$&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>Finally you want to move the object back to its original position
+&lt;ol>
+&lt;li>$$T(p.x, p.y, p.z) * Rz(ϴ) * T(-p.x, -p.y, -p.z) = P$$&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;em>Note: Matrix operations go right to left, you need to order the matricies in the order of the transformations correctly&lt;/em>&lt;/p>
+&lt;h2 id="hierachical-models">Hierachical Models&lt;/h2>
+&lt;p>With most models, we want certain objects to move similar to joints, where they move if a parent object moves. This is a form called &lt;strong>Hierachical modeling&lt;/strong>&lt;/p>
+&lt;p>You can view it like this:&lt;/p>
+&lt;ul>
+&lt;li>World
+&lt;ul>
+&lt;li>Body
+&lt;ul>
+&lt;li>Arms
+&lt;ul>
+&lt;li>Hands
+&lt;ul>
+&lt;li>Fingers&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Head
+&lt;ul>
+&lt;li>Ears&lt;/li>
+&lt;li>Eyes&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>You can view this as a tree of different matrix transformations&lt;/p>
+&lt;h3 id="coordinate-frames">Coordinate Frames&lt;/h3>
+&lt;p>You can imagine a coordinate frame as a screenshot of the coordinate system/unit vectors transposed and rotated in some fashion.&lt;/p>
+&lt;p>In a hierachical system, each parent-child relationship comes with a coordinate frame that dictates the world view of the particular object&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 65;
+flex-basis: 158px"
+>
+&lt;a href="/p/coordinateFrames.png" data-size="332x504">
+&lt;img src="/p/coordinateFrames.png"
+width="332"
+height="504"
+srcset="/p/coordinateFrames_hu501f4754882fa586b38eda48d2318a36_128655_480x0_resize_box_3.png 480w, /p/coordinateFrames_hu501f4754882fa586b38eda48d2318a36_128655_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="frames">
+&lt;/a>
+&lt;figcaption>frames&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>In a hiearchy, a coordinate frame is made up from the previous coordinate frames from the parents above.&lt;/p>
+&lt;p>In the above example:
+C_0 = T_0
+C_1 = T_1 * R_x_1 (ϴ) * C_0
+C_2 = T_2 * R_x_2 * C_1&lt;/p>
+&lt;p>Each object uses their own coordinate frame to determine the position of their pixels
+Blue = C_0 * T * S
+Red = C_1 * T * S
+Green = C_2 * T * S&lt;/p>
+&lt;p>With these, if a parents moves in someway, the children will also be affected by them.&lt;/p>
+&lt;p>Another way to view the relationships is like this:
+&lt;figure
+class="gallery-image"
+style="
+flex-grow: 85;
+flex-basis: 206px"
+>
+&lt;a href="/p/hierarchyTree.png" data-size="658x766">
+&lt;img src="/p/hierarchyTree.png"
+width="658"
+height="766"
+srcset="/p/hierarchyTree_hu379017cd298dd767776d8bc8dfe8c0eb_70060_480x0_resize_box_3.png 480w, /p/hierarchyTree_hu379017cd298dd767776d8bc8dfe8c0eb_70060_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="hierarchyTree">
+&lt;/a>
+&lt;figcaption>hierarchyTree&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>Now to actually do the math to create these objects, you need to create the overaching matricies multipled with the points of the object.&lt;/p>
+&lt;h3 id="generating-the-hierachical-matrix">Generating the hierachical matrix&lt;/h3>
+&lt;p>You can view this process as a in-order traversal/DFS using a stack. The stack represents the current overall matrix while you push and pop mini transformation components.&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>We start with generating the blue block by adding the first coordinate frame into the stack and then adding the block&amp;rsquo;s independent transformations into the stack.
+&lt;figure
+class="gallery-image"
+style="
+flex-grow: 109;
+flex-basis: 262px"
+>
+&lt;a href="/p/step1.png" data-size="928x848">
+&lt;img src="/p/step1.png"
+width="928"
+height="848"
+srcset="/p/step1_hu722deab187dd036be294eea709522527_278667_480x0_resize_box_3.png 480w, /p/step1_hu722deab187dd036be294eea709522527_278667_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="step1">
+&lt;/a>
+&lt;figcaption>step1&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>We then remove the independent transformations of the blue block and add in the additional transformations that make up our next coordinate frame. We then add in the independent transforations of the red block
+&lt;figure
+class="gallery-image"
+style="
+flex-grow: 108;
+flex-basis: 260px"
+>
+&lt;a href="/p/step2.png" data-size="940x866">
+&lt;img src="/p/step2.png"
+width="940"
+height="866"
+srcset="/p/step2_hu5f9bd2ef6a1227cd1b6cc0f6d312f687_91339_480x0_resize_box_3.png 480w, /p/step2_hu5f9bd2ef6a1227cd1b6cc0f6d312f687_91339_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="step2">
+&lt;/a>
+&lt;figcaption>step2&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>We then perform the same steps, remove independent transformations -&amp;gt; create next coordinate frame, add in new independent transformations&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 108;
+flex-basis: 259px"
+>
+&lt;a href="/p/finalStep.png" data-size="804x744">
+&lt;img src="/p/finalStep.png"
+width="804"
+height="744"
+srcset="/p/finalStep_hu371377724c1064b1fa38f67b56912919_257468_480x0_resize_box_3.png 480w, /p/finalStep_hu371377724c1064b1fa38f67b56912919_257468_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="step3">
+&lt;/a>
+&lt;figcaption>step3&lt;/figcaption>
+&lt;/figure>&lt;/p></description></item></channel></rss>
