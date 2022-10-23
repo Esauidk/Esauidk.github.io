@@ -146,15 +146,15 @@ data-flex-basis="259px"
 &lt;p>&lt;strong>2D Rotation&lt;/strong>
 $$
 \begin{bmatrix}
-Cos(ϴ) &amp;amp; -Sin(ϴ) \
+Cos(ϴ) &amp;amp; -Sin(ϴ) \\
 Sin(ϴ) &amp;amp; Cos(ϴ)
 \end{bmatrix}
 $$&lt;/p>
 &lt;p>&lt;strong>3D Rotation&lt;/strong>
 $$
 \begin{bmatrix}
-Cos(ϴ) &amp;amp; -Sin(ϴ) &amp;amp; 0 \
-Sin(ϴ) &amp;amp; Cos(ϴ) &amp;amp; 0 \
+Cos(ϴ) &amp;amp; -Sin(ϴ) &amp;amp; 0 \\
+Sin(ϴ) &amp;amp; Cos(ϴ) &amp;amp; 0 \\\
 0 &amp;amp; 0 &amp;amp; 1
 \end{bmatrix}
 $$&lt;/p>
@@ -166,20 +166,23 @@ $$&lt;/p>
 &lt;/ul>
 &lt;p>$$
 \begin{bmatrix}
-x+1 \
-y \
+x+1 \\
+y \\
 0
 \end{bmatrix}=
-\begin{bmatrix}x+1\ y\ \end{bmatrix}=
 \begin{bmatrix}
-1 &amp;amp; 0 &amp;amp; 1 \
-0 &amp;amp; 1 &amp;amp; 0 \
+x+1\\
+y
+\end{bmatrix}=
+\begin{bmatrix}
+1 &amp;amp; 0 &amp;amp; 1 \\
+0 &amp;amp; 1 &amp;amp; 0 \\
 0 &amp;amp; 0 &amp;amp; 0
 \end{bmatrix}
 *
 \begin{bmatrix}
-x \
-y \
+x \\
+y \\
 1
 \end{bmatrix}
 $$&lt;/p></description></item></channel></rss>

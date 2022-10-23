@@ -146,15 +146,15 @@ data-flex-basis="259px"
 &lt;p>&lt;strong>2D Rotation&lt;/strong>
 $$
 \begin{bmatrix}
-Cos(ϴ) &amp;amp; -Sin(ϴ) \
+Cos(ϴ) &amp;amp; -Sin(ϴ) \\
 Sin(ϴ) &amp;amp; Cos(ϴ)
 \end{bmatrix}
 $$&lt;/p>
 &lt;p>&lt;strong>3D Rotation&lt;/strong>
 $$
 \begin{bmatrix}
-Cos(ϴ) &amp;amp; -Sin(ϴ) &amp;amp; 0 \
-Sin(ϴ) &amp;amp; Cos(ϴ) &amp;amp; 0 \
+Cos(ϴ) &amp;amp; -Sin(ϴ) &amp;amp; 0 \\
+Sin(ϴ) &amp;amp; Cos(ϴ) &amp;amp; 0 \\\
 0 &amp;amp; 0 &amp;amp; 1
 \end{bmatrix}
 $$&lt;/p>
@@ -166,20 +166,23 @@ $$&lt;/p>
 &lt;/ul>
 &lt;p>$$
 \begin{bmatrix}
-x+1 \
-y \
+x+1 \\
+y \\
 0
 \end{bmatrix}=
-\begin{bmatrix}x+1\ y\ \end{bmatrix}=
 \begin{bmatrix}
-1 &amp;amp; 0 &amp;amp; 1 \
-0 &amp;amp; 1 &amp;amp; 0 \
+x+1\\
+y
+\end{bmatrix}=
+\begin{bmatrix}
+1 &amp;amp; 0 &amp;amp; 1 \\
+0 &amp;amp; 1 &amp;amp; 0 \\
 0 &amp;amp; 0 &amp;amp; 0
 \end{bmatrix}
 *
 \begin{bmatrix}
-x \
-y \
+x \\
+y \\
 1
 \end{bmatrix}
 $$&lt;/p></description></item><item><title>DirectX 3D Intro</title><link>/p/directx-3d-intro/</link><pubDate>Wed, 22 Dec 2021 18:11:43 -0800</pubDate><guid>/p/directx-3d-intro/</guid><description>&lt;img src="https://media.giphy.com/media/hVsP8KfbcwItVhMg5s/giphy.gif" alt="Featured image of post DirectX 3D Intro" />&lt;p>I&amp;rsquo;ve been exploring Direct X 3D and it&amp;rsquo;s implementation as a Graphics Engine!
