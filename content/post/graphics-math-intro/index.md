@@ -19,7 +19,7 @@ math: true
 **2D Rotation**
 $$
 \begin{bmatrix}
-Cos(ϴ) & -Sin(ϴ) \\
+Cos(ϴ) & -Sin(ϴ) \\\\
 Sin(ϴ) & Cos(ϴ)
 \end{bmatrix}
 $$
@@ -28,8 +28,8 @@ $$
 **3D Rotation**
 $$
 \begin{bmatrix}
-Cos(ϴ) & -Sin(ϴ) & 0  \\
-Sin(ϴ) & Cos(ϴ) & 0 \\
+Cos(ϴ) & -Sin(ϴ) & 0  \\\\
+Sin(ϴ) & Cos(ϴ) & 0 \\\\\
 0 & 0 & 1
 \end{bmatrix}
 $$
@@ -44,20 +44,23 @@ Have an extra collumn in the transformation matrix to represent translation
 
 $$
 \begin{bmatrix}
-x+1  \\
-y  \\
+x+1  \\\\
+y  \\\\
 0
 \end{bmatrix}=
-\begin{bmatrix}x+1\\ y\\ \end{bmatrix}=
 \begin{bmatrix}
-1 & 0 & 1 \\
-0 & 1 & 0 \\
+x+1\\\\
+y
+\end{bmatrix}=
+\begin{bmatrix}
+1 & 0 & 1 \\\\
+0 & 1 & 0 \\\\
 0 & 0 & 0
 \end{bmatrix}
 *
 \begin{bmatrix}
-x  \\
-y  \\
+x  \\\\
+y  \\\\
 1
 \end{bmatrix}
 $$
