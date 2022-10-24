@@ -1,5 +1,5 @@
 ---
-title: "3D Graphics Intro"
+title: "3D Graphics: Meshing"
 author: Esau Abraham
 date: 2022-10-23
 draft: false
