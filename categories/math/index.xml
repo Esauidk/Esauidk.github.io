@@ -14,9 +14,24 @@ data-flex-basis="222px"
 &lt;p>To efficiently store mesh data, we want to reduce the amount of redundancy when rendering the primitive shapes.&lt;/p>
 &lt;p>We do this by storing all the verticies of involved in the mesh and storing all the different combination of the verticies that make up our primitive shape&lt;/p>
 &lt;p>Vertice Data
-[V_0, V_1, V_2, &amp;hellip; , V_n]&lt;/p>
+$$
+\begin{bmatrix}
+V_0 \\
+V_1 \\
+V_2 \\
+&amp;hellip; \\
+V_n
+\end{bmatrix}
+$$&lt;/p>
 &lt;p>Primitive Shape Data
-[ [0, 1, 2], [ 3, 4, 5], &amp;hellip; [n-2, n-1, n] ]&lt;/p>
+$$
+\begin{bmatrix}
+0,1,2 \\
+3,4,5 \\
+&amp;hellip; \\
+n-2, n-1, n
+\end{bmatrix}
+$$&lt;/p>
 &lt;h3 id="vertex-order-matters">Vertex Order Matters&lt;/h3>
 &lt;p>In practice, the order of the verticies of a mesh is used to determine the &lt;strong>normal&lt;/strong> (an indication of which side of the primitive is the front and back). Putting the verticies in the wrong order can get results that are unexpected&lt;/p>
 &lt;h3 id="culling">Culling&lt;/h3>
@@ -64,7 +79,15 @@ data-flex-basis="651px"
 >&lt;/p>
 &lt;p>Our vertex data storage now looks like this:&lt;/p>
 &lt;p>Vertice Data
-[ [V_0, N_0], [V_1, N_1], [V_2, N_2], &amp;hellip; , [V_n, N_n] ]&lt;/p>
+$$
+\begin{bmatrix}
+V_0, N_0 \\
+V_1, N_1 \\
+V_2, N_2 \\
+&amp;hellip; \\
+V_n, N_n
+\end{bmatrix}
+$$&lt;/p>
 &lt;h3 id="storing-textures">Storing Textures&lt;/h3>
 &lt;p>We have an object with a correct shape, but what if we want to paint it with an image? This is done through the power of UV mapping.&lt;/p>
 &lt;p>UV mapping is the process of assign a pixel on the texture/image with a pixel on the model. We assign a vertex on our mesh with a 2D coordinate corresponding a pixel on the texture. Other UV positions on the non-vertex mesh pixels are interpolated.&lt;/p>
@@ -80,7 +103,15 @@ data-flex-basis="457px"
 >&lt;/p>
 &lt;p>Our vertex data storage now looks like this:&lt;/p>
 &lt;p>Vertice Data
-[ [V_0, N_0, (U,V)_0], [V_1, N_1, (U,V)_1], [V_2, N_2, (U,V)_3], &amp;hellip; , [V_n, N_n, (U,V)_n] ]&lt;/p></description></item><item><title>3D Graphics: Hierarchy Models</title><link>/p/3d-graphics-hierarchy-models/</link><pubDate>Thu, 20 Oct 2022 00:00:00 +0000</pubDate><guid>/p/3d-graphics-hierarchy-models/</guid><description>&lt;img src="/p/3d-graphics-hierarchy-models/coordinateFrames.png" alt="Featured image of post 3D Graphics: Hierarchy Models" />&lt;h2 id="matrix-transformation">Matrix Transformation&lt;/h2>
+$$
+\begin{bmatrix}
+V_0, N_0, (U,V)_0 \\
+V_1, N_1, (U,V)_1 \\
+V_2, N_2, (U,V)_2 \\
+&amp;hellip; \\
+V_n, N_n, (U,V)_n
+\end{bmatrix}
+$$&lt;/p></description></item><item><title>3D Graphics: Hierarchy Models</title><link>/p/3d-graphics-hierarchy-models/</link><pubDate>Thu, 20 Oct 2022 00:00:00 +0000</pubDate><guid>/p/3d-graphics-hierarchy-models/</guid><description>&lt;img src="/p/3d-graphics-hierarchy-models/coordinateFrames.png" alt="Featured image of post 3D Graphics: Hierarchy Models" />&lt;h2 id="matrix-transformation">Matrix Transformation&lt;/h2>
 &lt;p>The reason we keep things like translations as a matrix transformation instead of a simple collumn addition is for &lt;strong>EFFICIENCY&lt;/strong>.&lt;/p>
 &lt;p>If we wanted to do multiple transformations on an objects.&lt;/p>
 &lt;p>$$(M_N * &amp;hellip; * M_1) * P $$&lt;/p>
