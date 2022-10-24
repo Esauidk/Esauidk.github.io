@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Math on Esau's Page</title><link>/categories/math/</link><description>Recent content in Math on Esau's Page</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 23 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/math/index.xml" rel="self" type="application/rss+xml"/><item><title>3D Graphics Intro</title><link>/p/3d-graphics-intro/</link><pubDate>Sun, 23 Oct 2022 00:00:00 +0000</pubDate><guid>/p/3d-graphics-intro/</guid><description>&lt;img src="https://i.stack.imgur.com/Bk826.png" alt="Featured image of post 3D Graphics Intro" />&lt;p>A mesh is a collection of primitives shape that make up an overarching model
-&lt;img src="/p/3d-graphics-intro/mesh.png"
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Math on Esau's Page</title><link>/categories/math/</link><description>Recent content in Math on Esau's Page</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 23 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/math/index.xml" rel="self" type="application/rss+xml"/><item><title>3D Graphics: Meshing</title><link>/p/3d-graphics-meshing/</link><pubDate>Sun, 23 Oct 2022 00:00:00 +0000</pubDate><guid>/p/3d-graphics-meshing/</guid><description>&lt;img src="https://i.stack.imgur.com/Bk826.png" alt="Featured image of post 3D Graphics: Meshing" />&lt;p>A mesh is a collection of primitives shape that make up an overarching model
+&lt;img src="/p/3d-graphics-meshing/mesh.png"
 width="1000"
 height="1080"
-srcset="/p/3d-graphics-intro/mesh_huca8b3e1b9a099698e7e755ead9321f30_581287_480x0_resize_box_3.png 480w, /p/3d-graphics-intro/mesh_huca8b3e1b9a099698e7e755ead9321f30_581287_1024x0_resize_box_3.png 1024w"
+srcset="/p/3d-graphics-meshing/mesh_huca8b3e1b9a099698e7e755ead9321f30_581287_480x0_resize_box_3.png 480w, /p/3d-graphics-meshing/mesh_huca8b3e1b9a099698e7e755ead9321f30_581287_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="Mesh"
 class="gallery-image"
@@ -29,10 +29,10 @@ data-flex-basis="222px"
 &lt;p>ϴ &amp;gt; 0 = front facing
 ϴ &amp;lt;= 0 = back facing&lt;/p>
 &lt;p>Having the wrong normals can cause a triangle to not be rendered&lt;/p>
-&lt;p>&lt;img src="/p/3d-graphics-intro/wrongIndex.png"
+&lt;p>&lt;img src="/p/3d-graphics-meshing/wrongIndex.png"
 width="450"
 height="193"
-srcset="/p/3d-graphics-intro/wrongIndex_huf10670131e768ee8203a4a4dc1184e34_52232_480x0_resize_box_3.png 480w, /p/3d-graphics-intro/wrongIndex_huf10670131e768ee8203a4a4dc1184e34_52232_1024x0_resize_box_3.png 1024w"
+srcset="/p/3d-graphics-meshing/wrongIndex_huf10670131e768ee8203a4a4dc1184e34_52232_480x0_resize_box_3.png 480w, /p/3d-graphics-meshing/wrongIndex_huf10670131e768ee8203a4a4dc1184e34_52232_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="indexDif"
 class="gallery-image"
@@ -41,10 +41,10 @@ data-flex-basis="559px"
 >&lt;/p>
 &lt;h3 id="storing-normals">Storing Normals&lt;/h3>
 &lt;p>Normals could be calculated per triangle using some math, but that would introduce problems when wanting to create smooth surfraces of multiple primitives.&lt;/p>
-&lt;p>&lt;img src="/p/3d-graphics-intro/interpResult.png"
+&lt;p>&lt;img src="/p/3d-graphics-meshing/interpResult.png"
 width="670"
 height="355"
-srcset="/p/3d-graphics-intro/interpResult_hubbf89ba6fc3ac67518552fdaf31837fe_83631_480x0_resize_box_3.png 480w, /p/3d-graphics-intro/interpResult_hubbf89ba6fc3ac67518552fdaf31837fe_83631_1024x0_resize_box_3.png 1024w"
+srcset="/p/3d-graphics-meshing/interpResult_hubbf89ba6fc3ac67518552fdaf31837fe_83631_480x0_resize_box_3.png 480w, /p/3d-graphics-meshing/interpResult_hubbf89ba6fc3ac67518552fdaf31837fe_83631_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="interpResult"
 class="gallery-image"
@@ -52,10 +52,10 @@ data-flex-grow="188"
 data-flex-basis="452px"
 >&lt;/p>
 &lt;p>To avoid this issue, we give every &lt;strong>vertex&lt;/strong> a normal vector and interpolate normal vectors intermediate points on the primitive&lt;/p>
-&lt;p>&lt;img src="/p/3d-graphics-intro/normalInterpolation.png"
+&lt;p>&lt;img src="/p/3d-graphics-meshing/normalInterpolation.png"
 width="670"
 height="247"
-srcset="/p/3d-graphics-intro/normalInterpolation_hu8c235c55772e7a776d5c821d4c16dfc7_48976_480x0_resize_box_3.png 480w, /p/3d-graphics-intro/normalInterpolation_hu8c235c55772e7a776d5c821d4c16dfc7_48976_1024x0_resize_box_3.png 1024w"
+srcset="/p/3d-graphics-meshing/normalInterpolation_hu8c235c55772e7a776d5c821d4c16dfc7_48976_480x0_resize_box_3.png 480w, /p/3d-graphics-meshing/normalInterpolation_hu8c235c55772e7a776d5c821d4c16dfc7_48976_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="normalInterp"
 class="gallery-image"
@@ -68,10 +68,10 @@ data-flex-basis="651px"
 &lt;h3 id="storing-textures">Storing Textures&lt;/h3>
 &lt;p>We have an object with a correct shape, but what if we want to paint it with an image? This is done through the power of UV mapping.&lt;/p>
 &lt;p>UV mapping is the process of assign a pixel on the texture/image with a pixel on the model. We assign a vertex on our mesh with a 2D coordinate corresponding a pixel on the texture. Other UV positions on the non-vertex mesh pixels are interpolated.&lt;/p>
-&lt;p>&lt;img src="/p/3d-graphics-intro/UVMapping.png"
+&lt;p>&lt;img src="/p/3d-graphics-meshing/UVMapping.png"
 width="640"
 height="336"
-srcset="/p/3d-graphics-intro/UVMapping_hud32cc52ffbba488d832b819481aef1c5_112050_480x0_resize_box_3.png 480w, /p/3d-graphics-intro/UVMapping_hud32cc52ffbba488d832b819481aef1c5_112050_1024x0_resize_box_3.png 1024w"
+srcset="/p/3d-graphics-meshing/UVMapping_hud32cc52ffbba488d832b819481aef1c5_112050_480x0_resize_box_3.png 480w, /p/3d-graphics-meshing/UVMapping_hud32cc52ffbba488d832b819481aef1c5_112050_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="UVMapping"
 class="gallery-image"
