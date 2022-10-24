@@ -7,7 +7,7 @@ categories:
     - Graphics
     - Math
 description: My notes on 3D graphics meshing
-image: https://cdn5.vectorstock.com/i/1000x1000/47/14/3d-coordinate-axis-vector-7814714.jpg
+image: https://i.stack.imgur.com/Bk826.png
 ---
 
 
