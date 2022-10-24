@@ -8,6 +8,7 @@ categories:
     - Math
 description: My notes on 3D graphics meshing
 image: https://i.stack.imgur.com/Bk826.png
+math: true
 ---
 
 
@@ -22,10 +23,25 @@ To efficiently store mesh data, we want to reduce the amount of redundancy when 
 We do this by storing all the verticies of involved in the mesh and storing all the different combination of the verticies that make up our primitive shape
 
 Vertice Data
-[V_0, V_1, V_2, ... , V_n]
+$$
+	\begin{bmatrix}
+		V_0 \\\\
+		V_1 \\\\
+		V_2 \\\\
+		... \\\\
+		V_n
+	\end{bmatrix}
+$$
 
 Primitive Shape Data
-[ [0, 1, 2], [ 3, 4, 5], ... [n-2, n-1, n] ]
+$$
+	\begin{bmatrix}
+	0,1,2 \\\\
+	3,4,5 \\\\
+	... \\\\
+	n-2, n-1, n
+	\end{bmatrix}
+$$
 
 ### Vertex Order Matters
 In practice, the order of the verticies of a mesh is used to determine the **normal** (an indication of which side of the primitive is the front and back). Putting the verticies in the wrong order can get results that are unexpected
@@ -63,7 +79,15 @@ To avoid this issue, we give every **vertex** a normal vector and interpolate no
 Our vertex data storage now looks like this:
 
 Vertice Data
-[ [V_0, N_0], [V_1, N_1], [V_2, N_2], ... , [V_n, N_n] ]
+$$
+	\begin{bmatrix}
+		V_0, N_0 \\\\
+		V_1, N_1 \\\\
+		V_2, N_2 \\\\
+		... \\\\
+		V_n, N_n
+	\end{bmatrix}
+$$
 
 ### Storing Textures
 We have an object with a correct shape, but what if we want to paint it with an image? This is done through the power of UV mapping.
@@ -75,4 +99,12 @@ UV mapping is the process of assign a pixel on the texture/image with a pixel on
 Our vertex data storage now looks like this:
 
 Vertice Data
-[ [V_0, N_0, (U,V)_0], [V_1, N_1, (U,V)_1], [V_2, N_2, (U,V)_3], ... , [V_n, N_n, (U,V)_n] ]
+$$
+	\begin{bmatrix}
+		V_0, N_0, (U,V)_0 \\\\
+		V_1, N_1, (U,V)_1 \\\\
+		V_2, N_2, (U,V)_2 \\\\
+		... \\\\
+		V_n, N_n, (U,V)_n
+	\end{bmatrix}
+$$
