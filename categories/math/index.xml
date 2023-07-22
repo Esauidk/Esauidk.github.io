@@ -333,24 +333,7 @@ data-flex-basis="525px"
 &lt;p>The distance of the point to the center of projection is represented by the Z-coordinate since we consider the center of projection to always be (0, 0, 0). Now if we projected the points onto an image plane at the center of projection, all of our points would be at (0, 0, 0).&lt;/p>
 &lt;p>This is where the focal length $f$ come in. This represents the distance from the center of projection to the image plane, so instead of the points being projected at Z = 0, they are projected at Z = f&lt;/p>
 &lt;p>With that we want to scale down the point&amp;rsquo;s Z position to be the focal length position&lt;/p>
-&lt;h1 id="endbmatrix">$$
-\begin{bmatrix}
-x \
-y \
-f
-\end{bmatrix}&lt;/h1>
-&lt;h1 id="endbmatrix-1">\frac{f}{Z}
-\begin{bmatrix}
-X \
-Y \
-Z
-\end{bmatrix}&lt;/h1>
-&lt;p>\begin{bmatrix}
-X * \frac{f}{Z} \
-Y * \frac{f}{Z} \
-Z * \frac{f}{Z}
-\end{bmatrix}
-$$&lt;/p>
+&lt;p>$$\begin{bmatrix} x \ y \ f \end{bmatrix} = \frac{f}{Z} \begin{bmatrix} X \ Y \ Z \end{bmatrix} = \begin{bmatrix} X * \frac{f}{Z} \ Y * \frac{f}{Z} \ Z * \frac{f}{Z} \end{bmatrix} $$&lt;/p>
 &lt;p>This then generates the now projected version of our original point for the specific image plane&lt;/p>
 &lt;h3 id="parallel-projection">Parallel Projection&lt;/h3>
 &lt;p>There is no scaling done to primitives when doing parallel projection. Instead of projecting to a center of projection like with perspective, you project parallel to the image plane&lt;/p>
