@@ -68,7 +68,7 @@ data-flex-basis="408px"
 &lt;p>$N =$ Normal Vector&lt;/p>
 &lt;h2 id="phong-reflection-specular">Phong Reflection (Specular)&lt;/h2>
 &lt;p>This uses the reflection of the light vector and the angle between the reflection and the veiwing vector to determine the intensity of light that the camera/viewer sees&lt;/p>
-&lt;p>$I_V = I_L * (V \cdot R)^a$&lt;/p>
+&lt;p>$$I_V = I_L * (V \cdot R)^a$$&lt;/p>
 &lt;p>&lt;img src="/p/3d-graphics-light-reflection-models/phong.png"
 width="800"
 height="282"
@@ -80,8 +80,8 @@ data-flex-grow="283"
 data-flex-basis="680px"
 >&lt;/p>
 &lt;h2 id="blinn-phong-specular">Blinn-Phong (Specular)&lt;/h2>
-&lt;p>Instead of using the angle between the reflection and viewer, Blinn-Phong uses the angle between the half vector of the light vector and view vector ($H = L + V$)
-$I_V = I_L * (N \cdot H)^a$
+&lt;p>Instead of using the angle between the reflection and viewer, Blinn-Phong uses the angle between the half vector of the light vector and view vector ($H = L + V$)&lt;/p>
+&lt;p>$$I_V = I_L * (N \cdot H)^a$$
 &lt;img src="/p/3d-graphics-light-reflection-models/blinn-phong.png"
 width="600"
 height="402"
@@ -94,7 +94,7 @@ data-flex-basis="358px"
 >&lt;/p>
 &lt;h2 id="lambertian-reflectiondiffuse">Lambertian Reflection(Diffuse)&lt;/h2>
 &lt;p>This type of reflection represents when light equally gets spread in all directions in oppose to the other light models that represent when light gets spread unevenly depending on the viewing angle&lt;/p>
-&lt;p>$I_O = I_L * N \cdot L$&lt;/p>
+&lt;p>$$I_O = I_L * N \cdot L$$&lt;/p>
 &lt;p>&lt;img src="/p/3d-graphics-light-reflection-models/diffuse.png"
 width="594"
 height="244"
@@ -122,22 +122,22 @@ data-flex-basis="326px"
 >&lt;/p>
 &lt;h1 id="light-model">Light Model&lt;/h1>
 &lt;p>Since we know that light is the combination of ambient, specular, and diffuse lighting, we can view the equation for light to be like this:&lt;/p>
-&lt;p>$I = I_{La} + I_L * (N \cdot H)^a + I_L * (N \cdot L)$
+&lt;p>$$I = I_{La} + I_L * (N \cdot H)^a + I_L * (N \cdot L)$$
 $I_{La}$ = Ambient light Inensity&lt;/p>
 &lt;p>Light is additive, meaning multiple lights just get added together&lt;/p>
-&lt;p>$I = I_{La} + \sum_{j} I_{L_{j}} * (N \cdot H_{j})^a + {I_L{&lt;em>j}} * (N \cdot L&lt;/em>{j})$&lt;/p>
+&lt;p>$$I = I_{La} + \sum_{j} I_{L_{j}} * (N \cdot H_{j})^a + {I_L{&lt;em>j}} * (N \cdot L&lt;/em>{j})$$&lt;/p>
 &lt;p>There are also specific scalers that define the properities of the object used in the light model
 $k_d=$ diffusal color
 $k_s=$ specular color
 a = specular shininess&lt;/p>
-&lt;p>$I = I_{La} + \sum_{j} k_s * I_{L_{j}} * (N \cdot H_{j})^a + k_d *{I_L{&lt;em>j}} * (N \cdot L&lt;/em>{j})$&lt;/p>
+&lt;p>$$I = I_{La} + \sum_{j} k_s * I_{L_{j}} * (N \cdot H_{j})^a + k_d *{I_L{&lt;em>j}} * (N \cdot L&lt;/em>{j})$$&lt;/p>
 &lt;h2 id="attenuation">Attenuation&lt;/h2>
 &lt;p>To add on to the light model, light follows a pheonomenon known as the &lt;em>Inverse Square Rule&lt;/em>. This rule is as light spreads farther out from the source, the intesnity of it decreases inversly of the square distance&lt;/p>
-&lt;p>$I_L = \frac{I_{s}}{4 * \pi * r^2}$&lt;/p>
+&lt;p>$$I_L = \frac{I_{s}}{4 * \pi * r^2}$$&lt;/p>
 &lt;p>$s=$ source
 $r$ = radius from source&lt;/p>
 &lt;p>Attenuation is a variation of the inverse square rule that lets us define an approximation of the intensity decay&lt;/p>
-&lt;p>$I_L = \frac{I_{s}}{ar^2+br + c}$
+&lt;p>$$I_L = \frac{I_{s}}{ar^2+br + c}$$
 $a$, $b$, $c$ are constants that can be changed to fit the right intensity decay model desired&lt;/p></description></item><item><title>3D Graphics: Hierarchy Models</title><link>/p/3d-graphics-hierarchy-models/</link><pubDate>Thu, 20 Oct 2022 00:00:00 +0000</pubDate><guid>/p/3d-graphics-hierarchy-models/</guid><description>&lt;img src="/p/3d-graphics-hierarchy-models/coordinateFrames.png" alt="Featured image of post 3D Graphics: Hierarchy Models" />&lt;h2 id="matrix-transformation">Matrix Transformation&lt;/h2>
 &lt;p>The reason we keep things like translations as a matrix transformation instead of a simple collumn addition is for &lt;strong>EFFICIENCY&lt;/strong>.&lt;/p>
 &lt;p>If we wanted to do multiple transformations on an objects.&lt;/p>
