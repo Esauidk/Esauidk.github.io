@@ -1,5 +1,5 @@
 ---
-title: "3D Graphics: Hierarchy Models"
+title: "3D Graphics: Light Reflection Models"
 author: Esau Abraham
 date: 2023-07-22
 draft: false
