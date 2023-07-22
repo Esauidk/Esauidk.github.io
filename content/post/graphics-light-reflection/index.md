@@ -44,6 +44,7 @@ $$I_V = I_L * (V \cdot R)^a$$
 Instead of using the angle between the reflection and viewer, Blinn-Phong uses the angle between the half vector of the light vector and view vector ($H = L + V$)
 
 $$I_V = I_L * (N \cdot H)^a$$
+
 ![bphong](blinn-phong.png)
 
 ## Lambertian Reflection(Diffuse)
