@@ -1,4 +1,52 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Math on Esau's Page</title><link>/categories/math/</link><description>Recent content in Math on Esau's Page</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 23 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/math/index.xml" rel="self" type="application/rss+xml"/><item><title>3D Graphics: Meshing</title><link>/p/3d-graphics-meshing/</link><pubDate>Sun, 23 Oct 2022 00:00:00 +0000</pubDate><guid>/p/3d-graphics-meshing/</guid><description>&lt;img src="https://i.stack.imgur.com/Bk826.png" alt="Featured image of post 3D Graphics: Meshing" />&lt;p>A mesh is a collection of primitives shape that make up an overarching model
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Math on Esau's Page</title><link>/categories/math/</link><description>Recent content in Math on Esau's Page</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 22 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="/categories/math/index.xml" rel="self" type="application/rss+xml"/><item><title>3D Graphics: Camera Projection</title><link>/p/3d-graphics-camera-projection/</link><pubDate>Sat, 22 Jul 2023 00:00:00 +0000</pubDate><guid>/p/3d-graphics-camera-projection/</guid><description>&lt;img src="/p/3d-graphics-camera-projection/titleImage.jpeg" alt="Featured image of post 3D Graphics: Camera Projection" />&lt;p>Images project onto a surface/plane through light rays reflecting on the object. We view light that has reflected onto a point of the object and landed on a point of the plane.&lt;/p>
+&lt;h2 id="aperture">Aperture&lt;/h2>
+&lt;p>If we just tried to view the rays of light normally, we wouldn&amp;rsquo;t be able to see anything due to how the multiple rays of the object landing in the same spot, creating some blurry/non recognizable image of the object&lt;/p>
+&lt;p>Appetures are a way of focusing the rays of light from the objects into particular points.&lt;/p>
+&lt;p>&lt;img src="/p/3d-graphics-camera-projection/apeture.png"
+width="360"
+height="340"
+srcset="/p/3d-graphics-camera-projection/apeture_hu735361f69c883abf3d39687f43a92dc3_41978_480x0_resize_box_3.png 480w, /p/3d-graphics-camera-projection/apeture_hu735361f69c883abf3d39687f43a92dc3_41978_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="ApetureImage"
+class="gallery-image"
+data-flex-grow="105"
+data-flex-basis="254px"
+>&lt;/p>
+&lt;h3 id="how-they-work">How they work&lt;/h3>
+&lt;p>Apertures are holes that alllow and block rays of light to reach the canvas/image plane. This allows us to control which and how many rays of light can reach the canvas. Normally focus lens are added on top to ensure that the rays of light that enter focus to a point.&lt;/p>
+&lt;h2 id="projections">Projections&lt;/h2>
+&lt;p>There are two types of projections:
+&lt;strong>Perspective&lt;/strong>: A projection from a point on the image plane to the center of projection (camera/ or eye)
+&lt;strong>Parallel&lt;/strong>: A projection from a point on the image plane in a direction perpendicular to the image surface&lt;/p>
+&lt;h3 id="perspective-projection">Perspective Projection&lt;/h3>
+&lt;p>&lt;img src="/p/3d-graphics-camera-projection/perspective.png"
+width="920"
+height="420"
+srcset="/p/3d-graphics-camera-projection/perspective_hu68219beb93dbb33931fa45330fdd1758_46331_480x0_resize_box_3.png 480w, /p/3d-graphics-camera-projection/perspective_hu68219beb93dbb33931fa45330fdd1758_46331_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="perspective"
+class="gallery-image"
+data-flex-grow="219"
+data-flex-basis="525px"
+>&lt;/p>
+&lt;p>The goal is to project your point (in this case (X,Y,Z)) onto the image plane. We see that as we move towards the center of project (P) the point (X,Y,Z) gets scaled down in all dimensions.&lt;/p>
+&lt;p>The distance of the point to the center of projection is represented by the Z-coordinate since we consider the center of projection to always be (0, 0, 0). Now if we projected the points onto an image plane at the center of projection, all of our points would be at (0, 0, 0).&lt;/p>
+&lt;p>This is where the focal length $f$ come in. This represents the distance from the center of projection to the image plane, so instead of the points being projected at Z = 0, they are projected at Z = f&lt;/p>
+&lt;p>With that we want to scale down the point&amp;rsquo;s Z position to be the focal length position&lt;/p>
+&lt;p>$$ \begin{bmatrix} x \\ y \\ f \end{bmatrix} = \frac{f}{Z} \begin{bmatrix} X \\ Y \\ Z \end{bmatrix} = \begin{bmatrix} X * \frac{f}{Z} \\ Y * \frac{f}{Z} \\ Z * \frac{f}{Z} \end{bmatrix} $$&lt;/p>
+&lt;p>This then generates the now projected version of our original point for the specific image plane&lt;/p>
+&lt;h3 id="parallel-projection">Parallel Projection&lt;/h3>
+&lt;p>There is no scaling done to primitives when doing parallel projection. Instead of projecting to a center of projection like with perspective, you project parallel to the image plane&lt;/p>
+&lt;p>&lt;img src="/p/3d-graphics-camera-projection/parallel.png"
+width="1984"
+height="1164"
+srcset="/p/3d-graphics-camera-projection/parallel_hu0d0ee340b0fcd0a8536d175548934945_87339_480x0_resize_box_3.png 480w, /p/3d-graphics-camera-projection/parallel_hu0d0ee340b0fcd0a8536d175548934945_87339_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="parallel"
+class="gallery-image"
+data-flex-grow="170"
+data-flex-basis="409px"
+>&lt;/p></description></item><item><title>3D Graphics: Meshing</title><link>/p/3d-graphics-meshing/</link><pubDate>Sun, 23 Oct 2022 00:00:00 +0000</pubDate><guid>/p/3d-graphics-meshing/</guid><description>&lt;img src="https://i.stack.imgur.com/Bk826.png" alt="Featured image of post 3D Graphics: Meshing" />&lt;p>A mesh is a collection of primitives shape that make up an overarching model
 &lt;img src="/p/3d-graphics-meshing/mesh.png"
 width="1000"
 height="1080"
@@ -298,52 +346,4 @@ x \\
 y \\
 1
 \end{bmatrix}
-$$&lt;/p></description></item><item><title>3D Graphics: Camera Projection</title><link>/p/3d-graphics-camera-projection/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/p/3d-graphics-camera-projection/</guid><description>&lt;img src="/p/3d-graphics-camera-projection/titleImage.jpeg" alt="Featured image of post 3D Graphics: Camera Projection" />&lt;p>Images project onto a surface/plane through light rays reflecting on the object. We view light that has reflected onto a point of the object and landed on a point of the plane.&lt;/p>
-&lt;h2 id="aperture">Aperture&lt;/h2>
-&lt;p>If we just tried to view the rays of light normally, we wouldn&amp;rsquo;t be able to see anything due to how the multiple rays of the object landing in the same spot, creating some blurry/non recognizable image of the object&lt;/p>
-&lt;p>Appetures are a way of focusing the rays of light from the objects into particular points.&lt;/p>
-&lt;p>&lt;img src="/p/3d-graphics-camera-projection/apeture.png"
-width="360"
-height="340"
-srcset="/p/3d-graphics-camera-projection/apeture_hu735361f69c883abf3d39687f43a92dc3_41978_480x0_resize_box_3.png 480w, /p/3d-graphics-camera-projection/apeture_hu735361f69c883abf3d39687f43a92dc3_41978_1024x0_resize_box_3.png 1024w"
-loading="lazy"
-alt="ApetureImage"
-class="gallery-image"
-data-flex-grow="105"
-data-flex-basis="254px"
->&lt;/p>
-&lt;h3 id="how-they-work">How they work&lt;/h3>
-&lt;p>Apertures are holes that alllow and block rays of light to reach the canvas/image plane. This allows us to control which and how many rays of light can reach the canvas. Normally focus lens are added on top to ensure that the rays of light that enter focus to a point.&lt;/p>
-&lt;h2 id="projections">Projections&lt;/h2>
-&lt;p>There are two types of projections:
-&lt;strong>Perspective&lt;/strong>: A projection from a point on the image plane to the center of projection (camera/ or eye)
-&lt;strong>Parallel&lt;/strong>: A projection from a point on the image plane in a direction perpendicular to the image surface&lt;/p>
-&lt;h3 id="perspective-projection">Perspective Projection&lt;/h3>
-&lt;p>&lt;img src="/p/3d-graphics-camera-projection/perspective.png"
-width="920"
-height="420"
-srcset="/p/3d-graphics-camera-projection/perspective_hu68219beb93dbb33931fa45330fdd1758_46331_480x0_resize_box_3.png 480w, /p/3d-graphics-camera-projection/perspective_hu68219beb93dbb33931fa45330fdd1758_46331_1024x0_resize_box_3.png 1024w"
-loading="lazy"
-alt="perspective"
-class="gallery-image"
-data-flex-grow="219"
-data-flex-basis="525px"
->&lt;/p>
-&lt;p>The goal is to project your point (in this case (X,Y,Z)) onto the image plane. We see that as we move towards the center of project (P) the point (X,Y,Z) gets scaled down in all dimensions.&lt;/p>
-&lt;p>The distance of the point to the center of projection is represented by the Z-coordinate since we consider the center of projection to always be (0, 0, 0). Now if we projected the points onto an image plane at the center of projection, all of our points would be at (0, 0, 0).&lt;/p>
-&lt;p>This is where the focal length $f$ come in. This represents the distance from the center of projection to the image plane, so instead of the points being projected at Z = 0, they are projected at Z = f&lt;/p>
-&lt;p>With that we want to scale down the point&amp;rsquo;s Z position to be the focal length position&lt;/p>
-&lt;p>$$\begin{bmatrix} x \ y \ f \end{bmatrix} = \frac{f}{Z} \begin{bmatrix} X \ Y \ Z \end{bmatrix} = \begin{bmatrix} X * \frac{f}{Z} \ Y * \frac{f}{Z} \ Z * \frac{f}{Z} \end{bmatrix} $$&lt;/p>
-&lt;p>This then generates the now projected version of our original point for the specific image plane&lt;/p>
-&lt;h3 id="parallel-projection">Parallel Projection&lt;/h3>
-&lt;p>There is no scaling done to primitives when doing parallel projection. Instead of projecting to a center of projection like with perspective, you project parallel to the image plane&lt;/p>
-&lt;p>&lt;img src="/p/3d-graphics-camera-projection/parallel.png"
-width="1984"
-height="1164"
-srcset="/p/3d-graphics-camera-projection/parallel_hu0d0ee340b0fcd0a8536d175548934945_87339_480x0_resize_box_3.png 480w, /p/3d-graphics-camera-projection/parallel_hu0d0ee340b0fcd0a8536d175548934945_87339_1024x0_resize_box_3.png 1024w"
-loading="lazy"
-alt="parallel"
-class="gallery-image"
-data-flex-grow="170"
-data-flex-basis="409px"
->&lt;/p></description></item></channel></rss>
+$$&lt;/p></description></item></channel></rss>
