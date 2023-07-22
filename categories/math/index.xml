@@ -81,8 +81,8 @@ data-flex-basis="680px"
 >&lt;/p>
 &lt;h2 id="blinn-phong-specular">Blinn-Phong (Specular)&lt;/h2>
 &lt;p>Instead of using the angle between the reflection and viewer, Blinn-Phong uses the angle between the half vector of the light vector and view vector ($H = L + V$)&lt;/p>
-&lt;p>$$I_V = I_L * (N \cdot H)^a$$
-&lt;img src="/p/3d-graphics-light-reflection-models/blinn-phong.png"
+&lt;p>$$I_V = I_L * (N \cdot H)^a$$&lt;/p>
+&lt;p>&lt;img src="/p/3d-graphics-light-reflection-models/blinn-phong.png"
 width="600"
 height="402"
 srcset="/p/3d-graphics-light-reflection-models/blinn-phong_hu2fff097b576fec7759b9e1a5917ffe36_24030_480x0_resize_box_3.png 480w, /p/3d-graphics-light-reflection-models/blinn-phong_hu2fff097b576fec7759b9e1a5917ffe36_24030_1024x0_resize_box_3.png 1024w"
