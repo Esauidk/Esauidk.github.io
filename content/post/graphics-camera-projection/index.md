@@ -43,26 +43,7 @@ This is where the focal length $f$ come in. This represents the distance from th
 
 With that we want to scale down the point's Z position to be the focal length position
 
-$$
-\begin{bmatrix}
-            x \\
-            y \\
-            f
-\end{bmatrix}
-=
-\frac{f}{Z} 
-\begin{bmatrix}
-            X \\
-            Y \\
-            Z
-\end{bmatrix}
-=
-\begin{bmatrix}
-            X * \frac{f}{Z} \\
-            Y * \frac{f}{Z} \\
-            Z * \frac{f}{Z}
-\end{bmatrix}
-$$
+$$\begin{bmatrix} x \\ y \\ f \end{bmatrix} = \frac{f}{Z} \begin{bmatrix} X \\ Y \\ Z \end{bmatrix} = \begin{bmatrix} X * \frac{f}{Z} \\ Y * \frac{f}{Z} \\ Z * \frac{f}{Z} \end{bmatrix} $$
 
 This then generates the now projected version of our original point for the specific image plane
 
