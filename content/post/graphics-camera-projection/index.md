@@ -1,14 +1,14 @@
 ---
 title: "3D Graphics: Camera Projection"
 author: Esau Abraham
-date: 2023-7-22
+date: 2023-22-7
 draft: false
 categories: 
     - Graphics
     - Math
     - 3D Models
 description: A quick look at Camera Projection in 3D Graphics!
-image: coordinateFrames.png
+image: titleImage.jpeg
 math: true
 ---
 
@@ -34,6 +34,7 @@ There are two types of projections:
 
 ### Perspective Projection
 ![perspective](perspective.png)
+
 The goal is to project your point (in this case (X,Y,Z)) onto the image plane. We see that as we move towards the center of project (P) the point (X,Y,Z) gets scaled down in all dimensions. 
 
 The distance of the point to the center of projection is represented by the Z-coordinate since we consider the center of projection to always be (0, 0, 0). Now if we projected the points onto an image plane at the center of projection, all of our points would be at (0, 0, 0).
@@ -62,6 +63,7 @@ $$
             Z * \frac{f}{Z}
 \end{bmatrix}
 $$
+
 This then generates the now projected version of our original point for the specific image plane
 
 ### Parallel Projection
