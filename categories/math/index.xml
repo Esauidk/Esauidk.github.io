@@ -46,13 +46,13 @@ alt="parallel"
 class="gallery-image"
 data-flex-grow="170"
 data-flex-basis="409px"
->&lt;/p></description></item><item><title>3D Graphics: Hierarchy Models</title><link>/p/3d-graphics-hierarchy-models/</link><pubDate>Sat, 22 Jul 2023 00:00:00 +0000</pubDate><guid>/p/3d-graphics-hierarchy-models/</guid><description>&lt;img src="https://academyofanimatedart.com/wp-content/uploads/2019/03/td-u-CG-lighting-shadows-light-shading-featured.jpg" alt="Featured image of post 3D Graphics: Hierarchy Models" />&lt;p>Naturally photons/light bounces on impact with surfaces, but how does it bouce off?&lt;/p>
+>&lt;/p></description></item><item><title>3D Graphics: Light Reflection Models</title><link>/p/3d-graphics-light-reflection-models/</link><pubDate>Sat, 22 Jul 2023 00:00:00 +0000</pubDate><guid>/p/3d-graphics-light-reflection-models/</guid><description>&lt;img src="https://academyofanimatedart.com/wp-content/uploads/2019/03/td-u-CG-lighting-shadows-light-shading-featured.jpg" alt="Featured image of post 3D Graphics: Light Reflection Models" />&lt;p>Naturally photons/light bounces on impact with surfaces, but how does it bouce off?&lt;/p>
 &lt;h1 id="mirrorslight-models">Mirrors/Light Models&lt;/h1>
 &lt;p>Mirros are the best example of how light reflects, when something is viewed through a mirror it is flipped along the z-axis&lt;/p>
-&lt;p>&lt;img src="/p/3d-graphics-hierarchy-models/light.png"
+&lt;p>&lt;img src="/p/3d-graphics-light-reflection-models/light.png"
 width="500"
 height="294"
-srcset="/p/3d-graphics-hierarchy-models/light_hu77cad1afd0599f3bfa0c130fe311020d_32445_480x0_resize_box_3.png 480w, /p/3d-graphics-hierarchy-models/light_hu77cad1afd0599f3bfa0c130fe311020d_32445_1024x0_resize_box_3.png 1024w"
+srcset="/p/3d-graphics-light-reflection-models/light_hu77cad1afd0599f3bfa0c130fe311020d_32445_480x0_resize_box_3.png 480w, /p/3d-graphics-light-reflection-models/light_hu77cad1afd0599f3bfa0c130fe311020d_32445_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="Light"
 class="gallery-image"
@@ -69,10 +69,10 @@ data-flex-basis="408px"
 &lt;h2 id="phong-reflection-specular">Phong Reflection (Specular)&lt;/h2>
 &lt;p>This uses the reflection of the light vector and the angle between the reflection and the veiwing vector to determine the intensity of light that the camera/viewer sees&lt;/p>
 &lt;p>$I_V = I_L * (V \cdot R)^a$&lt;/p>
-&lt;p>&lt;img src="/p/3d-graphics-hierarchy-models/phong.png"
+&lt;p>&lt;img src="/p/3d-graphics-light-reflection-models/phong.png"
 width="800"
 height="282"
-srcset="/p/3d-graphics-hierarchy-models/phong_hu6c499441fd2015343ee2f918d0922bd6_39518_480x0_resize_box_3.png 480w, /p/3d-graphics-hierarchy-models/phong_hu6c499441fd2015343ee2f918d0922bd6_39518_1024x0_resize_box_3.png 1024w"
+srcset="/p/3d-graphics-light-reflection-models/phong_hu6c499441fd2015343ee2f918d0922bd6_39518_480x0_resize_box_3.png 480w, /p/3d-graphics-light-reflection-models/phong_hu6c499441fd2015343ee2f918d0922bd6_39518_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="phong"
 class="gallery-image"
@@ -82,10 +82,10 @@ data-flex-basis="680px"
 &lt;h2 id="blinn-phong-specular">Blinn-Phong (Specular)&lt;/h2>
 &lt;p>Instead of using the angle between the reflection and viewer, Blinn-Phong uses the angle between the half vector of the light vector and view vector ($H = L + V$)
 $I_V = I_L * (N \cdot H)^a$
-&lt;img src="/p/3d-graphics-hierarchy-models/blinn-phong.png"
+&lt;img src="/p/3d-graphics-light-reflection-models/blinn-phong.png"
 width="600"
 height="402"
-srcset="/p/3d-graphics-hierarchy-models/blinn-phong_hu2fff097b576fec7759b9e1a5917ffe36_24030_480x0_resize_box_3.png 480w, /p/3d-graphics-hierarchy-models/blinn-phong_hu2fff097b576fec7759b9e1a5917ffe36_24030_1024x0_resize_box_3.png 1024w"
+srcset="/p/3d-graphics-light-reflection-models/blinn-phong_hu2fff097b576fec7759b9e1a5917ffe36_24030_480x0_resize_box_3.png 480w, /p/3d-graphics-light-reflection-models/blinn-phong_hu2fff097b576fec7759b9e1a5917ffe36_24030_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="bphong"
 class="gallery-image"
@@ -95,10 +95,10 @@ data-flex-basis="358px"
 &lt;h2 id="lambertian-reflectiondiffuse">Lambertian Reflection(Diffuse)&lt;/h2>
 &lt;p>This type of reflection represents when light equally gets spread in all directions in oppose to the other light models that represent when light gets spread unevenly depending on the viewing angle&lt;/p>
 &lt;p>$I_O = I_L * N \cdot L$&lt;/p>
-&lt;p>&lt;img src="/p/3d-graphics-hierarchy-models/diffuse.png"
+&lt;p>&lt;img src="/p/3d-graphics-light-reflection-models/diffuse.png"
 width="594"
 height="244"
-srcset="/p/3d-graphics-hierarchy-models/diffuse_hu9f5724614ce19765dc838a1d5ec4cae4_14546_480x0_resize_box_3.png 480w, /p/3d-graphics-hierarchy-models/diffuse_hu9f5724614ce19765dc838a1d5ec4cae4_14546_1024x0_resize_box_3.png 1024w"
+srcset="/p/3d-graphics-light-reflection-models/diffuse_hu9f5724614ce19765dc838a1d5ec4cae4_14546_480x0_resize_box_3.png 480w, /p/3d-graphics-light-reflection-models/diffuse_hu9f5724614ce19765dc838a1d5ec4cae4_14546_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="diffuse"
 class="gallery-image"
@@ -110,10 +110,10 @@ data-flex-basis="584px"
 &lt;h1 id="diffuse--specular">Diffuse &amp;amp; Specular&lt;/h1>
 &lt;p>To make it clear, diffuse light models focus on when light on impact spreads evenly in all directions while specular focuses on when light is spread more intense in certain directions.&lt;/p>
 &lt;p>This is not a 1 or the other phenomenon. These light models(specular &amp;amp; diffuse) both happen at the same time in real life. For example an apple refuses to absorb the color red and spreads it out evenly in all directions, but the layer of wax around it just reflects the light specularly. We have both specular light and diffuse light happening at the same time!&lt;/p>
-&lt;p>&lt;img src="/p/3d-graphics-hierarchy-models/apple.png"
+&lt;p>&lt;img src="/p/3d-graphics-light-reflection-models/apple.png"
 width="1090"
 height="802"
-srcset="/p/3d-graphics-hierarchy-models/apple_hu0b3dd9a1910c522dcc15faecc0d20109_673997_480x0_resize_box_3.png 480w, /p/3d-graphics-hierarchy-models/apple_hu0b3dd9a1910c522dcc15faecc0d20109_673997_1024x0_resize_box_3.png 1024w"
+srcset="/p/3d-graphics-light-reflection-models/apple_hu0b3dd9a1910c522dcc15faecc0d20109_673997_480x0_resize_box_3.png 480w, /p/3d-graphics-light-reflection-models/apple_hu0b3dd9a1910c522dcc15faecc0d20109_673997_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="apple"
 class="gallery-image"
