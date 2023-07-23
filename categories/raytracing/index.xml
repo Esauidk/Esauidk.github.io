@@ -14,8 +14,8 @@ data-flex-basis="382px"
 &lt;h2 id="super-sampling">Super Sampling&lt;/h2>
 &lt;p>Aliasing occurs when the sampling (i.e. shooting rays) is down too far apart, leading to certain areas of a pixel which could have a different value not being sampled&lt;/p>
 &lt;h3 id="adaptive-sampling">Adaptive Sampling&lt;/h3>
-&lt;p>The basic idea of adaptive sampling is to add more sample points (rays) in areas that show indications of inbetween values not being sampled
-&lt;img src="/p/3d-graphics-accelerated-raytracing/supersample.png"
+&lt;p>The basic idea of adaptive sampling is to add more sample points (rays) in areas that show indications of inbetween values not being sampled&lt;/p>
+&lt;p>&lt;img src="/p/3d-graphics-accelerated-raytracing/supersample.png"
 width="704"
 height="606"
 srcset="/p/3d-graphics-accelerated-raytracing/supersample_hudcbb9222eee54f0c640f69286926d800_95137_480x0_resize_box_3.png 480w, /p/3d-graphics-accelerated-raytracing/supersample_hudcbb9222eee54f0c640f69286926d800_95137_1024x0_resize_box_3.png 1024w"
