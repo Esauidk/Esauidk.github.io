@@ -6,7 +6,7 @@ draft: false
 categories: 
     - Graphics
     - Math
-    - 3D Models
+    - 3D Lighting
 description: Light Models! Adding Light to the 3D World
 image: https://academyofanimatedart.com/wp-content/uploads/2019/03/td-u-CG-lighting-shadows-light-shading-featured.jpg
 math: true
