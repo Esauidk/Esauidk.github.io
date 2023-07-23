@@ -1,4 +1,84 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Esau's Page</title><link>/</link><description>Recent content on Esau's Page</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 22 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>3D Graphics: Camera Projection</title><link>/p/3d-graphics-camera-projection/</link><pubDate>Sat, 22 Jul 2023 00:00:00 +0000</pubDate><guid>/p/3d-graphics-camera-projection/</guid><description>&lt;img src="/p/3d-graphics-camera-projection/titleImage.jpeg" alt="Featured image of post 3D Graphics: Camera Projection" />&lt;p>Images project onto a surface/plane through light rays reflecting on the object. We view light that has reflected onto a point of the object and landed on a point of the plane.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Esau's Page</title><link>/</link><description>Recent content on Esau's Page</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 22 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>3D Graphics: Accelerated RayTracing</title><link>/p/3d-graphics-accelerated-raytracing/</link><pubDate>Sat, 22 Jul 2023 00:00:00 +0000</pubDate><guid>/p/3d-graphics-accelerated-raytracing/</guid><description>&lt;img src="https://blogs.nvidia.com/wp-content/uploads/2019/06/rtx-on-off.png" alt="Featured image of post 3D Graphics: Accelerated RayTracing" />&lt;p>Tatics that enhanced and accelerated raytracing&lt;/p>
+&lt;h1 id="anti-aliasing">Anti-Aliasing&lt;/h1>
+&lt;p>Aliasing is when the change between pixels is too sudden to be realistic to the image, creating a unrealistic image. In raytracing this can happen when not enough rays are sampled for a pixel.
+&lt;img src="/p/3d-graphics-accelerated-raytracing/alias.png"
+width="437"
+height="274"
+srcset="/p/3d-graphics-accelerated-raytracing/alias_hu7c5a63f5e63e1fd56eb0181a28fc044b_18970_480x0_resize_box_3.png 480w, /p/3d-graphics-accelerated-raytracing/alias_hu7c5a63f5e63e1fd56eb0181a28fc044b_18970_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="alias"
+class="gallery-image"
+data-flex-grow="159"
+data-flex-basis="382px"
+>&lt;/p>
+&lt;h2 id="super-sampling">Super Sampling&lt;/h2>
+&lt;p>Aliasing occurs when the sampling (i.e. shooting rays) is down too far apart, leading to certain areas of a pixel which could have a different value not being sampled&lt;/p>
+&lt;h3 id="adaptive-sampling">Adaptive Sampling&lt;/h3>
+&lt;p>The basic idea of adaptive sampling is to add more sample points (rays) in areas that show indications of inbetween values not being sampled
+&lt;img src="/p/3d-graphics-accelerated-raytracing/supersample.png"
+width="704"
+height="606"
+srcset="/p/3d-graphics-accelerated-raytracing/supersample_hudcbb9222eee54f0c640f69286926d800_95137_480x0_resize_box_3.png 480w, /p/3d-graphics-accelerated-raytracing/supersample_hudcbb9222eee54f0c640f69286926d800_95137_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="supersampling"
+class="gallery-image"
+data-flex-grow="116"
+data-flex-basis="278px"
+>&lt;/p>
+&lt;h3 id="distribution-raycasting">Distribution Raycasting&lt;/h3>
+&lt;p>Instead of adding more rays to get the correct sample, we can use a distribution (specifically the poisson distribution) to determine the best place on the pixel to sample our ray&lt;/p>
+&lt;h1 id="acceleration">Acceleration&lt;/h1>
+&lt;h2 id="ray-polyhedron-intersection">Ray-Polyhedron Intersection&lt;/h2>
+&lt;p>There are many ways to handle intersection with triangle based objects&lt;/p>
+&lt;h3 id="bounding-volume">Bounding Volume&lt;/h3>
+&lt;p>You can using a bounding volume to determine if you are touching an object. This allows you to use primitives to determine intersection while costing accuracy&lt;/p>
+&lt;h4 id="bounding-voluming-hierarchy">Bounding Voluming Hierarchy&lt;/h4>
+&lt;p>Instead of &lt;strong>only&lt;/strong> giving the overall object a bounding volume, you can do a hierarichal tree of boudning volumes that also seperate pieces of the objects in volumes&lt;/p>
+&lt;p>&lt;img src="/p/3d-graphics-accelerated-raytracing/dragon.png"
+width="1280"
+height="720"
+srcset="/p/3d-graphics-accelerated-raytracing/dragon_hubbe6c356053ad4498b86e7fb8a0d2339_708993_480x0_resize_box_3.png 480w, /p/3d-graphics-accelerated-raytracing/dragon_hubbe6c356053ad4498b86e7fb8a0d2339_708993_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="dragon"
+class="gallery-image"
+data-flex-grow="177"
+data-flex-basis="426px"
+>&lt;/p>
+&lt;p>&lt;img src="/p/3d-graphics-accelerated-raytracing/bounding.png"
+width="1000"
+height="313"
+srcset="/p/3d-graphics-accelerated-raytracing/bounding_huded67bc138525de7a7451f6725a804d7_46049_480x0_resize_box_3.png 480w, /p/3d-graphics-accelerated-raytracing/bounding_huded67bc138525de7a7451f6725a804d7_46049_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="bounding"
+class="gallery-image"
+data-flex-grow="319"
+data-flex-basis="766px"
+>&lt;/p>
+&lt;h3 id="spatial-subdivision">Spatial Subdivision&lt;/h3>
+&lt;h5 id="uniform">Uniform&lt;/h5>
+&lt;p>The idea of spatial subdivision is to divide the world space into cells uniformally and tying objects to the cells it overlaps
+&lt;img src="/p/3d-graphics-accelerated-raytracing/uniformDivision.png"
+width="1390"
+height="642"
+srcset="/p/3d-graphics-accelerated-raytracing/uniformDivision_hu630c555f0592f9057c4a6f4706e1796f_243742_480x0_resize_box_3.png 480w, /p/3d-graphics-accelerated-raytracing/uniformDivision_hu630c555f0592f9057c4a6f4706e1796f_243742_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="uniformSpace"
+class="gallery-image"
+data-flex-grow="216"
+data-flex-basis="519px"
+>&lt;/p>
+&lt;h5 id="non-uniform">Non-Uniform&lt;/h5>
+&lt;p>As the name suggests, it&amp;rsquo;s the same idea of the uniform method but with the cells being non-uniformally subdivided
+&lt;img src="/p/3d-graphics-accelerated-raytracing/nonUniformDivision.png"
+width="1436"
+height="630"
+srcset="/p/3d-graphics-accelerated-raytracing/nonUniformDivision_hu272fdaceef125a4de6fe95eb172004a4_213158_480x0_resize_box_3.png 480w, /p/3d-graphics-accelerated-raytracing/nonUniformDivision_hu272fdaceef125a4de6fe95eb172004a4_213158_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="nonUniformSpace"
+class="gallery-image"
+data-flex-grow="227"
+data-flex-basis="547px"
+>&lt;/p></description></item><item><title>3D Graphics: Camera Projection</title><link>/p/3d-graphics-camera-projection/</link><pubDate>Sat, 22 Jul 2023 00:00:00 +0000</pubDate><guid>/p/3d-graphics-camera-projection/</guid><description>&lt;img src="/p/3d-graphics-camera-projection/titleImage.jpeg" alt="Featured image of post 3D Graphics: Camera Projection" />&lt;p>Images project onto a surface/plane through light rays reflecting on the object. We view light that has reflected onto a point of the object and landed on a point of the plane.&lt;/p>
 &lt;h2 id="aperture">Aperture&lt;/h2>
 &lt;p>If we just tried to view the rays of light normally, we wouldn&amp;rsquo;t be able to see anything due to how the multiple rays of the object landing in the same spot, creating some blurry/non recognizable image of the object&lt;/p>
 &lt;p>Appetures are a way of focusing the rays of light from the objects into particular points.&lt;/p>
@@ -138,200 +218,7 @@ a = specular shininess&lt;/p>
 $r$ = radius from source&lt;/p>
 &lt;p>Attenuation is a variation of the inverse square rule that lets us define an approximation of the intensity decay&lt;/p>
 &lt;p>$$I_L = \frac{I_{s}}{ar^2+br + c}$$
-$a$, $b$, $c$ are constants that can be changed to fit the right intensity decay model desired&lt;/p></description></item><item><title>3D Graphics: Accelerated RayTracing</title><link>/p/3d-graphics-accelerated-raytracing/</link><pubDate>Sun, 23 Oct 2022 00:00:00 +0000</pubDate><guid>/p/3d-graphics-accelerated-raytracing/</guid><description>&lt;img src="https://blogs.nvidia.com/wp-content/uploads/2019/06/rtx-on-off.png" alt="Featured image of post 3D Graphics: Accelerated RayTracing" />&lt;p>Tatics that enhanced and accelerated raytracing&lt;/p>
-&lt;h1 id="anti-aliasing">Anti-Aliasing&lt;/h1>
-&lt;p>Aliasing is when the change between pixels is too sudden to be realistic to the image, creating a unrealistic image. In raytracing this can happen when not enough rays are sampled for a pixel.
-&lt;img src="/p/3d-graphics-accelerated-raytracing/alias.png"
-width="437"
-height="274"
-srcset="/p/3d-graphics-accelerated-raytracing/alias_hu7c5a63f5e63e1fd56eb0181a28fc044b_18970_480x0_resize_box_3.png 480w, /p/3d-graphics-accelerated-raytracing/alias_hu7c5a63f5e63e1fd56eb0181a28fc044b_18970_1024x0_resize_box_3.png 1024w"
-loading="lazy"
-alt="alias"
-class="gallery-image"
-data-flex-grow="159"
-data-flex-basis="382px"
->&lt;/p>
-&lt;h2 id="super-sampling">Super Sampling&lt;/h2>
-&lt;p>Aliasing occurs when the sampling (i.e. shooting rays) is down too far apart, leading to certain areas of a pixel which could have a different value not being sampled&lt;/p>
-&lt;h3 id="adaptive-sampling">Adaptive Sampling&lt;/h3>
-&lt;p>The basic idea of adaptive sampling is to add more sample points (rays) in areas that show indications of inbetween values not being sampled
-&lt;img src="/p/3d-graphics-accelerated-raytracing/supersample.png"
-width="704"
-height="606"
-srcset="/p/3d-graphics-accelerated-raytracing/supersample_hudcbb9222eee54f0c640f69286926d800_95137_480x0_resize_box_3.png 480w, /p/3d-graphics-accelerated-raytracing/supersample_hudcbb9222eee54f0c640f69286926d800_95137_1024x0_resize_box_3.png 1024w"
-loading="lazy"
-alt="supersampling"
-class="gallery-image"
-data-flex-grow="116"
-data-flex-basis="278px"
->&lt;/p>
-&lt;h3 id="distribution-raycasting">Distribution Raycasting&lt;/h3>
-&lt;p>Instead of adding more rays to get the correct sample, we can use a distribution (specifically the poisson distribution) to determine the best place on the pixel to sample our ray&lt;/p>
-&lt;h1 id="acceleration">Acceleration&lt;/h1>
-&lt;h2 id="ray-polyhedron-intersection">Ray-Polyhedron Intersection&lt;/h2>
-&lt;p>There are many ways to handle intersection with triangle based objects&lt;/p>
-&lt;h3 id="bounding-volume">Bounding Volume&lt;/h3>
-&lt;p>You can using a bounding volume to determine if you are touching an object. This allows you to use primitives to determine intersection while costing accuracy&lt;/p>
-&lt;h4 id="bounding-voluming-hierarchy">Bounding Voluming Hierarchy&lt;/h4>
-&lt;p>Instead of &lt;strong>only&lt;/strong> giving the overall object a bounding volume, you can do a hierarichal tree of boudning volumes that also seperate pieces of the objects in volumes&lt;/p>
-&lt;p>&lt;img src="/p/3d-graphics-accelerated-raytracing/dragon.png"
-width="1280"
-height="720"
-srcset="/p/3d-graphics-accelerated-raytracing/dragon_hubbe6c356053ad4498b86e7fb8a0d2339_708993_480x0_resize_box_3.png 480w, /p/3d-graphics-accelerated-raytracing/dragon_hubbe6c356053ad4498b86e7fb8a0d2339_708993_1024x0_resize_box_3.png 1024w"
-loading="lazy"
-alt="dragon"
-class="gallery-image"
-data-flex-grow="177"
-data-flex-basis="426px"
->&lt;/p>
-&lt;p>&lt;img src="/p/3d-graphics-accelerated-raytracing/bounding.png"
-width="1000"
-height="313"
-srcset="/p/3d-graphics-accelerated-raytracing/bounding_huded67bc138525de7a7451f6725a804d7_46049_480x0_resize_box_3.png 480w, /p/3d-graphics-accelerated-raytracing/bounding_huded67bc138525de7a7451f6725a804d7_46049_1024x0_resize_box_3.png 1024w"
-loading="lazy"
-alt="bounding"
-class="gallery-image"
-data-flex-grow="319"
-data-flex-basis="766px"
->&lt;/p>
-&lt;h3 id="spatial-subdivision">Spatial Subdivision&lt;/h3>
-&lt;h5 id="uniform">Uniform&lt;/h5>
-&lt;p>The idea of spatial subdivision is to divide the world space into cells uniformally and tying objects to the cells it overlaps
-&lt;img src="/p/3d-graphics-accelerated-raytracing/uniformDivision.png"
-width="1390"
-height="642"
-srcset="/p/3d-graphics-accelerated-raytracing/uniformDivision_hu630c555f0592f9057c4a6f4706e1796f_243742_480x0_resize_box_3.png 480w, /p/3d-graphics-accelerated-raytracing/uniformDivision_hu630c555f0592f9057c4a6f4706e1796f_243742_1024x0_resize_box_3.png 1024w"
-loading="lazy"
-alt="uniformSpace"
-class="gallery-image"
-data-flex-grow="216"
-data-flex-basis="519px"
->&lt;/p>
-&lt;h5 id="non-uniform">Non-Uniform&lt;/h5>
-&lt;p>As the name suggests, it&amp;rsquo;s the same idea of the uniform method but with the cells being non-uniformally subdivided
-&lt;img src="/p/3d-graphics-accelerated-raytracing/nonUniformDivision.png"
-width="1436"
-height="630"
-srcset="/p/3d-graphics-accelerated-raytracing/nonUniformDivision_hu272fdaceef125a4de6fe95eb172004a4_213158_480x0_resize_box_3.png 480w, /p/3d-graphics-accelerated-raytracing/nonUniformDivision_hu272fdaceef125a4de6fe95eb172004a4_213158_1024x0_resize_box_3.png 1024w"
-loading="lazy"
-alt="nonUniformSpace"
-class="gallery-image"
-data-flex-grow="227"
-data-flex-basis="547px"
->&lt;/p></description></item><item><title>3D Graphics: Meshing</title><link>/p/3d-graphics-meshing/</link><pubDate>Sun, 23 Oct 2022 00:00:00 +0000</pubDate><guid>/p/3d-graphics-meshing/</guid><description>&lt;img src="https://i.stack.imgur.com/Bk826.png" alt="Featured image of post 3D Graphics: Meshing" />&lt;p>A mesh is a collection of primitives shape that make up an overarching model
-&lt;img src="/p/3d-graphics-meshing/mesh.png"
-width="1000"
-height="1080"
-srcset="/p/3d-graphics-meshing/mesh_huca8b3e1b9a099698e7e755ead9321f30_581287_480x0_resize_box_3.png 480w, /p/3d-graphics-meshing/mesh_huca8b3e1b9a099698e7e755ead9321f30_581287_1024x0_resize_box_3.png 1024w"
-loading="lazy"
-alt="Mesh"
-class="gallery-image"
-data-flex-grow="92"
-data-flex-basis="222px"
->&lt;/p>
-&lt;h2 id="storing-mesh-data">Storing Mesh Data&lt;/h2>
-&lt;h3 id="storing-mesh">Storing Mesh&lt;/h3>
-&lt;p>To efficiently store mesh data, we want to reduce the amount of redundancy when rendering the primitive shapes.&lt;/p>
-&lt;p>We do this by storing all the verticies of involved in the mesh and storing all the different combination of the verticies that make up our primitive shape&lt;/p>
-&lt;p>Vertice Data
-$$
-\begin{bmatrix}
-V_0 \\
-V_1 \\
-V_2 \\
-&amp;hellip; \\
-V_n
-\end{bmatrix}
-$$&lt;/p>
-&lt;p>Primitive Shape Data
-$$
-\begin{bmatrix}
-0,1,2 \\
-3,4,5 \\
-&amp;hellip; \\
-n-2, n-1, n
-\end{bmatrix}
-$$&lt;/p>
-&lt;h3 id="vertex-order-matters">Vertex Order Matters&lt;/h3>
-&lt;p>In practice, the order of the verticies of a mesh is used to determine the &lt;strong>normal&lt;/strong> (an indication of which side of the primitive is the front and back). Putting the verticies in the wrong order can get results that are unexpected&lt;/p>
-&lt;h3 id="culling">Culling&lt;/h3>
-&lt;p>Culling is a technique used to reduce the amount of primitve shapes being rendered by the render engine. It expects to render only one side of the primitve shape, the front side! (Unless specified that it&amp;rsquo;s double sided).&lt;/p>
-&lt;p>Determining the side of the primitve is done through vector math!&lt;/p>
-&lt;p>&lt;strong>Calculating the angle:&lt;/strong>&lt;/p>
-&lt;p>Cos(ϴ) = -V * N&lt;/p>
-&lt;p>V = viewing vector (from the camera to the object)&lt;/p>
-&lt;p>N = normal vector&lt;/p>
-&lt;p>ϴ &amp;gt; 0 = front facing
-ϴ &amp;lt;= 0 = back facing&lt;/p>
-&lt;p>Having the wrong normals can cause a triangle to not be rendered&lt;/p>
-&lt;p>&lt;img src="/p/3d-graphics-meshing/wrongIndex.png"
-width="450"
-height="193"
-srcset="/p/3d-graphics-meshing/wrongIndex_huf10670131e768ee8203a4a4dc1184e34_52232_480x0_resize_box_3.png 480w, /p/3d-graphics-meshing/wrongIndex_huf10670131e768ee8203a4a4dc1184e34_52232_1024x0_resize_box_3.png 1024w"
-loading="lazy"
-alt="indexDif"
-class="gallery-image"
-data-flex-grow="233"
-data-flex-basis="559px"
->&lt;/p>
-&lt;h3 id="storing-normals">Storing Normals&lt;/h3>
-&lt;p>Normals could be calculated per triangle using some math, but that would introduce problems when wanting to create smooth surfraces of multiple primitives.&lt;/p>
-&lt;p>&lt;img src="/p/3d-graphics-meshing/interpResult.png"
-width="670"
-height="355"
-srcset="/p/3d-graphics-meshing/interpResult_hubbf89ba6fc3ac67518552fdaf31837fe_83631_480x0_resize_box_3.png 480w, /p/3d-graphics-meshing/interpResult_hubbf89ba6fc3ac67518552fdaf31837fe_83631_1024x0_resize_box_3.png 1024w"
-loading="lazy"
-alt="interpResult"
-class="gallery-image"
-data-flex-grow="188"
-data-flex-basis="452px"
->&lt;/p>
-&lt;p>To avoid this issue, we give every &lt;strong>vertex&lt;/strong> a normal vector and interpolate normal vectors intermediate points on the primitive&lt;/p>
-&lt;p>&lt;img src="/p/3d-graphics-meshing/normalInterpolation.png"
-width="670"
-height="247"
-srcset="/p/3d-graphics-meshing/normalInterpolation_hu8c235c55772e7a776d5c821d4c16dfc7_48976_480x0_resize_box_3.png 480w, /p/3d-graphics-meshing/normalInterpolation_hu8c235c55772e7a776d5c821d4c16dfc7_48976_1024x0_resize_box_3.png 1024w"
-loading="lazy"
-alt="normalInterp"
-class="gallery-image"
-data-flex-grow="271"
-data-flex-basis="651px"
->&lt;/p>
-&lt;p>Our vertex data storage now looks like this:&lt;/p>
-&lt;p>Vertice Data
-$$
-\begin{bmatrix}
-V_0, N_0 \\
-V_1, N_1 \\
-V_2, N_2 \\
-&amp;hellip; \\
-V_n, N_n
-\end{bmatrix}
-$$&lt;/p>
-&lt;h3 id="storing-textures">Storing Textures&lt;/h3>
-&lt;p>We have an object with a correct shape, but what if we want to paint it with an image? This is done through the power of UV mapping.&lt;/p>
-&lt;p>UV mapping is the process of assign a pixel on the texture/image with a pixel on the model. We assign a vertex on our mesh with a 2D coordinate corresponding a pixel on the texture. Other UV positions on the non-vertex mesh pixels are interpolated.&lt;/p>
-&lt;p>&lt;img src="/p/3d-graphics-meshing/UVMapping.png"
-width="640"
-height="336"
-srcset="/p/3d-graphics-meshing/UVMapping_hud32cc52ffbba488d832b819481aef1c5_112050_480x0_resize_box_3.png 480w, /p/3d-graphics-meshing/UVMapping_hud32cc52ffbba488d832b819481aef1c5_112050_1024x0_resize_box_3.png 1024w"
-loading="lazy"
-alt="UVMapping"
-class="gallery-image"
-data-flex-grow="190"
-data-flex-basis="457px"
->&lt;/p>
-&lt;p>Our vertex data storage now looks like this:&lt;/p>
-&lt;p>Vertice Data
-$$
-\begin{bmatrix}
-V_0, N_0, (U,V)_0 \\
-V_1, N_1, (U,V)_1 \\
-V_2, N_2, (U,V)_2 \\
-&amp;hellip; \\
-V_n, N_n, (U,V)_n
-\end{bmatrix}
-$$&lt;/p></description></item><item><title>3D Graphics: RayTracing Intro</title><link>/p/3d-graphics-raytracing-intro/</link><pubDate>Sun, 23 Oct 2022 00:00:00 +0000</pubDate><guid>/p/3d-graphics-raytracing-intro/</guid><description>&lt;img src="https://i.ytimg.com/vi/Xs0WOuToefw/maxresdefault.jpg" alt="Featured image of post 3D Graphics: RayTracing Intro" />&lt;p>Raytracing is a form of light reflection calculation that allows shadows to be calculated and recieve more exact versions of light intensities&lt;/p>
+$a$, $b$, $c$ are constants that can be changed to fit the right intensity decay model desired&lt;/p></description></item><item><title>3D Graphics: RayTracing Intro</title><link>/p/3d-graphics-raytracing-intro/</link><pubDate>Sat, 22 Jul 2023 00:00:00 +0000</pubDate><guid>/p/3d-graphics-raytracing-intro/</guid><description>&lt;img src="https://i.ytimg.com/vi/Xs0WOuToefw/maxresdefault.jpg" alt="Featured image of post 3D Graphics: RayTracing Intro" />&lt;p>Raytracing is a form of light reflection calculation that allows shadows to be calculated and recieve more exact versions of light intensities&lt;/p>
 &lt;h2 id="basic-raytracing">Basic Raytracing&lt;/h2>
 &lt;p>We care about the rays of light that the sun emits and bounce around before hitting our eye. The sun emits millions of rays of light that never hit our eye so if we calculated all the rays of the sun, we would be wasting many computing cycles&lt;/p>
 &lt;p>What is actually done in basic raytracing is to actually emit from the target (our vew/camera) and see which ray actually reaches the sun. We can set a limit on the number of reflections until we want to drop a ray and this let&amp;rsquo;s us calculate only the rays we care about&lt;/p>
@@ -437,7 +324,7 @@ $a$,$b$,$c$ = sphere origin position&lt;/p>
 &lt;p>We can represent our verification fuction as:&lt;/p>
 &lt;p>&lt;strong>with Q being the point generated from $R(t)$ and P being a point on the plane&lt;/strong>&lt;/p>
 &lt;p>$$\vec{N} \cdot (Q - P)=0$$&lt;/p>
-&lt;p>0 represents the normal and the vector derived with two points being perpendicular, anything else means it does not lie on the plane. &lt;strong>Note:&lt;/strong> Any point on the plane can be used to generate the $(Q-P)$ vector, as long as it&amp;rsquo;s normalized.&lt;/p></description></item><item><title>3D Graphics: Textures</title><link>/p/3d-graphics-textures/</link><pubDate>Sun, 23 Oct 2022 00:00:00 +0000</pubDate><guid>/p/3d-graphics-textures/</guid><description>&lt;img src="https://panespol.com/wp-content/uploads/2019/11/Textures_Panespol-1.jpg" alt="Featured image of post 3D Graphics: Textures" />&lt;p>How textures (images) are skinwrapped to meshes!&lt;/p>
+&lt;p>0 represents the normal and the vector derived with two points being perpendicular, anything else means it does not lie on the plane. &lt;strong>Note:&lt;/strong> Any point on the plane can be used to generate the $(Q-P)$ vector, as long as it&amp;rsquo;s normalized.&lt;/p></description></item><item><title>3D Graphics: Textures</title><link>/p/3d-graphics-textures/</link><pubDate>Sat, 22 Jul 2023 00:00:00 +0000</pubDate><guid>/p/3d-graphics-textures/</guid><description>&lt;img src="https://panespol.com/wp-content/uploads/2019/11/Textures_Panespol-1.jpg" alt="Featured image of post 3D Graphics: Textures" />&lt;p>How textures (images) are skinwrapped to meshes!&lt;/p>
 &lt;h2 id="uv-mapping">UV Mapping&lt;/h2>
 &lt;p>Maps coordates on a texture to the mesh using (U,V) coordinates&lt;/p>
 &lt;p>&lt;img src="/p/3d-graphics-textures/uv.png"
@@ -555,7 +442,120 @@ alt="envEx"
 class="gallery-image"
 data-flex-grow="135"
 data-flex-basis="325px"
->&lt;/p></description></item><item><title>3D Graphics: Hierarchy Models</title><link>/p/3d-graphics-hierarchy-models/</link><pubDate>Thu, 20 Oct 2022 00:00:00 +0000</pubDate><guid>/p/3d-graphics-hierarchy-models/</guid><description>&lt;img src="/p/3d-graphics-hierarchy-models/coordinateFrames.png" alt="Featured image of post 3D Graphics: Hierarchy Models" />&lt;h2 id="matrix-transformation">Matrix Transformation&lt;/h2>
+>&lt;/p></description></item><item><title>3D Graphics: Meshing</title><link>/p/3d-graphics-meshing/</link><pubDate>Sun, 23 Oct 2022 00:00:00 +0000</pubDate><guid>/p/3d-graphics-meshing/</guid><description>&lt;img src="https://i.stack.imgur.com/Bk826.png" alt="Featured image of post 3D Graphics: Meshing" />&lt;p>A mesh is a collection of primitives shape that make up an overarching model
+&lt;img src="/p/3d-graphics-meshing/mesh.png"
+width="1000"
+height="1080"
+srcset="/p/3d-graphics-meshing/mesh_huca8b3e1b9a099698e7e755ead9321f30_581287_480x0_resize_box_3.png 480w, /p/3d-graphics-meshing/mesh_huca8b3e1b9a099698e7e755ead9321f30_581287_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Mesh"
+class="gallery-image"
+data-flex-grow="92"
+data-flex-basis="222px"
+>&lt;/p>
+&lt;h2 id="storing-mesh-data">Storing Mesh Data&lt;/h2>
+&lt;h3 id="storing-mesh">Storing Mesh&lt;/h3>
+&lt;p>To efficiently store mesh data, we want to reduce the amount of redundancy when rendering the primitive shapes.&lt;/p>
+&lt;p>We do this by storing all the verticies of involved in the mesh and storing all the different combination of the verticies that make up our primitive shape&lt;/p>
+&lt;p>Vertice Data
+$$
+\begin{bmatrix}
+V_0 \\
+V_1 \\
+V_2 \\
+&amp;hellip; \\
+V_n
+\end{bmatrix}
+$$&lt;/p>
+&lt;p>Primitive Shape Data
+$$
+\begin{bmatrix}
+0,1,2 \\
+3,4,5 \\
+&amp;hellip; \\
+n-2, n-1, n
+\end{bmatrix}
+$$&lt;/p>
+&lt;h3 id="vertex-order-matters">Vertex Order Matters&lt;/h3>
+&lt;p>In practice, the order of the verticies of a mesh is used to determine the &lt;strong>normal&lt;/strong> (an indication of which side of the primitive is the front and back). Putting the verticies in the wrong order can get results that are unexpected&lt;/p>
+&lt;h3 id="culling">Culling&lt;/h3>
+&lt;p>Culling is a technique used to reduce the amount of primitve shapes being rendered by the render engine. It expects to render only one side of the primitve shape, the front side! (Unless specified that it&amp;rsquo;s double sided).&lt;/p>
+&lt;p>Determining the side of the primitve is done through vector math!&lt;/p>
+&lt;p>&lt;strong>Calculating the angle:&lt;/strong>&lt;/p>
+&lt;p>Cos(ϴ) = -V * N&lt;/p>
+&lt;p>V = viewing vector (from the camera to the object)&lt;/p>
+&lt;p>N = normal vector&lt;/p>
+&lt;p>ϴ &amp;gt; 0 = front facing
+ϴ &amp;lt;= 0 = back facing&lt;/p>
+&lt;p>Having the wrong normals can cause a triangle to not be rendered&lt;/p>
+&lt;p>&lt;img src="/p/3d-graphics-meshing/wrongIndex.png"
+width="450"
+height="193"
+srcset="/p/3d-graphics-meshing/wrongIndex_huf10670131e768ee8203a4a4dc1184e34_52232_480x0_resize_box_3.png 480w, /p/3d-graphics-meshing/wrongIndex_huf10670131e768ee8203a4a4dc1184e34_52232_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="indexDif"
+class="gallery-image"
+data-flex-grow="233"
+data-flex-basis="559px"
+>&lt;/p>
+&lt;h3 id="storing-normals">Storing Normals&lt;/h3>
+&lt;p>Normals could be calculated per triangle using some math, but that would introduce problems when wanting to create smooth surfraces of multiple primitives.&lt;/p>
+&lt;p>&lt;img src="/p/3d-graphics-meshing/interpResult.png"
+width="670"
+height="355"
+srcset="/p/3d-graphics-meshing/interpResult_hubbf89ba6fc3ac67518552fdaf31837fe_83631_480x0_resize_box_3.png 480w, /p/3d-graphics-meshing/interpResult_hubbf89ba6fc3ac67518552fdaf31837fe_83631_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="interpResult"
+class="gallery-image"
+data-flex-grow="188"
+data-flex-basis="452px"
+>&lt;/p>
+&lt;p>To avoid this issue, we give every &lt;strong>vertex&lt;/strong> a normal vector and interpolate normal vectors intermediate points on the primitive&lt;/p>
+&lt;p>&lt;img src="/p/3d-graphics-meshing/normalInterpolation.png"
+width="670"
+height="247"
+srcset="/p/3d-graphics-meshing/normalInterpolation_hu8c235c55772e7a776d5c821d4c16dfc7_48976_480x0_resize_box_3.png 480w, /p/3d-graphics-meshing/normalInterpolation_hu8c235c55772e7a776d5c821d4c16dfc7_48976_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="normalInterp"
+class="gallery-image"
+data-flex-grow="271"
+data-flex-basis="651px"
+>&lt;/p>
+&lt;p>Our vertex data storage now looks like this:&lt;/p>
+&lt;p>Vertice Data
+$$
+\begin{bmatrix}
+V_0, N_0 \\
+V_1, N_1 \\
+V_2, N_2 \\
+&amp;hellip; \\
+V_n, N_n
+\end{bmatrix}
+$$&lt;/p>
+&lt;h3 id="storing-textures">Storing Textures&lt;/h3>
+&lt;p>We have an object with a correct shape, but what if we want to paint it with an image? This is done through the power of UV mapping.&lt;/p>
+&lt;p>UV mapping is the process of assign a pixel on the texture/image with a pixel on the model. We assign a vertex on our mesh with a 2D coordinate corresponding a pixel on the texture. Other UV positions on the non-vertex mesh pixels are interpolated.&lt;/p>
+&lt;p>&lt;img src="/p/3d-graphics-meshing/UVMapping.png"
+width="640"
+height="336"
+srcset="/p/3d-graphics-meshing/UVMapping_hud32cc52ffbba488d832b819481aef1c5_112050_480x0_resize_box_3.png 480w, /p/3d-graphics-meshing/UVMapping_hud32cc52ffbba488d832b819481aef1c5_112050_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="UVMapping"
+class="gallery-image"
+data-flex-grow="190"
+data-flex-basis="457px"
+>&lt;/p>
+&lt;p>Our vertex data storage now looks like this:&lt;/p>
+&lt;p>Vertice Data
+$$
+\begin{bmatrix}
+V_0, N_0, (U,V)_0 \\
+V_1, N_1, (U,V)_1 \\
+V_2, N_2, (U,V)_2 \\
+&amp;hellip; \\
+V_n, N_n, (U,V)_n
+\end{bmatrix}
+$$&lt;/p></description></item><item><title>3D Graphics: Hierarchy Models</title><link>/p/3d-graphics-hierarchy-models/</link><pubDate>Thu, 20 Oct 2022 00:00:00 +0000</pubDate><guid>/p/3d-graphics-hierarchy-models/</guid><description>&lt;img src="/p/3d-graphics-hierarchy-models/coordinateFrames.png" alt="Featured image of post 3D Graphics: Hierarchy Models" />&lt;h2 id="matrix-transformation">Matrix Transformation&lt;/h2>
 &lt;p>The reason we keep things like translations as a matrix transformation instead of a simple collumn addition is for &lt;strong>EFFICIENCY&lt;/strong>.&lt;/p>
 &lt;p>If we wanted to do multiple transformations on an objects.&lt;/p>
 &lt;p>$$(M_N * &amp;hellip; * M_1) * P $$&lt;/p>

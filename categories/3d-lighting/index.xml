@@ -1,4 +1,84 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>3D Lighting on Esau's Page</title><link>/categories/3d-lighting/</link><description>Recent content in 3D Lighting on Esau's Page</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 22 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="/categories/3d-lighting/index.xml" rel="self" type="application/rss+xml"/><item><title>3D Graphics: Light Reflection Models</title><link>/p/3d-graphics-light-reflection-models/</link><pubDate>Sat, 22 Jul 2023 00:00:00 +0000</pubDate><guid>/p/3d-graphics-light-reflection-models/</guid><description>&lt;img src="https://academyofanimatedart.com/wp-content/uploads/2019/03/td-u-CG-lighting-shadows-light-shading-featured.jpg" alt="Featured image of post 3D Graphics: Light Reflection Models" />&lt;p>Naturally photons/light bounces on impact with surfaces, but how does it bouce off?&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>3D Lighting on Esau's Page</title><link>/categories/3d-lighting/</link><description>Recent content in 3D Lighting on Esau's Page</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 22 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="/categories/3d-lighting/index.xml" rel="self" type="application/rss+xml"/><item><title>3D Graphics: Accelerated RayTracing</title><link>/p/3d-graphics-accelerated-raytracing/</link><pubDate>Sat, 22 Jul 2023 00:00:00 +0000</pubDate><guid>/p/3d-graphics-accelerated-raytracing/</guid><description>&lt;img src="https://blogs.nvidia.com/wp-content/uploads/2019/06/rtx-on-off.png" alt="Featured image of post 3D Graphics: Accelerated RayTracing" />&lt;p>Tatics that enhanced and accelerated raytracing&lt;/p>
+&lt;h1 id="anti-aliasing">Anti-Aliasing&lt;/h1>
+&lt;p>Aliasing is when the change between pixels is too sudden to be realistic to the image, creating a unrealistic image. In raytracing this can happen when not enough rays are sampled for a pixel.
+&lt;img src="/p/3d-graphics-accelerated-raytracing/alias.png"
+width="437"
+height="274"
+srcset="/p/3d-graphics-accelerated-raytracing/alias_hu7c5a63f5e63e1fd56eb0181a28fc044b_18970_480x0_resize_box_3.png 480w, /p/3d-graphics-accelerated-raytracing/alias_hu7c5a63f5e63e1fd56eb0181a28fc044b_18970_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="alias"
+class="gallery-image"
+data-flex-grow="159"
+data-flex-basis="382px"
+>&lt;/p>
+&lt;h2 id="super-sampling">Super Sampling&lt;/h2>
+&lt;p>Aliasing occurs when the sampling (i.e. shooting rays) is down too far apart, leading to certain areas of a pixel which could have a different value not being sampled&lt;/p>
+&lt;h3 id="adaptive-sampling">Adaptive Sampling&lt;/h3>
+&lt;p>The basic idea of adaptive sampling is to add more sample points (rays) in areas that show indications of inbetween values not being sampled
+&lt;img src="/p/3d-graphics-accelerated-raytracing/supersample.png"
+width="704"
+height="606"
+srcset="/p/3d-graphics-accelerated-raytracing/supersample_hudcbb9222eee54f0c640f69286926d800_95137_480x0_resize_box_3.png 480w, /p/3d-graphics-accelerated-raytracing/supersample_hudcbb9222eee54f0c640f69286926d800_95137_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="supersampling"
+class="gallery-image"
+data-flex-grow="116"
+data-flex-basis="278px"
+>&lt;/p>
+&lt;h3 id="distribution-raycasting">Distribution Raycasting&lt;/h3>
+&lt;p>Instead of adding more rays to get the correct sample, we can use a distribution (specifically the poisson distribution) to determine the best place on the pixel to sample our ray&lt;/p>
+&lt;h1 id="acceleration">Acceleration&lt;/h1>
+&lt;h2 id="ray-polyhedron-intersection">Ray-Polyhedron Intersection&lt;/h2>
+&lt;p>There are many ways to handle intersection with triangle based objects&lt;/p>
+&lt;h3 id="bounding-volume">Bounding Volume&lt;/h3>
+&lt;p>You can using a bounding volume to determine if you are touching an object. This allows you to use primitives to determine intersection while costing accuracy&lt;/p>
+&lt;h4 id="bounding-voluming-hierarchy">Bounding Voluming Hierarchy&lt;/h4>
+&lt;p>Instead of &lt;strong>only&lt;/strong> giving the overall object a bounding volume, you can do a hierarichal tree of boudning volumes that also seperate pieces of the objects in volumes&lt;/p>
+&lt;p>&lt;img src="/p/3d-graphics-accelerated-raytracing/dragon.png"
+width="1280"
+height="720"
+srcset="/p/3d-graphics-accelerated-raytracing/dragon_hubbe6c356053ad4498b86e7fb8a0d2339_708993_480x0_resize_box_3.png 480w, /p/3d-graphics-accelerated-raytracing/dragon_hubbe6c356053ad4498b86e7fb8a0d2339_708993_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="dragon"
+class="gallery-image"
+data-flex-grow="177"
+data-flex-basis="426px"
+>&lt;/p>
+&lt;p>&lt;img src="/p/3d-graphics-accelerated-raytracing/bounding.png"
+width="1000"
+height="313"
+srcset="/p/3d-graphics-accelerated-raytracing/bounding_huded67bc138525de7a7451f6725a804d7_46049_480x0_resize_box_3.png 480w, /p/3d-graphics-accelerated-raytracing/bounding_huded67bc138525de7a7451f6725a804d7_46049_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="bounding"
+class="gallery-image"
+data-flex-grow="319"
+data-flex-basis="766px"
+>&lt;/p>
+&lt;h3 id="spatial-subdivision">Spatial Subdivision&lt;/h3>
+&lt;h5 id="uniform">Uniform&lt;/h5>
+&lt;p>The idea of spatial subdivision is to divide the world space into cells uniformally and tying objects to the cells it overlaps
+&lt;img src="/p/3d-graphics-accelerated-raytracing/uniformDivision.png"
+width="1390"
+height="642"
+srcset="/p/3d-graphics-accelerated-raytracing/uniformDivision_hu630c555f0592f9057c4a6f4706e1796f_243742_480x0_resize_box_3.png 480w, /p/3d-graphics-accelerated-raytracing/uniformDivision_hu630c555f0592f9057c4a6f4706e1796f_243742_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="uniformSpace"
+class="gallery-image"
+data-flex-grow="216"
+data-flex-basis="519px"
+>&lt;/p>
+&lt;h5 id="non-uniform">Non-Uniform&lt;/h5>
+&lt;p>As the name suggests, it&amp;rsquo;s the same idea of the uniform method but with the cells being non-uniformally subdivided
+&lt;img src="/p/3d-graphics-accelerated-raytracing/nonUniformDivision.png"
+width="1436"
+height="630"
+srcset="/p/3d-graphics-accelerated-raytracing/nonUniformDivision_hu272fdaceef125a4de6fe95eb172004a4_213158_480x0_resize_box_3.png 480w, /p/3d-graphics-accelerated-raytracing/nonUniformDivision_hu272fdaceef125a4de6fe95eb172004a4_213158_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="nonUniformSpace"
+class="gallery-image"
+data-flex-grow="227"
+data-flex-basis="547px"
+>&lt;/p></description></item><item><title>3D Graphics: Light Reflection Models</title><link>/p/3d-graphics-light-reflection-models/</link><pubDate>Sat, 22 Jul 2023 00:00:00 +0000</pubDate><guid>/p/3d-graphics-light-reflection-models/</guid><description>&lt;img src="https://academyofanimatedart.com/wp-content/uploads/2019/03/td-u-CG-lighting-shadows-light-shading-featured.jpg" alt="Featured image of post 3D Graphics: Light Reflection Models" />&lt;p>Naturally photons/light bounces on impact with surfaces, but how does it bouce off?&lt;/p>
 &lt;h1 id="mirrorslight-models">Mirrors/Light Models&lt;/h1>
 &lt;p>Mirros are the best example of how light reflects, when something is viewed through a mirror it is flipped along the z-axis&lt;/p>
 &lt;p>&lt;img src="/p/3d-graphics-light-reflection-models/light.png"
@@ -90,87 +170,7 @@ a = specular shininess&lt;/p>
 $r$ = radius from source&lt;/p>
 &lt;p>Attenuation is a variation of the inverse square rule that lets us define an approximation of the intensity decay&lt;/p>
 &lt;p>$$I_L = \frac{I_{s}}{ar^2+br + c}$$
-$a$, $b$, $c$ are constants that can be changed to fit the right intensity decay model desired&lt;/p></description></item><item><title>3D Graphics: Accelerated RayTracing</title><link>/p/3d-graphics-accelerated-raytracing/</link><pubDate>Sun, 23 Oct 2022 00:00:00 +0000</pubDate><guid>/p/3d-graphics-accelerated-raytracing/</guid><description>&lt;img src="https://blogs.nvidia.com/wp-content/uploads/2019/06/rtx-on-off.png" alt="Featured image of post 3D Graphics: Accelerated RayTracing" />&lt;p>Tatics that enhanced and accelerated raytracing&lt;/p>
-&lt;h1 id="anti-aliasing">Anti-Aliasing&lt;/h1>
-&lt;p>Aliasing is when the change between pixels is too sudden to be realistic to the image, creating a unrealistic image. In raytracing this can happen when not enough rays are sampled for a pixel.
-&lt;img src="/p/3d-graphics-accelerated-raytracing/alias.png"
-width="437"
-height="274"
-srcset="/p/3d-graphics-accelerated-raytracing/alias_hu7c5a63f5e63e1fd56eb0181a28fc044b_18970_480x0_resize_box_3.png 480w, /p/3d-graphics-accelerated-raytracing/alias_hu7c5a63f5e63e1fd56eb0181a28fc044b_18970_1024x0_resize_box_3.png 1024w"
-loading="lazy"
-alt="alias"
-class="gallery-image"
-data-flex-grow="159"
-data-flex-basis="382px"
->&lt;/p>
-&lt;h2 id="super-sampling">Super Sampling&lt;/h2>
-&lt;p>Aliasing occurs when the sampling (i.e. shooting rays) is down too far apart, leading to certain areas of a pixel which could have a different value not being sampled&lt;/p>
-&lt;h3 id="adaptive-sampling">Adaptive Sampling&lt;/h3>
-&lt;p>The basic idea of adaptive sampling is to add more sample points (rays) in areas that show indications of inbetween values not being sampled
-&lt;img src="/p/3d-graphics-accelerated-raytracing/supersample.png"
-width="704"
-height="606"
-srcset="/p/3d-graphics-accelerated-raytracing/supersample_hudcbb9222eee54f0c640f69286926d800_95137_480x0_resize_box_3.png 480w, /p/3d-graphics-accelerated-raytracing/supersample_hudcbb9222eee54f0c640f69286926d800_95137_1024x0_resize_box_3.png 1024w"
-loading="lazy"
-alt="supersampling"
-class="gallery-image"
-data-flex-grow="116"
-data-flex-basis="278px"
->&lt;/p>
-&lt;h3 id="distribution-raycasting">Distribution Raycasting&lt;/h3>
-&lt;p>Instead of adding more rays to get the correct sample, we can use a distribution (specifically the poisson distribution) to determine the best place on the pixel to sample our ray&lt;/p>
-&lt;h1 id="acceleration">Acceleration&lt;/h1>
-&lt;h2 id="ray-polyhedron-intersection">Ray-Polyhedron Intersection&lt;/h2>
-&lt;p>There are many ways to handle intersection with triangle based objects&lt;/p>
-&lt;h3 id="bounding-volume">Bounding Volume&lt;/h3>
-&lt;p>You can using a bounding volume to determine if you are touching an object. This allows you to use primitives to determine intersection while costing accuracy&lt;/p>
-&lt;h4 id="bounding-voluming-hierarchy">Bounding Voluming Hierarchy&lt;/h4>
-&lt;p>Instead of &lt;strong>only&lt;/strong> giving the overall object a bounding volume, you can do a hierarichal tree of boudning volumes that also seperate pieces of the objects in volumes&lt;/p>
-&lt;p>&lt;img src="/p/3d-graphics-accelerated-raytracing/dragon.png"
-width="1280"
-height="720"
-srcset="/p/3d-graphics-accelerated-raytracing/dragon_hubbe6c356053ad4498b86e7fb8a0d2339_708993_480x0_resize_box_3.png 480w, /p/3d-graphics-accelerated-raytracing/dragon_hubbe6c356053ad4498b86e7fb8a0d2339_708993_1024x0_resize_box_3.png 1024w"
-loading="lazy"
-alt="dragon"
-class="gallery-image"
-data-flex-grow="177"
-data-flex-basis="426px"
->&lt;/p>
-&lt;p>&lt;img src="/p/3d-graphics-accelerated-raytracing/bounding.png"
-width="1000"
-height="313"
-srcset="/p/3d-graphics-accelerated-raytracing/bounding_huded67bc138525de7a7451f6725a804d7_46049_480x0_resize_box_3.png 480w, /p/3d-graphics-accelerated-raytracing/bounding_huded67bc138525de7a7451f6725a804d7_46049_1024x0_resize_box_3.png 1024w"
-loading="lazy"
-alt="bounding"
-class="gallery-image"
-data-flex-grow="319"
-data-flex-basis="766px"
->&lt;/p>
-&lt;h3 id="spatial-subdivision">Spatial Subdivision&lt;/h3>
-&lt;h5 id="uniform">Uniform&lt;/h5>
-&lt;p>The idea of spatial subdivision is to divide the world space into cells uniformally and tying objects to the cells it overlaps
-&lt;img src="/p/3d-graphics-accelerated-raytracing/uniformDivision.png"
-width="1390"
-height="642"
-srcset="/p/3d-graphics-accelerated-raytracing/uniformDivision_hu630c555f0592f9057c4a6f4706e1796f_243742_480x0_resize_box_3.png 480w, /p/3d-graphics-accelerated-raytracing/uniformDivision_hu630c555f0592f9057c4a6f4706e1796f_243742_1024x0_resize_box_3.png 1024w"
-loading="lazy"
-alt="uniformSpace"
-class="gallery-image"
-data-flex-grow="216"
-data-flex-basis="519px"
->&lt;/p>
-&lt;h5 id="non-uniform">Non-Uniform&lt;/h5>
-&lt;p>As the name suggests, it&amp;rsquo;s the same idea of the uniform method but with the cells being non-uniformally subdivided
-&lt;img src="/p/3d-graphics-accelerated-raytracing/nonUniformDivision.png"
-width="1436"
-height="630"
-srcset="/p/3d-graphics-accelerated-raytracing/nonUniformDivision_hu272fdaceef125a4de6fe95eb172004a4_213158_480x0_resize_box_3.png 480w, /p/3d-graphics-accelerated-raytracing/nonUniformDivision_hu272fdaceef125a4de6fe95eb172004a4_213158_1024x0_resize_box_3.png 1024w"
-loading="lazy"
-alt="nonUniformSpace"
-class="gallery-image"
-data-flex-grow="227"
-data-flex-basis="547px"
->&lt;/p></description></item><item><title>3D Graphics: RayTracing Intro</title><link>/p/3d-graphics-raytracing-intro/</link><pubDate>Sun, 23 Oct 2022 00:00:00 +0000</pubDate><guid>/p/3d-graphics-raytracing-intro/</guid><description>&lt;img src="https://i.ytimg.com/vi/Xs0WOuToefw/maxresdefault.jpg" alt="Featured image of post 3D Graphics: RayTracing Intro" />&lt;p>Raytracing is a form of light reflection calculation that allows shadows to be calculated and recieve more exact versions of light intensities&lt;/p>
+$a$, $b$, $c$ are constants that can be changed to fit the right intensity decay model desired&lt;/p></description></item><item><title>3D Graphics: RayTracing Intro</title><link>/p/3d-graphics-raytracing-intro/</link><pubDate>Sat, 22 Jul 2023 00:00:00 +0000</pubDate><guid>/p/3d-graphics-raytracing-intro/</guid><description>&lt;img src="https://i.ytimg.com/vi/Xs0WOuToefw/maxresdefault.jpg" alt="Featured image of post 3D Graphics: RayTracing Intro" />&lt;p>Raytracing is a form of light reflection calculation that allows shadows to be calculated and recieve more exact versions of light intensities&lt;/p>
 &lt;h2 id="basic-raytracing">Basic Raytracing&lt;/h2>
 &lt;p>We care about the rays of light that the sun emits and bounce around before hitting our eye. The sun emits millions of rays of light that never hit our eye so if we calculated all the rays of the sun, we would be wasting many computing cycles&lt;/p>
 &lt;p>What is actually done in basic raytracing is to actually emit from the target (our vew/camera) and see which ray actually reaches the sun. We can set a limit on the number of reflections until we want to drop a ray and this let&amp;rsquo;s us calculate only the rays we care about&lt;/p>
