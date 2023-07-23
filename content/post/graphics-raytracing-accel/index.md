@@ -25,6 +25,7 @@ Aliasing occurs when the sampling (i.e. shooting rays) is down too far apart, le
 
 ### Adaptive Sampling
 The basic idea of adaptive sampling is to add more sample points (rays) in areas that show indications of inbetween values not being sampled
+
 ![supersampling](supersample.png)
 
 ### Distribution Raycasting
