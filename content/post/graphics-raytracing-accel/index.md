@@ -1,7 +1,7 @@
 ---
 title: "3D Graphics: Accelerated RayTracing"
 author: Esau Abraham
-date: 2022-10-23
+date: 2023-07-22
 draft: false
 categories: 
     - Graphics
